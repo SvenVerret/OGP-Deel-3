@@ -1,9 +1,5 @@
 package jumpingalien.model;
 
-/// DIT IS DE TEST
-// BELEUEUEUEUE
-// MZUZZUZUUZ
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -497,24 +493,19 @@ public class Mazub extends GameObject{
 
 		for (Plant object: Plants){
 			if (overlapsWith(object)){
-				
-				if (overlapsWithX(object)){
-					hits.add("X");
-				}
-				if (overlapsWithY(object)){
-					//hits.add("Y");
-					//this.setOnGround(true);
-					setCollisionVel(new Vector(getCollisionVel().getElemx(), 2));
-					
-				}
-				if (!object.isDead() && (getHP() < getMaxHP())){
+
+				if (!object.isDying() && (getHP() < getMaxHP())){
 					this.addByHP(50);
 					object.dies();
 				}
 				break;
+
+
 			}
 		}
+		
 
+		
 		for (Shark object: Sharks){
 			if (overlapsWith(object)){
 
@@ -524,7 +515,7 @@ public class Mazub extends GameObject{
 				if (overlapsWithY(object)){
 					//hits.add("Y");
 					setCollisionVel(new Vector(getCollisionVel().getElemx(), 3));
-					
+
 				}
 				break;
 			}
@@ -538,18 +529,18 @@ public class Mazub extends GameObject{
 					hits.add("X");
 				}
 				if (overlapsWithY(object)){
-					
-//					if (getVelocity().getElemy() <= object.getVelocity().getElemy	()){
-//						this.setCollisionVel(new Vector(getCollisionVel().getElemx(), 3));
-//					}else{
-//						hits.add("Y");
-//					}
-					hits.add("Y");
-					
+
+					if (getVelocity().getElemy() <= object.getVelocity().getElemy	()){
+						this.setCollisionVel(new Vector(getCollisionVel().getElemx(), 3));
+					}else{
+						hits.add("Y");
+					}
+					//hits.add("Y");
+
 					if (!object.isDying()){
-						
+
 						object.slimeGetsHitFor(-50);
-						
+
 						if (!isImmune()){
 							addByHP(-50);
 							setImmune(true);
