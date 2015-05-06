@@ -109,8 +109,8 @@ public class World {
 		VisWindowHeight = visibleWindowHeight;
 	}
 
-	
-	
+
+
 	/**
 	 * Advance the time for the world and all its objects by the given amount.
 	 *  
@@ -192,8 +192,8 @@ public class World {
 
 		}
 	}
-	
-	
+
+
 	/**
 	 * This method returns Mazub in the world
 	 * 
@@ -205,8 +205,8 @@ public class World {
 	public Mazub getMazub(){
 		return mazub;
 	}
-	
-	
+
+
 	/**
 	 * This method checks if the world can have Mazub
 	 * 
@@ -219,8 +219,8 @@ public class World {
 	public boolean canHaveAsMazub(Mazub alien){
 		return ((getMazub() == null));
 	}
-	
-	
+
+
 	/**
 	 * This method checks if the world has a correct mazub
 	 * 
@@ -242,8 +242,8 @@ public class World {
 
 		return true;   
 	}
-	
-	
+
+
 	/**
 	 * This method checks if the world has alien already as alien
 	 * 
@@ -260,8 +260,103 @@ public class World {
 	}
 
 	private Mazub mazub = null;
-	
-	
+
+
+
+	//////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the buzam in the world
+	 * 
+	 * @param 	buzam
+	 * 			| the buzam that we want to add to the world
+	 * 
+	 * @effect	...
+	 * 			this.buzam=buzam;
+	 * 
+	 */
+	@Raw
+	public void setBuzam(Buzam buzam){
+		if (canHaveAsBuzam(buzam)){
+			buzam.setWorld(this);
+			this.buzam=buzam;
+
+		}
+	}
+
+
+	/**
+	 * This method returns Buzam in the world
+	 * 
+	 * @return   Buzam: this is an buzam
+	 * 			| return buzam;
+	 * 
+	 */
+	@Basic @Raw
+	public Buzam getBuzam(){
+		return buzam;
+	}
+
+
+	/**
+	 * This method checks if the world can have Buzam
+	 * 
+	 * @param 	buzam
+	 * 			| the buzam that we want to add to the world
+	 * @return	boolean: true | false
+	 * 			| return ((getBuzam() == null));
+	 */
+	@Raw
+	public boolean canHaveAsBuzam(Buzam buzam){
+		return ((getBuzam() == null));
+	}
+
+
+	/**
+	 * This method checks if the world has a correct buzam
+	 * 
+	 * @return	boolean:
+	 * 			| if (!canHaveAsBuzam(buzam))
+	 *			|	return false;
+	 *			| if (buzam.getWorld() != this)
+	 *			|	return false;
+	 *			|
+	 *			| return true; 
+	 *
+	 */
+	public boolean hasProperBuzam() {
+		Buzam buzam = getBuzam();
+		if (!canHaveAsBuzam(buzam))
+			return false;
+		if (buzam.getWorld() != this)
+			return false;
+
+		return true;   
+	}
+
+
+	/**
+	 * This method checks if the world has buzam already as buzam
+	 * 
+	 * @param 	buzam
+	 * 			| the buzam that we want to add to the world
+	 * @return  boolean:
+	 * 			| this.getBuzam() != buzam
+	 */
+	public boolean hasAsBuzam(Buzam buzam){
+		if (this.getBuzam() != buzam)
+			return false;
+		else
+			return true;
+	}
+
+	private Buzam buzam = null;
+
+
+
+
+
+
 	/**
 	 * This method returns all objects
 	 * 
@@ -282,8 +377,8 @@ public class World {
 		Objects.addAll(Slimes);
 		return Collections.unmodifiableSet(Objects);      
 	}
-	
-	
+
+
 	/**
 	 * This method returns the number of objects in the world
 	 * 
@@ -302,8 +397,8 @@ public class World {
 		Objects.addAll(Slimes);
 		return Objects.size();      
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * @param 	object
@@ -344,8 +439,8 @@ public class World {
 			plant.setWorld(this);
 		}              
 	}
-	
-	
+
+
 	/**
 	 * This method returns all plants from this world
 	 * 
@@ -356,8 +451,8 @@ public class World {
 	public Set<Plant> getAllPlants(){
 		return Collections.unmodifiableSet(this.Plants);      
 	}
-	
-	
+
+
 	/**
 	 * This method removes the given plant from this world
 	 * 
@@ -376,8 +471,8 @@ public class World {
 	}
 
 	private Set<Plant> Plants = new HashSet<>();
-	
-	
+
+
 	/**
 	 * This method adds the given shark to this world
 	 * 
@@ -395,8 +490,8 @@ public class World {
 			shark.setWorld(this);
 		}              
 	}
-	
-	
+
+
 	/**
 	 * This method returns all sharks from this world
 	 * 
@@ -406,8 +501,8 @@ public class World {
 	public Set<Shark> getAllSharks(){
 		return Collections.unmodifiableSet(this.Sharks);      
 	}
-	
-	
+
+
 	/**
 	 * This method removes the given shark from this world
 	 * 
@@ -425,8 +520,8 @@ public class World {
 	}
 
 	private Set<Shark> Sharks = new HashSet<>();
-	
-	
+
+
 	/**
 	 * This method adds the given slime to this world and gives a school
 	 * 
@@ -447,8 +542,8 @@ public class World {
 			this.addSchool(slime.getSchool());	
 		}              
 	}
-	
-	
+
+
 	/**
 	 * This method returns all slimes from this world
 	 * 
@@ -458,8 +553,8 @@ public class World {
 	public Set<Slime> getAllSlimes(){
 		return Collections.unmodifiableSet(this.Slimes);      
 	}
-	
-	
+
+
 	/**
 	 * This method removes the given slime from this world
 	 * 
@@ -475,8 +570,8 @@ public class World {
 			Slimes.remove(slime);
 		}      
 	}
-	
-	
+
+
 	/**
 	 * This method checks if the given Slime is in slimes
 	 * 
@@ -503,8 +598,8 @@ public class World {
 	public Set<School> getSchools() {
 		return Collections.unmodifiableSet(Schools);
 	}
-	
-	
+
+
 	/**
 	 * This method checks if this world can have the given school
 	 * 
@@ -519,8 +614,8 @@ public class World {
 	public boolean canHaveAsSchool(School school) {
 		return (school != null && !school.isTerminated() && getNbSchools() < 10);
 	}
-	
-	
+
+
 	/**
 	 * This method checks if the given school is in Schools
 	 * @param 	school
@@ -533,8 +628,8 @@ public class World {
 		return Schools.contains(school);
 
 	}
-	
-	
+
+
 	/**
 	 * This method returns the number of schools in this world
 	 * 
@@ -547,8 +642,8 @@ public class World {
 		int i = Schools.size();
 		return i;
 	}
-	
-	
+
+
 	/**
 	 * This method adds the given school to this world
 	 * 
@@ -566,8 +661,8 @@ public class World {
 			school.setWorld(this);
 		}
 	}
-	
-	
+
+
 	/**
 	 * This method removes the given school from this World
 	 * 
@@ -585,8 +680,8 @@ public class World {
 			Schools.remove(school);
 		}      
 	}
-	
-	
+
+
 	/**
 	 * @effect	...
 	 * 			| if (school.getNbSlimes() == 0)
@@ -630,8 +725,8 @@ public class World {
 	}
 
 	private boolean isTerminated;
-	
-	
+
+
 	/**
 	 * This method returns an array of the size of the world in pixels
 	 * The first element are the pixels of the width
@@ -647,7 +742,7 @@ public class World {
 		return pixList ;
 	}
 
-	
+
 	/**
 	 * This method returns an array of 4 elements for the visible window
 	 * The left bottom pixel and the right top pixel
@@ -685,8 +780,8 @@ public class World {
 		}
 		return getCurrentWindow();
 	}
-	
-	
+
+
 	/**
 	 * This method sets the left pixel of the currentWindow
 	 * 
@@ -699,8 +794,8 @@ public class World {
 	private void setVisWindowLeft(int left){
 		CurrentWindow[0] = left;
 	}
-	
-	
+
+
 	/**
 	 * This method sets the bottom pixel of the currentWindow
 	 * 
@@ -713,8 +808,8 @@ public class World {
 	private void setVisWindowBottom(int bottom){
 		CurrentWindow[1] = bottom;
 	}
-	
-	
+
+
 	/**
 	 * This method sets the right pixel of the currentWindow
 	 * 
@@ -727,8 +822,8 @@ public class World {
 	private void setVisWindowRight(int right){
 		CurrentWindow[2] = right;
 	}
-	
-	
+
+
 	/**
 	 * This method sets the top pixel of the currentWindow
 	 * 
@@ -741,8 +836,8 @@ public class World {
 	private void setVisWindowTop(int top){
 		CurrentWindow[3] = top;
 	}
-	
-	
+
+
 	/**
 	 * This method returns the current window of this world
 	 * 
@@ -752,8 +847,8 @@ public class World {
 	private int[] getCurrentWindow(){
 		return CurrentWindow;
 	}
-	
-	
+
+
 	/**
 	 * This method returns the visible window width of this world
 	 * 
@@ -763,8 +858,8 @@ public class World {
 	private int getVisWindowWidth(){
 		return VisWindowWidth;
 	}
-	
-	
+
+
 	/**
 	 * This method returns the visible window height of this world
 	 * 
@@ -789,8 +884,8 @@ public class World {
 		//wordt dit in andere klasse gebruikt? anders kopie geven!
 	}
 
-	
-	
+
+
 	/**
 	 * This method converts a given tile position in its left bottom pixel
 	 * in this world
@@ -808,8 +903,8 @@ public class World {
 		int[]tileList = {xPixOfTile,yPixOfTile};
 		return tileList;
 	}
-	
-	
+
+
 	/**
 	 * This method gives the tile of the given pixel
 	 * 
@@ -829,7 +924,7 @@ public class World {
 	}
 
 
-	
+
 	/**
 	 * Returns the tile positions of all tiles within the given rectangular
 	 * region.
@@ -903,8 +998,8 @@ public class World {
 		int[][] matrix= new int[(int) getNbTiles().getElemy()][(int) getNbTiles().getElemx()];
 		return matrix;
 	}
-	
-	
+
+
 	/**
 	 * This method returns the tileMatrix
 	 * 
@@ -914,8 +1009,8 @@ public class World {
 	private int[][] getTileMatrix(){
 		return this.TileMatrix;
 	}
-	
-	
+
+
 	/**
 	 * This method returns the tilesize of this world
 	 * 
@@ -926,8 +1021,8 @@ public class World {
 	public int getTileSize(){
 		return TileSize;
 	}
-	
-	
+
+
 	/**
 	 * This method returns a vector with it first element the number of X tiles
 	 * and the second element the number of Y tiles.
@@ -938,8 +1033,8 @@ public class World {
 	private Vector getNbTiles() {
 		return new Vector(NbTiles.getElemx(),NbTiles.getElemy());
 	}
-	
-	
+
+
 	/**
 	 * This method sets the geologicalfeaturs of tiles
 	 * 
@@ -957,8 +1052,8 @@ public class World {
 			getTileMatrix()[tileY][tileX] = tileType;
 		}
 	}
-	
-	
+
+
 	/**
 	 * This method returns the tiletype of a given pixel
 	 * 
@@ -991,8 +1086,8 @@ public class World {
 			throw new IllegalArgumentException();
 		}
 	}	
-	
-	
+
+
 	/**
 	 * This method returns if the given pixel is on passable terrain
 	 * 
@@ -1015,7 +1110,7 @@ public class World {
 			return true;
 	}
 
-	
+
 	/**
 	 * This method returns the size of this world
 	 * 
@@ -1028,8 +1123,8 @@ public class World {
 	public Vector getWorldSize() {
 		return new Vector(WorldSize.getElemx(),WorldSize.getElemy());
 	}
-	
-	
+
+
 	/**
 	 * This method returns the targettile of this world
 	 * 
@@ -1040,8 +1135,8 @@ public class World {
 	public Vector getTargetTile() {
 		return new Vector(TargetTile.getElemx(),TargetTile.getElemy());
 	}
-	
-	
+
+
 	/**
 	 * This method indicates that this world has started
 	 * 
@@ -1052,8 +1147,8 @@ public class World {
 		if (!isWorldStarted())
 			setWorldStarted(true);
 	}
-	
-	
+
+
 	/**
 	 * This method returns if the world is already started
 	 * 
@@ -1074,8 +1169,8 @@ public class World {
 			i = false;
 		return i;
 	}
-	
-	
+
+
 	/**
 	 * This method sets WorldStarted
 	 * 
@@ -1089,7 +1184,7 @@ public class World {
 		WorldStarted = worldStarted;
 	}
 
-	
+
 	/**
 	 * This method resets the clock to zero
 	 * 
@@ -1099,8 +1194,8 @@ public class World {
 	private void startClock(){
 		clock = 0;
 	}
-	
-	
+
+
 	/**
 	 * This method advances the clock wit dt time
 	 * 
@@ -1112,8 +1207,8 @@ public class World {
 	private void advanceTimeOfClock(double dt){
 		clock = clock + dt;
 	}
-	
-	
+
+
 	/**
 	 * This method returns the clock of this world
 	 * 

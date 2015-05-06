@@ -10,8 +10,6 @@ import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
-import jumpingalien.model.GameObject;
-import jumpingalien.model.World;
 
 /**
  * @Invar	The x and y position of the most left and bottom pixel of Mazub should always be onscreen.

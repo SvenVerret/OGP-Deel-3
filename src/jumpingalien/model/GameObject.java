@@ -1,5 +1,6 @@
 package jumpingalien.model;
 import java.util.HashSet;
+
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
 import jumpingalien.util.Sprite;

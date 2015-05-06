@@ -1,5 +1,6 @@
 package jumpingalien.model;
 
+import be.kuleuven.cs.som.annotate.Raw;
 import jumpingalien.exception.OutOfBoundsException;
 import jumpingalien.util.Sprite;
 
@@ -38,16 +39,43 @@ public class Buzam extends Mazub{
 	 */
 	public Buzam(int pixelLeftX, int pixelBottomY, Sprite[] sprites,
 			double initvelocityx, double maxvelocityx)
-			throws IllegalArgumentException, OutOfBoundsException {
+					throws IllegalArgumentException, OutOfBoundsException {
 		super(pixelLeftX, pixelBottomY, sprites, initvelocityx, maxvelocityx);	
 	}
-	
+
 	public Buzam(int pixelLeftX, int pixelBottomY,Sprite[] sprites){
 		super(pixelLeftX, pixelBottomY, sprites, 1.0,3.0);
 	}
-	
-	
-	
+
+
+	/**
+	 * This method checks whether Mazub can have the given world as world
+	 * 
+	 * @return	boolean: 	true if the given world is not null
+	 * 						Mazub must have no world
+	 * 			| if (world == null){
+	 *			|	return false;
+	 *			| }
+	 *			| if (world.getMazub() == null){
+	 *			|	return true;
+	 *			| }else{
+	 *			|	return false;
+	 *			| }
+	 */
+	@Raw
+	@Override
+	public boolean canHaveAsWorld(World world) {
+		if (world == null){
+			return false;
+		}
+		if (world.getBuzam() == null){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
 	/**
 	 * @effect      ...
 	 *                      | setHP(100);
@@ -56,8 +84,8 @@ public class Buzam extends Mazub{
 	protected void initializeHP() {
 		this.setHP(500);
 	}
-	
-	
-	
-	
+
+
+
+
 }
