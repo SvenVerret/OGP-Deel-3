@@ -1,12 +1,7 @@
 package jumpingalien.part2.facade;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
-
-import jumpingalien.exception.OutOfBoundsException;
-import jumpingalien.model.GameObject;
 import jumpingalien.model.Mazub;
 import jumpingalien.model.Plant;
 import jumpingalien.model.School;
