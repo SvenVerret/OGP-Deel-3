@@ -10,12 +10,40 @@ import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
 /**
- * @author svenverret
+ * @Invar	...
+ * 			| hasProperSchool()
+ * 
+ * @author Kevin Zhang & Sven Verret
  *
  */
 public class Slime extends GameObject {
 
-
+	/**
+	 * This method creates a new slime with the given parameters
+	 * @param 	x
+	 * 			The X coordinate of the slime
+	 * @param 	y
+	 * 			The Y coordinate of the slime
+	 * @param 	sprites
+	 * 			The sprites of the slime
+	 * @param 	school
+	 * 			The school of which the slime is part of
+	 * 
+	 * @effect	...
+	 * 			this.setSchool(school);
+	 * @effect	...
+	 * 			| this.setPos(new Vector(x, y));
+	 *			| setAccCurr(new Vector(0, 0));
+	 *			| generateNewPeriodCurrentMove();
+	 *			| setRandomMovement("N");
+	 *
+	 * @effect	...
+	 * 			|this.setSize(new Vector(sprites[0].getWidth(),sprites[0].getHeight()));
+	 * 
+	 * @throws 	IllegalArgumentException
+	 * 			If the sprites are nog 2 or null
+	 * 			an IllegalArgumentException is thrown
+	 */
 	public Slime(int x, int y, Sprite[] sprites, School school)
 			throws IllegalArgumentException{
 		this.setSchool(school);
@@ -29,20 +57,39 @@ public class Slime extends GameObject {
 
 		this.setPos(new Vector(x, y));
 		setAccCurr(new Vector(0, 0));
-		setRandomMovement("N");
-		resetStartTimeDir();
 		generateNewPeriodCurrentMove();
+		setRandomMovement("N");
 	}
 
+	/**
+	 * This method returns if a slime is just spawned
+	 * 
+	 * @return	boolean
+	 * 			& return JustSpanwed
+	 */
 	private boolean isJustSpawned() {
 		return JustSpawned;
 	}
+
+	/**
+	 * This method sets if the object has just been spawned
+	 * @param 	justSpawned
+	 * 			| JustSpawned = justSpawned;
+	 */
 	private void setJustSpawned(boolean justSpawned) {
 		JustSpawned = justSpawned;
 	}
 
 	private boolean JustSpawned = true;
 
+	/**
+	 * 
+	 * @effect
+	 * 			| getSchool().removeSlime(this);
+	 *			| setSchool(null);
+	 *			| getWorld().removeSlime(this);
+	 *			| setWorld(null);
+	 */
 	@Override
 	protected void terminate(){
 		this.isTerminated = true;
@@ -50,18 +97,31 @@ public class Slime extends GameObject {
 		setSchool(null);
 		getWorld().removeSlime(this);
 		setWorld(null);
-		
 	}
+
+	/**
+	 * @effect	...
+	 * 			| setHP(100);
+	 */
 	@Override
 	protected void initializeHP() {
 		setHP(100);
 	}
 
+	/**
+	 * @effect	...
+	 * 			| return (int) Double.POSITIVE_INFINITY;
+	 */
 	@Override
 	protected int getMaxHP() {
 		return (int) Double.POSITIVE_INFINITY;
 	}
 
+	/**
+	 * This method 
+	 * @param 	hp
+	 * 			
+	 */
 	protected void slimeGetsHitFor(int hp){
 		addByHP(hp+1);
 		for( Slime slime: getSchool().getAllSlimes()){
@@ -71,26 +131,58 @@ public class Slime extends GameObject {
 
 
 
-
+	/**
+	 * This method returns the school of this slime
+	 * 
+	 * @return	...
+	 * 			| return this.school;
+	 */
 	@Basic @Raw
 	public School getSchool() {
 		return this.school;
 	}
 
+	/**
+	 * This method checks if this.slime can have the given school
+	 * 
+	 * @param 	school
+	 * 			The school to be checked for this slime
+	 * 
+	 * @return	boolean
+	 * 			| return (school != null)
+	 *			| && (!school.isTerminated());
+	 */
 	@Raw
 	protected boolean canHaveAsSchool(School school) {
 		return (school != null)
 				&& (!school.isTerminated());
 	}
 
+	/**
+	 * This method checks whether a slime has a proper school
+	 * 
+	 * @return	boolean
+	 * 			| return canHaveAsSchool(getSchool())
+	 *			| && ((getSchool() != null) || (getSchool().hasAsSlime(this)));
+	 */
 	@Raw
 	protected boolean hasProperSchool() {
 		return canHaveAsSchool(getSchool())
 				&& ((getSchool() != null) || (getSchool().hasAsSlime(this)));
 	}
 
+
+	/**
+	 * This method sets the given school for this.slime
+	 * 
+	 * @param 	school
+	 * 			The school for this slime
+	 * @effect	...
+	 * 			| this.school = school;
+	 *			| school.addSlime(this);
+	 */
 	@Raw
-	protected void setSchool(School school) {
+	private void setSchool(School school) {
 		if (canHaveAsSchool(school)){
 			this.school = school;
 			school.addSlime(this);
@@ -98,7 +190,26 @@ public class Slime extends GameObject {
 	}
 
 
-
+	/**
+	 * This method is for switching schools between slimes
+	 * this depends on the number of slimes in a school
+	 * 
+	 * @param 	other
+	 * 			The other slime to be compared
+	 * @effect	...
+	 * 			| other.setSchool(null);
+	 *			| other.setSchool(ThisSchool);
+	 *
+	 * @effect	...
+	 * 			| for(Slime slime: AllSlimesThis){
+	 *			|	if(slime != this){
+	 *			|		slime.addByHP(+1);
+	 *			|	}
+	 *			| }
+	 *			| for(Slime slime: AllSlimesOther){
+	 *			| 	slime.addByHP(-1);
+	 *			| }
+	 */
 	protected void switchSchools(Slime other){
 		School ThisSchool = getSchool();
 		School OtherSchool = other.getSchool();
@@ -113,14 +224,10 @@ public class Slime extends GameObject {
 			Set<Slime> AllSlimesOther = OtherSchool.getAllSlimes();
 
 			for(Slime slime: AllSlimesThis){
-				System.out.println();
-				System.out.println(slime);
 
 				slime.addByHP(-1);
 			}
 			for(Slime slime: AllSlimesOther){
-				System.out.println();
-				System.out.println(slime);
 				if(slime != this){
 					slime.addByHP(+1);
 				}
@@ -136,15 +243,11 @@ public class Slime extends GameObject {
 			Set<Slime> AllSlimesOther = OtherSchool.getAllSlimes();
 
 			for(Slime slime: AllSlimesThis){
-				System.out.println();
-				System.out.println(slime);
 				if(slime != this){
 					slime.addByHP(+1);
 				}
 			}
 			for(Slime slime: AllSlimesOther){
-				System.out.println();
-				System.out.println(slime);
 				slime.addByHP(-1);
 			}
 
@@ -157,7 +260,26 @@ public class Slime extends GameObject {
 
 	private School school;
 
-	private void setRandomMovement(String block){
+
+	/**
+	 * This method calculates and sets random movements for this.slime
+	 * 
+	 * @param 	block
+	 * 			The Direction in which the slime may not move
+	 * 			N, means nothing
+	 * 			X+: right
+	 * 			X-: left
+	 * @effect	Move to the left
+	 * 			| this.setPos(new Vector(getPos().getElemx()-1,getPos().getElemy()));
+	 * @effect	Move to the right
+	 * 			| this.setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
+	 * 
+	 * @effect	...
+	 * 			| this.setVelocity(new Vector(velx,vely));
+	 *			| this.setAccCurr(new Vector(accx,accy));	
+	 * 
+	 */
+	protected void setRandomMovement(String block){
 		double velx = 0.5;
 		double vely = getVelocity().getElemy();
 
@@ -195,16 +317,40 @@ public class Slime extends GameObject {
 
 
 
-
+	/**
+	 * @effect	If a slime is spawning in ground
+	 * 			| setJustSpawned(false);
+	 *			| UpdateAccY();
+	 *
+	 * @effect	Move to the right
+	 * 			| setPos(new Vector(getPos().getElemx()-1,getPos().getElemy()));
+	 *			| setVelocity(new Vector(0.0,getVelocity().getElemy()));
+	 *			| setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+	 * @effect	Move to the left
+	 * 			| setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
+	 *			| setVelocity(new Vector(0.0,getVelocity().getElemy()));
+	 *			| setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+	 *
+	 * @effect	Blocked in the Y direction and going up
+	 * 			| setPos(new Vector(getPos().getElemx(),getPos().getElemy()-1));
+	 *			| setVelocity(new Vector(getVelocity().getElemx(),0.0));
+	 *
+	 * @effect	Blocked in the Y direction and going down
+	 * 			| setPos(new Vector(getPos().getElemx(),getPos().getElemy()+1));
+	 *			| setVelocity(new Vector(getVelocity().getElemx(),0.0));
+	 *			| setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
+	 */
 	@Override
 	protected void advanceTime(double dt) throws IllegalArgumentException{
 
+		//System.out.println("Time" + getStartTimeDir());
 		if ((dt < 0.0) || (dt > 0.2)){
 			throw new IllegalArgumentException();
 		}
 		if (isJustSpawned()){
 			correctSpawnedInGround();
-			setJustSpawned(false);	
+			setJustSpawned(false);
+			UpdateAccY();	
 		}
 
 		if(!isDying()){
@@ -212,10 +358,12 @@ public class Slime extends GameObject {
 			UpdateAccY();
 
 			if (getStartTimeDir() > getPeriodCurrentMove()){
+				//RANDOM MOVEMENT
 				setRandomMovement("N");
 				resetStartTimeDir();
 				generateNewPeriodCurrentMove();
 			}else{
+				// NOG IN MOVEPERIODE
 				addTimeDir(dt);
 			}
 
@@ -259,8 +407,14 @@ public class Slime extends GameObject {
 				}
 			}
 		}
+
+
 	}
 
+	/**
+	 * @return	<String>
+	 * 			| return hits;
+	 */
 	@Override
 	protected HashSet<String> collisionObject(){
 		HashSet<String> hits = new HashSet<String>();
@@ -271,24 +425,21 @@ public class Slime extends GameObject {
 
 		if (overlapsWith(mazub)){
 			if (overlapsWithX(mazub)){
+				
 				hits.add("X");
-				this.slimeGetsHitFor(-50);
-				if (!mazub.isImmune()){
-					mazub.addByHP(-50);
-					mazub.setImmune(true);
+				
+				if (!this.isDying()){
+					this.slimeGetsHitFor(-50);
+					if (!mazub.isImmune()){
+						mazub.addByHP(-50);
+						mazub.setImmune(true);
+					}
 				}
 			}
 			if (overlapsWithY(mazub)){
-				
-				if (getVelocity().getElemy() > mazub.getVelocity().getElemy()){
-					mazub.setCollisionVel(new Vector(getCollisionVel().getElemx(), 3));
-				}else{
-					hits.add("Y");
-				}
 				//hits.add("Y");
-				mazub.setCollisionVel(new Vector(getCollisionVel().getElemx(), 3));
+				mazub.setCollisionVel(new Vector(mazub.getCollisionVel().getElemx(), 3));
 			}
-
 		}
 
 		for (Shark object: Sharks){
@@ -311,8 +462,8 @@ public class Slime extends GameObject {
 				}
 				if (overlapsWithY(object)){
 					hits.add("Y");
-				}	
-				if (!object.isDying()){
+				}      
+				if (!this.isDying() && !object.isDying()){
 					this.switchSchools(object);
 				}
 			}
@@ -320,9 +471,10 @@ public class Slime extends GameObject {
 		return hits;
 	}
 
+
 	@Override
 	public Sprite getCurrentSprite() {
-		if (getVelocity().getElemx() >= 0){
+		if (getVelocity().getElemx() > 0){
 			this.setSize(new Vector(Sprites[1].getWidth(),Sprites[1].getHeight()));
 			return Sprites[1];
 		}
@@ -336,21 +488,43 @@ public class Slime extends GameObject {
 
 
 
-
+	/**
+	 * This method adds time to the timer
+	 * @param	dt
+	 * 			The amount of time to add to the timer
+	 * @effect	...
+	 * 			| StartTimeDir = StartTimeDir + dt;
+	 */
 	private void addTimeDir(double dt){
 		StartTimeDir = StartTimeDir + dt;
 	}
 
+	/**
+	 * This method returns the Start time of the direction
+	 * 
+	 * @return	double
+	 * 			| return StartTimeDir;
+	 */
 	private double getStartTimeDir(){
 		return StartTimeDir;
 	}
 
+	/**
+	 * This method resets the timer
+	 * @effect	...
+	 * 			| StartTimeDir = 0;
+	 */
 	private void resetStartTimeDir(){
 		StartTimeDir = 0;
 	}
 
 	private double StartTimeDir=0;
 
+	/**
+	 * This method generates ah period for the current move
+	 * @effect	...
+	 * 			| setPeriodCurrentMove(Period);
+	 */
 	private void generateNewPeriodCurrentMove(){
 		Random randomGenerator = new Random();
 		int Period = randomGenerator.nextInt(6 - 2 + 1) + 2;
@@ -358,10 +532,24 @@ public class Slime extends GameObject {
 
 	}
 
+	/**
+	 * This method returns the current move
+	 * 
+	 * @return	int
+	 * 			| return PeriodCurrentMove;
+	 */
 	private int getPeriodCurrentMove() {
 		return PeriodCurrentMove;
 	}
 
+	/**
+	 * This method sets the period of the current move
+	 * 
+	 * @param 	periodCurrentMove
+	 * 			The period to be set
+	 * @effect	...
+	 * 			| PeriodCurrentMove = periodCurrentMove
+	 */
 	private void setPeriodCurrentMove(int periodCurrentMove) {
 		PeriodCurrentMove = periodCurrentMove;
 	}
@@ -373,6 +561,7 @@ public class Slime extends GameObject {
 
 	private static final double MaxVelocityX = 2.5;
 	private static final double ACCX = 0.7;
+
 
 	@Override
 	protected double getMaxVelocityX() {

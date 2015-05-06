@@ -1,18 +1,37 @@
 package jumpingalien.model;
 
 import java.util.HashSet;
-import java.util.Set;
 
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
+
+
 public class Plant extends GameObject {
-	
-	public Plant(int x, int y, Sprite[] sprites) 
+	/**
+	 * This method creates a new plant, with the given parameters
+	 * 
+	 * @param 	x
+	 * 			The x coordinate of the new plant
+	 * @param 	y
+	 * 			The Y coordinate of hte new plant
+	 * @param 	sprites
+	 * 			The sprites of the plant
+	 * @effect	...
+	 * 			| this.setPos(new Vector(x, y));
+	 *			| this.setVelocity(new Vector(RightVelocity,0));
+	 * @effect	...
+	 * 			| this.Sprites = sprites;
+	 *
+	 * @throws 	IllegalArgumentException
+	 * 			If the amount of sprites is not correct, nor null
+	 * 			an exception is thrown
+	 */
+	public Plant(int x, int y, Sprite[] sprites)
 			throws IllegalArgumentException{
-		
+
 		this.setPos(new Vector(x, y));
 		this.setVelocity(new Vector(RightVelocity,0));
 
@@ -25,6 +44,15 @@ public class Plant extends GameObject {
 		}
 	}
 
+
+	/**
+	 * This method terminates a plant from his world
+	 * 
+	 * @effect	...
+	 * 			| this.isTerminated = true;
+	 * 			| getWorld().removePlant(this);
+	 * 			| setWorld(null);
+	 */
 	@Override
 	protected void terminate(){
 		this.isTerminated = true;
@@ -32,17 +60,40 @@ public class Plant extends GameObject {
 		setWorld(null);
 	}
 
+
+	/**
+	 * This method initializes the HP of a plant
+	 * 
+	 * @post	...
+	 * 			|this.setHP(1);
+	 */
 	@Override
 	protected void initializeHP() {
 		this.setHP(1);
 
 	}
 
+	/**
+	 * This method returns the maximum HP of a plant
+	 * 
+	 * @return	int
+	 * 			| return 1;
+	 */
 	@Override
 	protected int getMaxHP() {
 		return 1;
 	}
 
+
+	/**
+	 * This method sets new positions and velocities with a time dt further
+	 * 
+	 * @effect	...
+	 * 			| this.setPos(newPos);
+	 * 
+	 * @throws	IllegalArgumentException
+	 * 			If a position of a velocity are not valid an exception is thrown
+	 */
 	@Override
 	protected void advanceTime(double dt) throws IllegalArgumentException {
 		if (!isDying()){
@@ -63,11 +114,12 @@ public class Plant extends GameObject {
 			if ((hits != null) && (!hits.isEmpty())){
 				if (hits.contains("X")){
 
+
 					if (getVelocity().getElemx() >= 0){
-						setPos(new Vector(getPos().getElemx()-10,getPos().getElemy()));
+						setPos(new Vector(getPos().getElemx(),getPos().getElemy()));
 						setVelocity(new Vector(LeftVelocity,0.0));
 					}else if(getVelocity().getElemx() < 0){
-						setPos(new Vector(getPos().getElemx()+10,getPos().getElemy()));
+						setPos(new Vector(getPos().getElemx(),getPos().getElemy()));
 						setVelocity(new Vector(RightVelocity,0.0));
 					}
 					resetStartTimeDir();
@@ -83,6 +135,50 @@ public class Plant extends GameObject {
 
 	}
 
+	/**
+	 * This method adds time to the timer
+	 * 
+	 * @param 	dt
+	 * 			The amount of time to be added
+	 * @post	...
+	 * 			| startTimeDir = StartTimeDir + dt;
+	 */
+	protected void addTimeDir(double dt){
+		StartTimeDir = StartTimeDir + dt;
+	}
+
+	/**
+	 * This method returns the StartTimeDir
+	 * 
+	 * @return	double
+	 * 			| return StartTimeDir;
+	 */
+	protected double getStartTimeDir(){
+		return StartTimeDir;
+	}
+
+	/**
+	 * This method resets the timer of StartTimeDir
+	 * 
+	 * @post	...
+	 * 			| StartTimeDir = 0;
+	 */
+	protected void resetStartTimeDir(){
+		StartTimeDir = 0;
+	}
+
+	protected double StartTimeDir=0;
+
+
+	/**
+	 * This method checks if the given velocity is valid
+	 * 
+	 * @return	boolean
+	 * 			| return true
+	 * @throws	IllegalVelocityException
+	 * 			If the velocity is not valid, an IllegalVelocityException is thrown
+	 * 
+	 */
 	@Override
 	protected boolean isValidVelocity(Vector velocity)
 			throws IllegalVelocityException { 
@@ -92,8 +188,23 @@ public class Plant extends GameObject {
 		else
 			return true;
 	}
-	
-	
+
+	/**
+	 * This method returns a string in which directions Mazub is Colliding
+	 * 
+	 * 
+	 * @effect	if no collision happened for smalldt
+	 * 			| try{
+	 *			|	setPos(getCollisionPos());
+	 *			| } catch(OutOfBoundsException e){
+	 *			|	setPos(new Vector(e.getPosition().getElemx(),e.getPosition().getElemy()));
+	 *			|}
+	 *
+	 * @return	<String>
+	 * 			| return hits;
+	 *  
+	 * 
+	 */
 	@Override
 	protected HashSet<String> collisionDetection(double dt){
 
@@ -109,7 +220,7 @@ public class Plant extends GameObject {
 			this.setCollisionPos(newPos);
 
 			hits = collisionTile();
-			
+
 			if (hits.isEmpty()){
 
 				try{
@@ -126,23 +237,6 @@ public class Plant extends GameObject {
 		return hits;
 	}
 
-	@Override
-	protected HashSet<String> collisionObject() {
-		HashSet<String> hits = new HashSet<String>();
-
-		Mazub mazub = getWorld().getMazub();
-
-		if (overlapsWith(mazub)){
-			if (overlapsWithX(mazub)){
-				hits.add("X");
-			}
-			if (overlapsWithY(mazub)){
-				hits.add("Y");
-			}
-
-		}
-		return hits;
-	}
 
 	@Override
 	public Sprite getCurrentSprite() {
@@ -157,25 +251,18 @@ public class Plant extends GameObject {
 	}
 
 	private Sprite[] Sprites;
-	private void addTimeDir(double dt){
-		StartTimeDir = StartTimeDir + dt;
-	}
+	static final private double RightVelocity = 0.5;
+	static final private double LeftVelocity = -0.5;
 
-	private double getStartTimeDir(){
-		return StartTimeDir;
-	}
-
-	private void resetStartTimeDir(){
-		StartTimeDir = 0;
-	}
-
-	private double StartTimeDir=0;
 	@Override
 	protected double getMaxVelocityX() {
 		return RightVelocity;
 	}
 
-	static final private double RightVelocity = 0.5;
-	static final private double LeftVelocity = -0.5;
+	@Override
+	protected HashSet<String> collisionObject() {
+		HashSet<String> emptyset = new HashSet<String>();
+		return emptyset;
+	}
 
 }

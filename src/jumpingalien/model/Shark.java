@@ -10,10 +10,31 @@ import jumpingalien.exception.OutOfBoundsException;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
+
+
 public class Shark extends GameObject {
 
-
-
+	/**
+	 * This method creates a new shark with the given parameters
+	 * 
+	 * @param 	x
+	 * 			The X coordinate for the new shark
+	 * @param 	y
+	 * 			The Y coordinate for the new shark
+	 * @param 	sprites
+	 * 			The sprites for the shark
+	 * @effect	...
+	 * 			| this.setPos(new Vector(x,y));
+	 *			| this.setVelocity(new Vector(-getInitVelocityX(),0));
+	 *			| this.setAccCurr(new Vector(getACCX(), 0.0));
+	 *@effect	...
+	 *			| this.Sprites = sprites;
+	 *			| this.setSize(new Vector(sprites[0].getWidth(),sprites[0].getHeight()));
+	 * @throws 	IllegalArgumentException
+	 * 			If the sprites are null, or are not 2
+	 * 			an IllegalArgumentException is thrown
+	 * 
+	 */
 	public Shark(int x, int y, Sprite[] sprites) 
 			throws IllegalArgumentException{
 		this.setPos(new Vector(x,y));
@@ -26,11 +47,15 @@ public class Shark extends GameObject {
 			this.Sprites = sprites;
 			this.setSize(new Vector(sprites[0].getWidth(),sprites[0].getHeight()));
 		}
-
-
-		setRandomMovement("N");
 	}
 
+	/**
+	 * @effect	...
+	 * 			| this.isTerminated = true;
+	 *			| getWorld().removeShark(this);
+	 *			| setWorld(null);
+	 * 
+	 */
 	@Override
 	protected void terminate(){
 		this.isTerminated = true;
@@ -38,7 +63,13 @@ public class Shark extends GameObject {
 		setWorld(null);
 	}
 
-	private void startJump(){
+	/**
+	 * This method lets the shark jump
+	 * @effect	...
+	 * 			| this.setVelocity(new Vector(getVelocity().getElemx(),getInitVelocityY()));
+	 * 			
+	 */
+	protected void startJump(){
 		setJumped(true);
 		double accx;
 		if (getVelocity().getElemx() > 0)
@@ -56,37 +87,88 @@ public class Shark extends GameObject {
 
 
 	}
-	private void endJump(){
+
+	/**
+	 * This method ends the jump of the shark
+	 * @effect	...
+	 * 			| setJumped(false)
+	 * 			| resetAmountPeriodsAfterJump();
+	 */
+	protected void endJump(){
 		setJumped(false);
 		resetAmountPeriodsAfterJump();
 	}
 
+
+	/**
+	 * This method returns whether the shark has jumped
+	 * @return	boolean
+	 * 			| return jumped
+	 */
 	@Basic
-	private boolean isJumped() {
+	protected boolean isJumped() {
 		return Jumped;
 	}
 
-	private void setJumped(boolean jumped) {
+
+	/**
+	 * This method sets Jumped with the given value jumped
+	 * @param 	jumped
+	 * 			The value to be set
+	 * @effect	...
+	 * 			| this.Jumped = jumped;
+	 */
+	protected void setJumped(boolean jumped) {
 		this.Jumped = jumped;
 	}
 
 	private boolean Jumped = false;
 
-	private int getAmountPeriodsAfterJump() {
+
+	/**
+	 * This method returns the number of periods after a jump
+	 *  
+	 * @return	int
+	 * 			| return AmountPeriodsAfterJump;
+	 */
+	protected int getAmountPeriodsAfterJump() {
 		return AmountPeriodsAfterJump;
 	}
-	private void addOneAmountPeriodsAfterJump() {
+
+	/**
+	 * Tis method adds 1 up to AmountPeriodsAfterJump
+	 * 
+	 * @effect	...
+	 * 			| AmountPeriodsAfterJump++;
+	 */
+	protected void addOneAmountPeriodsAfterJump() {
 		AmountPeriodsAfterJump++;
-		//System.out.println("Periods : " + AmountPeriodsAfterJump);
 	}
-	private void resetAmountPeriodsAfterJump() {
+
+	/**
+	 * This method resets the AmountPeriodsAfterJump back to zero
+	 * 
+	 * @effect	...
+	 * 			| AmountPeriodsAfterJump = 0;
+	 * 
+	 */
+	protected void resetAmountPeriodsAfterJump() {
 		AmountPeriodsAfterJump=0;
 	}
 
 	private int AmountPeriodsAfterJump=0;
 
 
-	private void setRandomMovement(String block){
+	/**
+	 * This method sets new random moves for the shark
+	 * 
+	 * @param 	block
+	 * 			Block is a string which indicates in which direction the shark may not move
+	 * @effect	...
+	 * 			| this.setVelocity(new Vector(velx,vely));
+	 *			| this.setAccCurr(new Vector(accx,accy));
+	 */
+	protected void setRandomMovement(String block){
 
 		Random randomGenerator1 = new Random();
 		Random randomGenerator2 = new Random();
@@ -163,11 +245,15 @@ public class Shark extends GameObject {
 
 
 
+	/**
+	 * 
+	 */
 	@Override
 	protected void advanceTime(double dt) throws IllegalArgumentException {
-		updateHPTile(dt);
-		if (!isDead()){
 
+
+		if (!isDead()){
+			updateHPTile(dt);
 			UpdateAccY();
 
 
@@ -175,7 +261,6 @@ public class Shark extends GameObject {
 
 				// END OF THIS MOVEPERIOD
 
-				//System.out.println(" Amount of periods after last jump = " +getAmountPeriodsAfterJump());
 
 				if (getAmountPeriodsAfterJump() >= 2 
 						&& getVelocity().getElemx() != 0 
@@ -186,7 +271,6 @@ public class Shark extends GameObject {
 					int randomjump = randomGenerator.nextInt((1) + 1);
 
 					if (randomjump == 1){
-						//System.out.println("   JUMPED    ");
 						startJump();
 						resetStartTimeDir();
 						generateNewPeriodCurrentMove();
@@ -236,6 +320,11 @@ public class Shark extends GameObject {
 
 	}
 
+	/**
+	 * @effect	...
+	 * 			| setVelocity(getCollisionVel());
+	 * 			| setPos(getCollisionPos());
+	 */
 	@Override
 	protected HashSet<String> collisionDetection(double dt){
 
@@ -259,19 +348,15 @@ public class Shark extends GameObject {
 			hits = collisionTile();
 
 			if (hits.isEmpty()){
-				//system.out.println("MAZUB: NIET TEGEN TILE GEBOTST");
 				hits = collisionObject();
 			}else{
-				//system.out.println("MAZUB: TEGEN TILE GEBOTST");
 				return hits;
 			}
 
 			if (!hits.isEmpty()){
-				//system.out.println("MAZUB: TEGEN OBJECT GEBOTST");
 				return hits;
 
 			}else{
-				//system.out.println("MAZUB: NIET TEGEN TILE OF OBJECT GEBOTST");
 				try{
 					if (!isOnGround())
 						setVelocity(getCollisionVel());
@@ -300,6 +385,20 @@ public class Shark extends GameObject {
 	}
 
 
+	/**
+	 * @effect	for sharks
+	 * 			| this.addByHP(-50);
+	 *			| if (!mazub.isImmune()){
+	 *			| 	mazub.addByHP(-50);
+	 *			| 	mazub.setImmune(true);
+	 *
+	 * @effect	for sharks
+	 * 			| this.addByHP(-50);
+	 *			| if (!mazub.isImmune()){
+	 *			| 	mazub.addByHP(-50);
+	 *			| 	mazub.setImmune(true);
+	 *
+	 */
 	@Override
 	protected HashSet<String> collisionObject(){
 		HashSet<String> hits = new HashSet<String>();
@@ -314,14 +413,15 @@ public class Shark extends GameObject {
 			}
 			if (overlapsWithY(mazub)){
 				//hits.add("Y");
-				mazub.setCollisionVel(new Vector(getCollisionVel().getElemx(), 3));
+				mazub.setCollisionVel(new Vector(mazub.getCollisionVel().getElemx(), 3));
 			}
-			
-			this.addByHP(-50);
-			if (!mazub.isImmune()){
-				mazub.addByHP(-50);
-				mazub.setImmune(true);
+			if (!this.isDying()){
 
+				this.addByHP(-50);
+				if (!mazub.isImmune()){
+					mazub.addByHP(-50);
+					mazub.setImmune(true);
+				}
 			}
 
 		}
@@ -348,23 +448,45 @@ public class Shark extends GameObject {
 				if (overlapsWithY(object)){
 					hits.add("Y");
 				}
-				this.addByHP(-50);
-				object.slimeGetsHitFor(-50);
+				if (!this.isDying() && !object.isDying()){
+					this.addByHP(-50);
+					object.slimeGetsHitFor(-50);
+				}
 			}
+
 		}
 		return hits;
 	}
 
+
+	/**
+	 * @effect	...
+	 * 			| this.setHP(100);
+	 */
 	@Override
 	protected void initializeHP() {
 		this.setHP(100);
 	}
 
+
+	/**
+	 * @return	int
+	 * 			| return 100;
+	 */
 	@Override
 	protected int getMaxHP() {
-		return 1000;
+		return 100;
 	}
 
+	/**
+	 * @effect	in air
+	 * 			| AddByHP(-6);
+	 * 			| resetStarttimeInTile();
+	 * 
+	 * @effect 	in magma
+	 * 			| addByHP(-50);
+				| resetStarttimeInTile();
+	 */
 	@Override
 	protected void updateHPTile(double dt){
 		int thisObjectX = (int) getPos().getElemx();
@@ -412,40 +534,7 @@ public class Shark extends GameObject {
 
 	}
 
-	//	@Override
-	//	public void advanceTime(double dt) throws IllegalArgumentException {
-	//		if ((dt < 0.0) || (dt > 0.2)){
-	//			throw new IllegalArgumentException();
-	//		}
-	//		
-	//		char direction = this.getOrientation();
-	//		int posx = (int) this.getPos().getElemx();
-	//		int posy = (int) this.getPos().getElemy();
-	//		double velx = this.getVelocity().getElemx();
-	//		double vely = this.getVelocity().getElemy();
-	//		double accx = this.getAccCurr().getElemx();
-	//		double accy = this.getAccCurr().getElemy();
-	//		double dx = 0;
-	//		double dy = 0;
-	//		
-	//		if (getPos().getElemy() == SharkGround){
-	//			try{
-	//				setVelocity(new Vector(velx + accx*dt,0));
-	//			}catch(IllegalVelocityException e){
-	//				this.setVelocity(e.getVelocity());
-	//			}
-	//			try{
-	//			dx = (100*(velx * dt + 0.5*accx*Math.pow(dt,2)));
-	//			setPos(new Vector(posx + dx,0));
-	//			}catch(OutOfBoundsException e){
-	//				this.setPos(new Vector(e.getPosition().getElemx()
-	//						,getPos().getElemy()));			
-	//			}
-	//				
-	//		}else{
-	//			//in the air
-	//		}
-	//	}
+
 
 	@Override
 	protected boolean isValidVelocity(Vector velocity)
@@ -467,6 +556,10 @@ public class Shark extends GameObject {
 		return true;
 	}
 
+
+	/**
+	 * 
+	 */
 	@Override
 	public Sprite getCurrentSprite() {
 		if (getVelocity().getElemx() > 0){
@@ -478,6 +571,10 @@ public class Shark extends GameObject {
 			return Sprites[0];
 		}
 	}
+
+	/**
+	 * 
+	 */
 	@Override
 	protected void UpdateAccY() {
 		int type = getWorld().getGeologicalFeature((int)getPos().getElemx(), 
@@ -492,34 +589,71 @@ public class Shark extends GameObject {
 			setAccCurr(new Vector(getAccCurr().getElemx(), 0.0));
 	}
 
+
+	/**
+	 * This method adds an amount dt to the timer
+	 * 
+	 * @param 	dt
+	 * 			the time dt
+	 * @effect	...
+	 * 			| StartTimeDir = StartTimeDir + dt;
+	 */
 	private void addTimeDir(double dt){
 		StartTimeDir = StartTimeDir + dt;
 	}
 
+	/**
+	 * This method returns the start time since it was going in the same direction
+	 * 
+	 * @return	double
+	 * 			| return StartTimeDir;
+	 */
 	private double getStartTimeDir(){
 		return StartTimeDir;
 	}
 
+	/**
+	 * This method resets the start time of the timer
+	 * @effect	...
+	 * 			| StartTimeDir
+	 */
 	private void resetStartTimeDir(){
 		StartTimeDir = 0;
 	}
 
 	private double StartTimeDir=0;
 
+
+	/**
+	 * This method generates new periods for shark
+	 * 
+	 * @effect	...
+	 * 			| setPeriodCurrentMove(Period);
+	 */
 	private void generateNewPeriodCurrentMove(){
 		Random randomGenerator = new Random();
 		int Period = randomGenerator.nextInt(4 - 1 + 1) + 1;
 		setPeriodCurrentMove(Period);
-		//		System.out.println();
-		//		System.out.println("Period = " + Period + " seconds");
-		//		System.out.println();
 
 	}
 
+	/**
+	 * This method returns the period of the current move the shark is doing
+	 * 
+	 * @return	...
+	 * 			| return PeriodCurrentMove;
+	 */
 	private int getPeriodCurrentMove() {
 		return PeriodCurrentMove;
 	}
 
+
+	/**
+	 * This method sets the current move to the given move
+	 * 
+	 * @param 	periodCurrentMove
+	 * 			| PeriodCurrentMove = PeriodCurrentMove;
+	 */
 	private void setPeriodCurrentMove(int periodCurrentMove) {
 		PeriodCurrentMove = periodCurrentMove;
 	}
@@ -536,29 +670,71 @@ public class Shark extends GameObject {
 	private final double ACCX = 1.0;
 	private final double ACCY = -10.0;
 
+
+	/**
+	 * This method returns the initial velocity of this.shark
+	 * in the X direction
+	 * 
+	 * @return	double
+	 * 			| return InitVelocityX;
+	 */
 	private double getInitVelocityX() {
 		return InitVelocityX;
 	}
 
+
+	/**
+	 * This method returns the maximum velocity of this.shark in the X direciont
+	 * 
+	 * @return	double
+	 * 			| return MaxVelocityX;
+	 * 
+	 */
+	@Override
 	protected double getMaxVelocityX() {
 		return MaxVelocityX;
 	}
 
+	/**
+	 * This method returns the maximum velocity of this.shark in the Y dirceciont
+	 * 
+	 * @return	double
+	 * 			| return MaxVelocityY
+	 */
 	private double getMaxVelocityY() {
 		return MaxVelocityY;
 	}
 
+
+	/**
+	 * This method returns the acceleration in the X direction
+	 * 
+	 * @return	double
+	 * 			| return ACCX
+	 */
 	private double getACCX() {
 		return ACCX;
 	}
 
+
+	/**
+	 * This method returns the acceleration in the Y direction
+	 * @return	double
+	 * 			| return ACCY;
+	 */
 	private double getACCY() {
 		return ACCY;
 	}
+
+	/**
+	 * This method returns the initial velocity of this.shark
+	 * in the Y direction 
+	 * @return	double
+	 */
 	private double getInitVelocityY() {
 		return InitVelocityY;
 	}
-	private static final double SLOWDOWN = 3;
+	private static final double SLOWDOWN = 2;
 
 
 	private int PeriodCurrentMove;
