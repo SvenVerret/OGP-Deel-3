@@ -144,7 +144,7 @@ public class World {
 
 		advanceTimeOfClock(dt);
 
-		Set<GameObject> OriginalObjects = getAllObjects();
+		Set<GameObject> OriginalObjects = getAllGameObjects();
 		Set<GameObject> CopyObjects = new HashSet<>(OriginalObjects);
 
 		Mazub alien = getMazub();
@@ -365,7 +365,7 @@ public class World {
 	 * 
 	 * 
 	 */
-	public Set<GameObject> getAllObjects(){
+	public Set<GameObject> getAllGameObjects(){
 
 		Set<Plant> Plants = getAllPlants();
 		Set<Shark> Sharks = getAllSharks();
@@ -386,7 +386,7 @@ public class World {
 	 * 			| return Objects.size();
 	 * 
 	 */
-	public int getNbObjects(){
+	public int getNbGameObjects(){
 		Set<Plant> Plants = getAllPlants();
 		Set<Shark> Sharks = getAllSharks();
 		Set<Slime> Slimes = getAllSlimes();
@@ -408,7 +408,7 @@ public class World {
 	 * 			| return Objects.contains(object);
 	 * 
 	 */
-	public boolean hasAsObject(GameObject object){
+	public boolean hasAsGameObject(GameObject object){
 		Set<Plant> Plants = getAllPlants();
 		Set<Shark> Sharks = getAllSharks();
 		Set<Slime> Slimes = getAllSlimes();
@@ -434,7 +434,7 @@ public class World {
 	 */
 	@Raw
 	public void addPlant(Plant plant){
-		if (plant != null && getNbObjects()<100 && !isWorldStarted()){
+		if (plant != null && getNbGameObjects()<100 && !isWorldStarted()){
 			Plants.add(plant);
 			plant.setWorld(this);
 		}              
@@ -485,7 +485,7 @@ public class World {
 	 */
 	@Raw
 	public void addShark(Shark shark){
-		if (shark != null && getNbObjects()<100  && !isWorldStarted()){
+		if (shark != null && getNbGameObjects()<100  && !isWorldStarted()){
 			Sharks.add(shark);
 			shark.setWorld(this);
 		}              
@@ -536,7 +536,7 @@ public class World {
 	 */
 	@Raw
 	public void addSlime(Slime slime){
-		if (slime != null && getNbSchools() < 10 && getNbObjects()<100  && !isWorldStarted()){
+		if (slime != null && getNbSchools() < 10 && getNbGameObjects()<100  && !isWorldStarted()){
 			Slimes.add(slime);
 			slime.setWorld(this);
 			this.addSchool(slime.getSchool());	

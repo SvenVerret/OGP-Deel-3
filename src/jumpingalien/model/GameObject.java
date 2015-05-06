@@ -109,7 +109,7 @@ public abstract class GameObject {
 	@Raw
 	protected boolean hasProperWorld() {
 		return canHaveAsWorld(getWorld())
-				&& ((getWorld() != null) || (getWorld().hasAsObject(this)));
+				&& ((getWorld() != null) || (getWorld().hasAsGameObject(this)));
 	}
 
 
