@@ -3,7 +3,6 @@ package jumpingalien.part3.facade;
 import java.util.Collection;
 
 import jumpingalien.model.*;
-import jumpingalien.program.*s;
 import jumpingalien.part3.programs.ParseOutcome;
 import jumpingalien.util.ModelException;
 import jumpingalien.util.Sprite;
@@ -333,12 +332,22 @@ public class Facade implements IFacadePart3{
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// PART 3
 
 	@Override
 	public Buzam createBuzam(int pixelLeftX, int pixelBottomY, Sprite[] sprites) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Buzam(pixelLeftX, pixelBottomY, sprites);
 	}
 
 	@Override
@@ -383,46 +392,42 @@ public class Facade implements IFacadePart3{
 
 	@Override
 	public void addBuzam(World world, Buzam buzam) {
-		// TODO Auto-generated method stub
-		
+		world.setBuzam(buzam);
 	}
 
 	@Override
 	public int[] getLocation(Buzam alien) {
-		// TODO Auto-generated method stub
-		return null;
+		int[] i = {(int) alien.getPos().getElemx(),(int) alien.getPos().getElemy()};
+		return i;
 	}
 
 	@Override
 	public double[] getVelocity(Buzam alien) {
-		// TODO Auto-generated method stub
-		return null;
+		double[] i = {alien.getVelocity().getElemx(),alien.getVelocity().getElemy()};
+		return i;
 	}
 
 	@Override
 	public double[] getAcceleration(Buzam alien) {
-		// TODO Auto-generated method stub
-		return null;
+		double[] i = {alien.getAccCurr().getElemx(),alien.getAccCurr().getElemy()};
+		return i;
 	}
 
 	@Override
 	public int[] getSize(Buzam alien) {
-		// TODO Auto-generated method stub
-		return null;
+		int[] i = {(int) alien.getSize().getElemx(),(int) alien.getSize().getElemy()};
+		return i;
 	}
 
 	@Override
 	public Sprite getCurrentSprite(Buzam alien) {
-		// TODO Auto-generated method stub
-		return null;
+		Sprite sprite = alien.getCurrentSprite();
+		return sprite;
 	}
-
+	
 	@Override
 	public int getNbHitPoints(Buzam alien) {
-		// TODO Auto-generated method stub
-		return 0;
+		return alien.getHP();
 	}
-
-
 
 }

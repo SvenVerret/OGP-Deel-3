@@ -102,20 +102,6 @@ public class Mazub extends GameObject{
 
 	// Methods
 
-	/**
-	 * This method checks whether Mazub can have the given world as world
-	 *
-	 * @return      boolean:        true if the given world is not null
-	 *                                              Mazub must have no world
-	 *                      | if (world == null){
-	 *                      |       return false;
-	 *                      | }
-	 *                      | if (world.getMazub() == null){
-	 *                      |       return true;
-	 *                      | }else{
-	 *                      |       return false;
-	 *                      | }
-	 */
 	@Raw
 	@Override
 	public boolean canHaveAsWorld(World world) {
@@ -129,33 +115,8 @@ public class Mazub extends GameObject{
 		}
 	}
 
-	/**
-	 *
-	 * @param       direction
-	 *                      The direction in which Mazub has to move.
-	 *
-	 * @pre         Every Mazub must have at least a minimum velocity of 1m/s
-	 *                      | getInitVelocityX() >= 1m/s
-	 *
-	 * @post        If the given direction equals true, orientation is set to 'R' from Right.
-	 *                      The velocity of Mazub changes to the inital velocity, the minimum velocity.
-	 *                      The acceleration changes from zero to a new acceleration based the first dt
-	 *                      and laws of Newton.
-	 *                      Else the orientation is set to L from Left, the velocity becomes negative.
-	 *                      Because acceleration has to be positive at any time, this remains the same as
-	 *                      in the situation to the Right Side.
-	 *                      | if direction == true:
-	 *                      |       new.getOrientation() == 'R'
-	 *                      |       new.getVelocity().getElemx() == new.getInitVelocityX()
-	 *                      |       new.getAccXCurr() == new.getAccXFwd
-	 *                      | else:
-	 *                      |       new.getOrientation() == 'L'
-	 *                      |       new.getVelocity().getElemx() == -1*new.getInitVelocityX()
-	 *                      |       new.getAccXCurr() == new.getAccXBkw()
-	 * @post        the sum of dt is reset to 0s.  
-	 *                      | new.getSumdt() == 0.0
-	 *
-	 */
+
+
 	public void startMove(boolean direction){
 
 		setStartTime();
@@ -183,38 +144,6 @@ public class Mazub extends GameObject{
 
 	}
 
-	/**
-	 *
-	 * @pre         The current x-velocity has to be bigger than a given initial velocity,
-	 *                      but it doesn't matter in which direction.
-	 *                      | abs(this.getVelocity().getElemx()) >= this.getInitVelocityX();
-	 *
-	 * @pre         The current x-velocity has to be less than the current maximum velocity,
-	 *                      but it doesn't matter in which direction.
-	 *                      | abs(this.getVelocity().getElemx()) <= this.getMaxVelocityXCurr();
-	 *
-	 * @post        The direction of the moving alien is saved in the variable LastMove, but only if
-	 *                      the alien isn't in the corner of the screen. If this is the case, LastMove is set to 'X'.
-	 *                      This is because we don't want a sprite of Mazub walking when it is against a wall.
-	 *                      | if ((this.getOrientation() == 'L') && (getPos().getElemx() == 0)) &&
-	 *                      |       ((this.getOrientation() == 'R') && (getPos().getElemx() == 1023))
-	 *                      |               new.getLastMove() == 'X'
-	 *                      | else
-	 *                      |               new.getLastMove() == this.getOrientation()
-	 *
-	 * @post        The new direction of the alien is 'X',
-	 *                      which means neither to the left or right.
-	 *                      | new.getOrientation() == 'X'
-	 *
-	 * @post        The new x-velocity of the alien is zero.
-	 *                      | new.getVelocity().getElemx() == 0.0
-	 *
-	 * @post        The new x-acceleration of the alien is zero.
-	 *                      | new.getAccXCurr() == 0.0
-	 *
-	 * @post        The sum of dt is reset to 0s.
-	 *                      | new.getSumdt() == 0.0
-	 */
 	public void endMove(){
 		StartTime = getWorld().getTime();
 		if ((this.getOrientation() == 'L'))
@@ -231,23 +160,6 @@ public class Mazub extends GameObject{
 
 	}
 
-	/**
-	 *
-	 * @post        If Mazub was on the ground and Jumped was false, the new y-velocity has been set to a constant
-	 *                      initial value.
-	 *                      | if ((this.getPos().getElemy() == 0) && (!this.isJumped()):
-	 *                      |       new.getVelocityY() == INITVELOCITYY
-	 *
-	 * @post        Once startJump() is called and if Mazub was on the ground and Jumped was false,
-	 *                      the variable Jumped is set to true.
-	 *                      | if ((this.getPos().getElemy() == 0) && (!this.isJumped()):
-	 *                      |       new.getJumped() == true
-	 *
-	 * @throws      IllegalStateException()
-	 *                      An exception is thrown if the alien is in the air and the variable Jumped equals true,
-	 *                      because endMove() should change Jumped to false.
-	 *                      | (this.getPos().getElemy() != 0 && this.Jumped)
-	 */
 	public void startJump() throws IllegalStateException{
 		if (this.isJumped() && isOnGround()){
 			throw new IllegalStateException();
@@ -264,17 +176,6 @@ public class Mazub extends GameObject{
 		}
 	}
 
-	/**
-	 *
-	 * @post        If endJump is correctly called, after startJump, Jumped is always set to false.
-	 *                      | new.getJumped() == false
-	 *
-	 * @throws      IllegalStateException()
-	 *                      An exception is thrown if endJump is called when Mazub is on the ground and Jumped is false.
-	 *                      This method can only be called after startJump, which would make Jumped true.
-	 *                      | this.getPos().getElemy() == 0 && !this.getJumped()
-	 *                     
-	 */
 	public void endJump() throws IllegalStateException{
 		if (this.isJumped()){
 			this.setJumped(false);
@@ -283,12 +184,6 @@ public class Mazub extends GameObject{
 		}      
 	}
 
-	/**
-	 * @post        When startDuck is called, Ducked is set to true and Mazub is in ducking state.
-	 *                      | new.isDucked() == true
-	 * @post        When Mazub is ducking, its maximum x-velocity is limited to 1m/s.
-	 *                      | new.getMaxVelocityXCurr() == 1.0
-	 */
 	public void startDuck(){
 		this.setDucked(true);
 		this.setMaxVelocityXCurr(1.0);
@@ -324,17 +219,6 @@ public class Mazub extends GameObject{
 		}
 	}
 
-
-	/**
-	 * This method set sets endDuckPressed on true
-	 * when the player releases the duck button
-	 * @effect      ...
-	 *                      | setEndDuckPressed(true);
-	 *
-	 * @throws      IllegalStateException
-	 *                      if mazub is not ducked and pressEndDuck() is called
-	 *                      this method throws an IllegalStateException.
-	 */
 	public void pressEndDuck() throws IllegalStateException{
 		if (this.isDucked()){
 			setEndDuckPressed(true);
@@ -344,13 +228,6 @@ public class Mazub extends GameObject{
 	}
 
 
-	/**
-	 * This method returns EndDuckPressed
-	 *
-	 * @return      boolean:
-	 *                      | return EndDuckPressed;
-	 *
-	 */
 	public boolean isEndDuckPressed() {
 		return EndDuckPressed;
 	}
@@ -370,32 +247,6 @@ public class Mazub extends GameObject{
 	private boolean EndDuckPressed=false;
 
 
-	/**
-	 *
-	 *
-	 * @effect      when X velocity >=0 and colides in the X direction
-	 *                      | setPos(new Vector(getPos().getElemx()-1,getPos().getElemy()));
-	 *                      | setVelocity(new Vector(0.0,getVelocity().getElemy()));
-	 *                      | setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
-	 *
-	 * @effect      when X velocity < 0 and colides in the Y direction
-	 *                      | setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
-	 *                      | setVelocity(new Vector(0.0,getVelocity().getElemy()));
-	 *                      | setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
-	 *
-	 *@effect       when Y velocity >= 0 and collides in the Y direction
-	 *                      | setPos(new Vector(getPos().getElemx(),getPos().getElemy()-1));
-	 *                      | setVelocity(new Vector(getVelocity().getElemx(),0.0));
-	 *
-	 *@effect       when Y velocity < 0 and collides in the Y direction
-	 *                      | setPos(new Vector(getPos().getElemx(),getPos().getElemy()+1));
-	 *                      | setVelocity(new Vector(getVelocity().getElemx(),0.0));
-	 *
-	 *@effect       Mazub is on ground an has just jumped
-	 *                      | setOnGround(false);
-	 *
-	 *
-	 */
 	@Override
 	public void advanceTime(double dt) throws IllegalArgumentException{
 
@@ -633,15 +484,6 @@ public class Mazub extends GameObject{
 		return hits;
 	}
 
-	/**
-	 * This method returns if mazub is immume
-	 *
-	 * @return      boolean
-	 *                      | if (Immune)
-	 *                      |       return true;
-	 *                      | else
-	 *                      |       return false;
-	 */
 	public boolean isImmune(){
 		if (Immune)
 			return true;
@@ -680,12 +522,6 @@ public class Mazub extends GameObject{
 		ImmuneTimer = 0.0;
 	}
 
-	/**
-	 * This method returns the timer of immunity
-	 *
-	 * @return      double
-	 *                      | return ImmuneTimer
-	 */
 	public double getImmuneTimer(){
 		return ImmuneTimer;
 	}
@@ -733,16 +569,13 @@ public class Mazub extends GameObject{
 
 
 
-	/**
-	 * @post        The index of the sprite depends on what Mazub is doing
-	 *                      Every index has different conditions. Depending on which conditions
-	 *                      are fulfilled an index is chosen.
-	 * @post        When the conditions state index 8 or 9+m and sumdt is more than 75ms
-	 *                      the sprite has to change under the same conditions.
-	 * @post        The new height and width of Mazub are set depending on the size
-	 *                      of the new sprite.
-	 *
+	/* (non-Javadoc)
+	 * @see jumpingalien.model.MazubInterface#getCurrentSprite()
 	 */
+	/* (non-Javadoc)
+	 * @see jumpingalien.model.MazubInterface2#getCurrentSprite()
+	 */
+	@Override
 	public Sprite getCurrentSprite(){
 
 		int m = (Sprites.length-10)/2;
@@ -819,15 +652,6 @@ public class Mazub extends GameObject{
 	private Sprite[] Sprites;
 
 
-
-
-
-	/**
-	 * This method checks if Mazub has reached the targettile
-	 *
-	 * @return      boolean
-	 *                      | return ((TargetXT == PosXT) && (TargetYT == PosYT));
-	 */
 	public boolean didPlayerWin(){
 		World world = getWorld();
 		int MazubX = (int) world.getMazub().getPos().getElemx();
@@ -908,24 +732,12 @@ public class Mazub extends GameObject{
 	protected double getMaxVelocityX() {
 		return MaxVelocityX;
 	}
-	/**
-	 *
-	 * @return      integer: the current velocity of Mazub in the x direction.
-	 *                      |  result == this.MaxVelocityXCurr
-	 */
+
 	@Basic
 	public double getMaxVelocityXCurr() {
 		return MaxVelocityXCurr;
 	}
-	/**
-	 *
-	 * @param       maxVelocityXCurr
-	 *                      The maximum velocity in the x direction of Mazub dependable
-	 *                      on position and his current move.
-	 * @post        The new current maximum velocity is set to maxVelocityXCurr.
-	 *                      |  new.getMaxVelocityXCurr() = maxVelocityXCurr
-	 *             
-	 */
+
 	public void setMaxVelocityXCurr(double maxVelocityXCurr) {
 		MaxVelocityXCurr = maxVelocityXCurr;
 	}
@@ -943,35 +755,16 @@ public class Mazub extends GameObject{
 		return true;
 	}
 
-	/**
-	 *
-	 * @return      integer: the current x acceleration of Mazub when going forward.
-	 *                      | result == this.AccXFwd
-	 *
-	 */
 	@Basic
 	public double getAccXFwd() {
 		return AccXFwd;
 	}
 
-	/**
-	 *
-	 * @return      integer: the current x acceleration of Mazub when going backwards.
-	 *                      | result == this.AccXBkw
-	 *
-	 */
 	@Basic
 	public double getAccXBkw() {
 		return AccXBkw;
 	}
 
-
-	/**
-	 *
-	 * @return      boolean: if mazub has jumped, isJumped returns true,
-	 *                      else it returns false.
-	 *                      | result == this.Jumped
-	 */
 	@Basic
 	public boolean isJumped() {
 		return Jumped;
@@ -989,12 +782,6 @@ public class Mazub extends GameObject{
 		this.Jumped = jumped;
 	}
 
-	/**
-	 *
-	 * @return      boolean: If mazub is ducking, isDucked returns true
-	 *                      else isDucked returns False.
-	 *                      | result == this.Ducked
-	 */
 	@Basic
 	public boolean isDucked() {
 		return Ducked;
@@ -1024,15 +811,9 @@ public class Mazub extends GameObject{
 	 */
 	@Override
 	protected void initializeHP() {
-
 		this.setHP(100);
-
 	}
 
-	/**
-	 * @effect      ...
-	 *                      | return 500;
-	 */
 	@Override
 	public int getMaxHP() {
 		return 500;
@@ -1060,7 +841,6 @@ public class Mazub extends GameObject{
 	@Override
 	protected void terminate() {
 		// TODO Auto-generated method stub
-
 	}
 
 

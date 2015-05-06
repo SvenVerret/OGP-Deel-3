@@ -84,6 +84,26 @@ public class World {
 
 			}
 		}
+		
+		Buzam alienbuzam = getBuzam();
+
+		alienbuzam.advanceTime(dt);
+		if ((alienbuzam.isOutOfBounds()) || (alienbuzam.getHP() == 0)){
+			alienbuzam.dies();
+			System.out.println("Buzam Died");
+		}
+
+		for (GameObject object: CopyObjects){
+			object.advanceTime(dt);
+			if ((object.isOutOfBounds()) || (object.getHP() == 0)){
+
+
+				object.dies();
+				System.out.println("Object Died    :    " + object);
+
+			}
+		}
+		
 		for (GameObject object: CopyObjects){
 			if (object.isDead()){
 				object.terminate();
@@ -134,6 +154,58 @@ public class World {
 
 	private Mazub mazub;
 
+	
+	
+	
+	
+	////
+	
+	
+	
+	@Raw
+	public void setBuzam(Buzam alien){
+		if (canHaveAsBuzam(alien)){
+			alien.setWorld(this);
+			this.buzam=alien;
+			
+		}
+	}
+
+	@Basic @Raw
+	public Buzam getBuzam(){
+		return buzam;
+	}
+
+	@Raw
+	protected boolean canHaveAsBuzam(Buzam alien){
+		return ((getBuzam() == null));
+
+	}
+
+	protected boolean hasProperBuzam() {
+		Buzam buzam = getBuzam();
+		if (!canHaveAsBuzam(buzam))
+			return false;
+		if (buzam.getWorld() != this)
+			return false;
+
+		return true;   
+	}
+
+	public boolean hasAsBuzam(Buzam alien){
+		if (this.getBuzam() != alien)
+			return false;
+		else
+			return true;
+	}
+
+	private Buzam buzam;
+	
+	////
+	
+	
+	
+	
 	public Set<GameObject> getAllObjects(){
 
 		Set<Plant> Plants = getAllPlants();
