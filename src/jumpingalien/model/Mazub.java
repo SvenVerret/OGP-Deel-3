@@ -829,6 +829,7 @@ public class Mazub extends GameObject{
 
 			if (MazubTile[0]== world.getTargetTile().getElemx()
 					&& MazubTile[1] == world.getTargetTile().getElemy()){
+				//this.setHP(0);
 				
 				return true;
 			}

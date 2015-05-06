@@ -214,7 +214,7 @@ public class JumpingAlienGamePart2 extends JumpingAlienGame {
 	@Override
 	protected void advanceTime(double dt) {
 		getFacade().advanceTime(getWorld(), dt);
-		if (getFacade().isGameOver(getWorld())) {
+		if (getFacade().isGameOver(getWorld())){
 			stop();
 		}
 	}
