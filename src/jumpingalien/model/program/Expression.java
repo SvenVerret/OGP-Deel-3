@@ -1,6 +1,13 @@
 package jumpingalien.model.program;
 
-public class Expression {
+/**
+ * 
+ * @author Kevin & Sven
+ *
+ * @param <E>
+ */
+public class Expression<E> {
 
+	private E e;
 	
 }

@@ -1,5 +1,13 @@
 package jumpingalien.model.program;
 
-public class Statement {
+/**
+ * 
+ * @author Kevin & Sven
+ *
+ * @param <S>
+ */
+public class Statement<S> {
+	
+	private S s;
 
 }
