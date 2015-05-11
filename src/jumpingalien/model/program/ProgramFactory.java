@@ -396,6 +396,8 @@ IProgramFactory<Expression, Statement, Type, Program> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 
 	@Override
 	public Type getDoubleType() {
