@@ -1,5 +1,6 @@
 package program.statement;
 
+import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
 import program.type.Type;
 
@@ -11,7 +12,8 @@ public class AssignmentStatement extends Statement{
 	 * @param value
 	 * @param loc
 	 */
-	public AssignmentStatement(String variableName, Type variableType, Expression value){
+	public AssignmentStatement(String variableName, Type variableType, Expression value, 
+			SourceLocation sourceLocation){
 		
 	}
 }

@@ -1,5 +1,6 @@
 package program.type;
 
+
 public class BooleanType extends Type {
 
 	/**

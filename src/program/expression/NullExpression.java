@@ -1,9 +1,15 @@
 package program.expression;
 
+import jumpingalien.part3.programs.SourceLocation;
+
 public class NullExpression extends Expression {
 
 
-	public NullExpression(){
+	/**
+	 * 
+	 * @param sourceLocation
+	 */
+	public NullExpression(SourceLocation sourceLocation){
 		
 	}
 }
