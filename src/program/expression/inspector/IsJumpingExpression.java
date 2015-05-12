@@ -1,5 +1,16 @@
 package program.expression.inspector;
 
-public class IsJumpingExpression {
 
+import program.expression.Expression;
+
+public class IsJumpingExpression extends Expression{
+
+	/**
+	 * 
+	 * @param expr
+	 * @param sourceLocation
+	 */
+	public IsJumpingExpression(Expression expr) {
+		
+	}
 }

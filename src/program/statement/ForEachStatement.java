@@ -1,11 +1,10 @@
 package program.statement;
 
 import program.expression.Expression;
-import jumpingalien.part3.programs.SourceLocation;
 import jumpingalien.part3.programs.IProgramFactory.Kind;
 import jumpingalien.part3.programs.IProgramFactory.SortDirection;
 
-public class ForEachStatement {
+public class ForEachStatement extends Statement{
 
 	/**
 	 * 
@@ -18,8 +17,7 @@ public class ForEachStatement {
 	 * @param sourceLocation
 	 */
 	public ForEachStatement(String variableName, Kind variableKind, Expression where, 
-			Expression sort, SortDirection sortDirection, Statement body, 
-			SourceLocation sourceLocation){
+			Expression sort, SortDirection sortDirection, Statement body){
 
 	}
 }

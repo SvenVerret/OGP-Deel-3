@@ -1,5 +1,15 @@
 package program.expression.getter;
 
-public class GetXExpression {
+import program.expression.Expression;
 
+public class GetXExpression extends Expression{
+
+	/**
+	 * 
+	 * @param expr
+	 * @param sourceLocation
+	 */
+	public GetXExpression(Expression expr){
+		
+	}
 }

@@ -1,5 +1,15 @@
 package program.expression.getter;
 
-public class GetHeightExpression {
+import program.expression.Expression;
 
+public class GetHeightExpression extends Expression{
+
+	/**
+	 * 
+	 * @param expr
+	 * @param sourceLocation
+	 */
+	public GetHeightExpression(Expression expr){
+		
+	}
 }

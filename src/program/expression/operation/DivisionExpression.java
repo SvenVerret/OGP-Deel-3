@@ -1,5 +1,17 @@
 package program.expression.operation;
 
-public class DivisionExpression {
+import program.expression.Expression;
 
+
+public class DivisionExpression extends Expression{
+
+	/**
+	 * 
+	 * @param left
+	 * @param right
+	 * @param sourceLocation
+	 */
+	public DivisionExpression(Expression left, Expression right){
+		
+	}
 }

@@ -1,5 +1,17 @@
 package program.expression.logic;
 
-public class NotEqualsExpression {
 
+import program.expression.Expression;
+
+public class NotEqualsExpression extends Expression{
+
+	/**
+	 * 
+	 * @param left
+	 * @param right
+	 * @param sourceLocation
+	 */
+	public NotEqualsExpression(Expression left, Expression right){
+		
+	}
 }

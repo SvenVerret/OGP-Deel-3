@@ -1,14 +1,13 @@
 package program.statement;
 
-import jumpingalien.part3.programs.SourceLocation;
 
-public class StopRunStatement {
+public class StopRunStatement extends Statement{
 
 	/**
 	 * 
 	 * @param sourceLocation
 	 */
-	public StopRunStatement(SourceLocation sourceLocation){
+	public StopRunStatement(){
 		
 	}
 }

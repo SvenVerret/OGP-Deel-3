@@ -1,15 +1,14 @@
 package program.statement;
 
 import program.expression.Expression;
-import jumpingalien.part3.programs.SourceLocation;
 
-public class PrintStatement {
+public class PrintStatement extends Statement{
 	/**
 	 * 
 	 * @param value
 	 * @param sourceLocation
 	 */
-	public PrintStatement(Expression value, SourceLocation sourceLocation){
+	public PrintStatement(Expression value){
 		
 	}
 }

@@ -1,9 +1,9 @@
 package program.statement;
 
-import jumpingalien.part3.programs.SourceLocation;
+
 import program.expression.Expression;
 
-public class WhileStatement {
+public class WhileStatement extends Statement{
 
 	/**
 	 * 
@@ -11,8 +11,7 @@ public class WhileStatement {
 	 * @param body
 	 * @param sourceLocation
 	 */
-	public WhileStatement(Expression condition, Statement body,
-			SourceLocation sourceLocation){
+	public WhileStatement(Expression condition, Statement body){
 		
 	}
 }

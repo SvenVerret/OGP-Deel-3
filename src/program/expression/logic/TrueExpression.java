@@ -1,5 +1,16 @@
 package program.expression.logic;
 
-public class TrueExpression {
+import program.expression.Expression;
 
+
+
+public class TrueExpression extends Expression{
+
+	/**
+	 * 
+	 * @param sourceLocation
+	 */
+	public TrueExpression(){
+		
+	}
 }

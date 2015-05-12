@@ -1,5 +1,16 @@
 package program.expression.inspector;
 
-public class IsPassableExpression {
 
+import program.expression.Expression;
+
+public class IsPassableExpression extends Expression{
+
+	/**
+	 * 
+	 * @param expr
+	 * @param sourceLocation
+	 */
+	public IsPassableExpression(Expression expr){
+		
+	}
 }

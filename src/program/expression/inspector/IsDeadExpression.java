@@ -1,5 +1,16 @@
 package program.expression.inspector;
 
-public class IsDeadExpression {
 
+import program.expression.Expression;
+
+public class IsDeadExpression extends Expression{
+
+	/**
+	 * 
+	 * @param expr
+	 * @param sourceLocation
+	 */
+	public IsDeadExpression(Expression expr){
+		
+	}
 }

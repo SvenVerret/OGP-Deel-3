@@ -1,5 +1,17 @@
 package program.expression.operation;
 
-public class SubtractionExpression {
 
+import program.expression.Expression;
+
+public class SubtractionExpression extends Expression{
+
+	/**
+	 * 
+	 * @param left
+	 * @param right
+	 * @param sourceLocation
+	 */
+	public SubtractionExpression(Expression left, Expression right){
+		
+	}
 }

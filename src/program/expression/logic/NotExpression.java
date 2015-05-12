@@ -1,5 +1,16 @@
 package program.expression.logic;
 
-public class NotExpression {
 
+import program.expression.Expression;
+
+public class NotExpression extends Expression{
+
+	/**
+	 * 
+	 * @param expr
+	 * @param sourceLocation
+	 */
+	public NotExpression(Expression expr){
+		
+	}
 }

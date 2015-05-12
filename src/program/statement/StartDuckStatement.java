@@ -1,14 +1,13 @@
 package program.statement;
 
-import jumpingalien.part3.programs.SourceLocation;
 
-public class StartDuckStatement {
+public class StartDuckStatement extends Statement{
 
 	/**
 	 * 
 	 * @param sourceLocation
 	 */
-	public StartDuckStatement(SourceLocation sourceLocation){
+	public StartDuckStatement(){
 		
 	}
 }

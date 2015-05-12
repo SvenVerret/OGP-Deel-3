@@ -1,5 +1,17 @@
 package program.expression.logic;
 
-public class GreaterThanExpression {
 
+import program.expression.Expression;
+
+public class GreaterThanExpression extends Expression{
+
+	/**
+	 * 
+	 * @param left
+	 * @param right
+	 * @param sourceLocation
+	 */
+	public GreaterThanExpression(Expression left, Expression right){
+		
+	}
 }

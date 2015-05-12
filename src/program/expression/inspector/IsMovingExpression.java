@@ -1,5 +1,17 @@
 package program.expression.inspector;
 
-public class IsMovingExpression {
 
+import program.expression.Expression;
+
+public class IsMovingExpression extends Expression{
+
+	/**
+	 * 
+	 * @param expr
+	 * @param direction
+	 * @param sourceLocation
+	 */
+	public IsMovingExpression(Expression expr, Expression direction){
+		
+	}
 }

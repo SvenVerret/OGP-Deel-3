@@ -1,5 +1,17 @@
 package program.expression.constant;
 
-public class DoubleConstant {
+import program.expression.Expression;
 
+
+
+public class DoubleConstant extends Expression{
+
+	/**
+	 * 
+	 * @param value
+	 * @param sourceLocation
+	 */
+	public DoubleConstant(double value){
+		
+	}
 }

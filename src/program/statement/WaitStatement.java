@@ -1,17 +1,16 @@
 package program.statement;
 
-import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
 
-public class WaitStatement {
+
+public class WaitStatement extends Statement{
 
 	/**
 	 * 
 	 * @param duration
 	 * @param sourceLocation
 	 */
-	public WaitStatement(Expression duration,
-			SourceLocation sourceLocation){
+	public WaitStatement(Expression duration){
 		
 	}
 }

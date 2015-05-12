@@ -1,5 +1,17 @@
 package program.expression.logic;
 
-public class LessThanExpression {
 
+import program.expression.Expression;
+
+public class LessThanExpression extends Expression{
+
+	/**
+	 * 
+	 * @param left
+	 * @param right
+	 * @param sourceLocation
+	 */
+	public LessThanExpression(Expression left, Expression right){
+		
+	}
 }
