@@ -3,7 +3,7 @@ package program.expression.inspector;
 
 import program.expression.Expression;
 
-public class IsSlimeExpression extends Expression{
+public class IsSlimeExpression extends Inspector{
 
 	/**
 	 * 

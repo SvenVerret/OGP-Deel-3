@@ -3,7 +3,7 @@ package program.expression.logic;
 
 import program.expression.Expression;
 
-public class NotEqualsExpression extends Expression{
+public class NotEqualsExpression extends Logic{
 
 	/**
 	 * 

@@ -1,10 +1,8 @@
 package program.expression.constant;
 
-import program.expression.Expression;
 
 
-
-public class DoubleConstant extends Expression{
+public class DoubleConstant extends Constant{
 
 	/**
 	 * 

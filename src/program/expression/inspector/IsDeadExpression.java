@@ -3,7 +3,7 @@ package program.expression.inspector;
 
 import program.expression.Expression;
 
-public class IsDeadExpression extends Expression{
+public class IsDeadExpression extends Inspector{
 
 	/**
 	 * 

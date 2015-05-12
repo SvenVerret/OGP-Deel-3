@@ -3,7 +3,7 @@ package program.expression.logic;
 
 import program.expression.Expression;
 
-public class GreaterThanOrEqualExpression extends Expression{
+public class GreaterThanOrEqualExpression extends Logic{
 
 	/**
 	 * 

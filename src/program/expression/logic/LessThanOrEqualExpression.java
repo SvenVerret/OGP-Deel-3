@@ -2,7 +2,7 @@ package program.expression.logic;
 
 import program.expression.Expression;
 
-public class LessThanOrEqualExpression extends Expression{
+public class LessThanOrEqualExpression extends Logic{
 
 	/**
 	 * 

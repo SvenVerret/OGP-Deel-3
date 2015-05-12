@@ -3,7 +3,7 @@ package program.expression.inspector;
 
 import program.expression.Expression;
 
-public class IsMagmaExpression extends Expression{
+public class IsMagmaExpression extends Inspector{
 
 	/**
 	 * 

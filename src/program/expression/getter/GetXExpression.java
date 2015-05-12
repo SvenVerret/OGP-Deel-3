@@ -2,7 +2,7 @@ package program.expression.getter;
 
 import program.expression.Expression;
 
-public class GetXExpression extends Expression{
+public class GetXExpression extends Getter{
 
 	/**
 	 * 

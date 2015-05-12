@@ -3,7 +3,7 @@ package program.expression.operation;
 import program.expression.Expression;
 
 
-public class DivisionExpression extends Expression{
+public class DivisionExpression extends Operation{
 
 	/**
 	 * 

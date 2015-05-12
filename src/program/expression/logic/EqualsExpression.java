@@ -2,7 +2,7 @@ package program.expression.logic;
 
 import program.expression.Expression;
 
-public class EqualsExpression extends Expression{
+public class EqualsExpression extends Logic{
 
 	/**
 	 * 

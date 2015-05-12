@@ -4,7 +4,7 @@ import program.expression.Expression;
 
 
 
-public class IsAirExpression extends Expression{
+public class IsAirExpression extends Inspector{
 
 	/**
 	 * 

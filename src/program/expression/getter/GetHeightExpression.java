@@ -2,7 +2,8 @@ package program.expression.getter;
 
 import program.expression.Expression;
 
-public class GetHeightExpression extends Expression{
+
+public class GetHeightExpression extends Getter{
 
 	/**
 	 * 

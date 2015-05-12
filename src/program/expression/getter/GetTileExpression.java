@@ -2,7 +2,7 @@ package program.expression.getter;
 
 import program.expression.Expression;
 
-public class GetTileExpression extends Expression{
+public class GetTileExpression extends Getter{
 
 	/**
 	 * 

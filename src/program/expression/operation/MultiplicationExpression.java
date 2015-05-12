@@ -3,7 +3,7 @@ package program.expression.operation;
 
 import program.expression.Expression;
 
-public class MultiplicationExpression extends Expression{
+public class MultiplicationExpression extends Operation{
 
 	/**
 	 * 

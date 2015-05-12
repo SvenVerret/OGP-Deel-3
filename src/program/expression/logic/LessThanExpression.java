@@ -3,7 +3,7 @@ package program.expression.logic;
 
 import program.expression.Expression;
 
-public class LessThanExpression extends Expression{
+public class LessThanExpression extends Logic{
 
 	/**
 	 * 

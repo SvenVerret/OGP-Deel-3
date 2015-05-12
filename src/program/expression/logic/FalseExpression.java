@@ -4,7 +4,7 @@ import program.expression.Expression;
 
 
 
-public class FalseExpression extends Expression{
+public class FalseExpression extends Logic{
 
 	/**
 	 * 

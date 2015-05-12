@@ -3,7 +3,7 @@ package program.expression.logic;
 import program.expression.Expression;
 
 
-public class OrExpression extends Expression{
+public class OrExpression extends Logic{
 
 	/**
 	 * 

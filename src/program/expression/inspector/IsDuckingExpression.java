@@ -3,7 +3,7 @@ package program.expression.inspector;
 
 import program.expression.Expression;
 
-public class IsDuckingExpression extends Expression{
+public class IsDuckingExpression extends Inspector{
 
 	/**
 	 * 

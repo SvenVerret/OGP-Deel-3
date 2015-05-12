@@ -3,7 +3,7 @@ package program.expression.inspector;
 
 import program.expression.Expression;
 
-public class IsMovingExpression extends Expression{
+public class IsMovingExpression extends Inspector{
 
 	/**
 	 * 

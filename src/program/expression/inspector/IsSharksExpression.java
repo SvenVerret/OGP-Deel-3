@@ -3,7 +3,7 @@ package program.expression.inspector;
 
 import program.expression.Expression;
 
-public class IsSharksExpression extends Expression{
+public class IsSharksExpression extends Inspector{
 
 	/**
 	 * 

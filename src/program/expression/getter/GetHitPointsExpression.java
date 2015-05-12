@@ -2,7 +2,7 @@ package program.expression.getter;
 
 import program.expression.Expression;
 
-public class GetHitPointsExpression extends Expression{
+public class GetHitPointsExpression extends Getter{
 
 	/**
 	 * 
