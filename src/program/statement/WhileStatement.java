@@ -14,6 +14,6 @@ public class WhileStatement extends Statement{
 	 */
 	public WhileStatement(Expression condition, Statement body, 
 			SourceLocation sourceLocation){
-		
+		super(sourceLocation);
 	}
 }
