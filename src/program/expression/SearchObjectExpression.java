@@ -11,6 +11,6 @@ public class SearchObjectExpression extends Expression{
 	 *  
 	 */
 	public SearchObjectExpression(Expression direction, SourceLocation sourceLocation){
-		
+		super(sourceLocation);
 	}
 }

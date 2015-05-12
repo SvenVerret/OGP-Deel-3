@@ -12,6 +12,7 @@ public class EqualsExpression extends Logic{
 	 *  
 	 */
 	public EqualsExpression(Expression left, Expression right, SourceLocation sourceLocation){
-		
+		super(left, right, sourceLocation);
 	}
+	
 }

@@ -5,13 +5,13 @@ import program.expression.Expression;
 
 
 
-public class TrueExpression extends Logic{
+public class TrueExpression extends Expression{
 
 	/**
 	 * 
 	 *  
 	 */
 	public TrueExpression(SourceLocation sourceLocation){
-		
+		super(sourceLocation);
 	}
 }

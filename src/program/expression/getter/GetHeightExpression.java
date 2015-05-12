@@ -4,7 +4,7 @@ import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
 
 
-public class GetHeightExpression extends Getter{
+public class GetHeightExpression extends SingleExpressionGetter{
 
 	/**
 	 * 
@@ -12,6 +12,6 @@ public class GetHeightExpression extends Getter{
 	 *  
 	 */
 	public GetHeightExpression(Expression expr, SourceLocation sourceLocation){
-		
+		super(expr, sourceLocation);
 	}
 }

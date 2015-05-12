@@ -14,6 +14,6 @@ public class LessThanExpression extends Logic{
 	 */
 	public LessThanExpression(Expression left, Expression right, 
 			SourceLocation sourceLocation){
-		
+		super(left, right, sourceLocation);
 	}
 }

@@ -13,6 +13,6 @@ public class IsAirExpression extends Inspector{
 	 *  
 	 */
 	public IsAirExpression(Expression expr, SourceLocation sourceLocation){
-		
+		super(expr, sourceLocation);
 	}
 }

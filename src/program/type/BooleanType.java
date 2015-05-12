@@ -13,8 +13,7 @@ public class BooleanType extends Type {
 
 	@Override
 	public boolean equals(Type type) {
-		// TODO Auto-generated method stub
-		return false;
+		if (
 	}
 
 	@Override

@@ -4,7 +4,7 @@ package program.expression.operation;
 import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
 
-public class SubtractionExpression extends Operation{
+public class SubtractionExpression extends DoubleExpressionOperation{
 
 	/**
 	 * 
@@ -14,6 +14,6 @@ public class SubtractionExpression extends Operation{
 	 */
 	public SubtractionExpression(Expression left, Expression right, 
 			SourceLocation sourceLocation){
-		
+		super(left, right, sourceLocation);
 	}
 }

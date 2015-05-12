@@ -4,7 +4,7 @@ package program.expression.operation;
 import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
 
-public class SqrtExpression extends Operation{
+public class SqrtExpression extends SingleExpressionOperation{
 
 	/**
 	 * 
@@ -12,6 +12,7 @@ public class SqrtExpression extends Operation{
 	 *  
 	 */
 	public SqrtExpression(Expression expr, SourceLocation sourceLocation){
+		super(expr, sourceLocation);
 		
 	}
 }

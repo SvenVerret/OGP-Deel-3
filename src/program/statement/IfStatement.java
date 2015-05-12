@@ -15,7 +15,7 @@ public class IfStatement extends Statement{
 	 */
 	public IfStatement(Expression condition, Statement ifBody, Statement elseBody, 
 			SourceLocation sourceLocation){
-		
+		super(sourceLocation);
 	}
 
 

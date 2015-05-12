@@ -12,6 +12,6 @@ public class IsWaterExpression extends Inspector{
 	 *  
 	 */
 	public IsWaterExpression(Expression expr, SourceLocation sourceLocation){
-		
+		super(expr, sourceLocation);
 	}
 }

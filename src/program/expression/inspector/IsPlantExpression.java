@@ -12,6 +12,6 @@ public class IsPlantExpression extends Inspector{
 	 *  
 	 */
 	public IsPlantExpression(Expression expr, SourceLocation sourceLocation){
-		
+		super(expr, sourceLocation);
 	}
 }

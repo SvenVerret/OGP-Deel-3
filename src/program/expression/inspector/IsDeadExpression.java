@@ -12,6 +12,6 @@ public class IsDeadExpression extends Inspector{
 	 *  
 	 */
 	public IsDeadExpression(Expression expr, SourceLocation sourceLocation){
-		
+		super(expr, sourceLocation);
 	}
 }

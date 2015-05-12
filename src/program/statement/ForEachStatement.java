@@ -20,6 +20,6 @@ public class ForEachStatement extends Statement{
 	public ForEachStatement(String variableName, Kind variableKind, Expression where, 
 			Expression sort, SortDirection sortDirection, Statement body, 
 			SourceLocation sourceLocation){
-
+		super(sourceLocation);
 	}
 }

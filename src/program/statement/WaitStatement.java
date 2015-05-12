@@ -12,6 +12,6 @@ public class WaitStatement extends Statement{
 	 *  
 	 */
 	public WaitStatement(Expression duration, SourceLocation sourceLocation){
-		
+		super(sourceLocation);
 	}
 }

@@ -12,6 +12,6 @@ public class IsJumpingExpression extends Inspector{
 	 *  
 	 */
 	public IsJumpingExpression(Expression expr, SourceLocation sourceLocation) {
-		
+		super(expr, sourceLocation);
 	}
 }

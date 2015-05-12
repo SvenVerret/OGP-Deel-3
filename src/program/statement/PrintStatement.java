@@ -10,6 +10,6 @@ public class PrintStatement extends Statement{
 	 *  
 	 */
 	public PrintStatement(Expression value, SourceLocation sourceLocation){
-		
+		super(sourceLocation);
 	}
 }

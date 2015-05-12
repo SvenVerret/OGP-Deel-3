@@ -12,6 +12,6 @@ public class SequenceStatement extends Statement{
 	 *  
 	 */
 	public SequenceStatement(List<Statement> statements, SourceLocation sourceLocation){
-		
+		super(sourceLocation);
 	}
 }

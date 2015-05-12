@@ -3,7 +3,7 @@ package program.expression.getter;
 import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
 
-public class GetXExpression extends Getter{
+public class GetXExpression extends SingleExpressionGetter{
 
 	/**
 	 * 
@@ -11,6 +11,6 @@ public class GetXExpression extends Getter{
 	 *  
 	 */
 	public GetXExpression(Expression expr, SourceLocation sourceLocation){
-		
+		super(expr, sourceLocation);
 	}
 }

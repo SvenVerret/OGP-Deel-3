@@ -12,6 +12,6 @@ public class IsPassableExpression extends Inspector{
 	 *  
 	 */
 	public IsPassableExpression(Expression expr, SourceLocation sourceLocation){
-		
+		super(expr, sourceLocation);
 	}
 }

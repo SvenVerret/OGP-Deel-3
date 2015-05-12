@@ -14,6 +14,6 @@ public class OrExpression extends Logic{
 	 */
 	public OrExpression(Expression left, Expression right, 
 			SourceLocation sourceLocation){
-		
+		super(left, right, sourceLocation);
 	}
 }

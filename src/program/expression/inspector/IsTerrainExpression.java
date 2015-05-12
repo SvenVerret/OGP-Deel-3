@@ -12,6 +12,6 @@ public class IsTerrainExpression extends Inspector{
 	 *  
 	 */
 	public IsTerrainExpression(Expression expr, SourceLocation sourceLocation){
-		
+		super(expr, sourceLocation);
 	}
 }

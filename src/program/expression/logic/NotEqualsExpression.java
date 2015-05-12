@@ -14,6 +14,6 @@ public class NotEqualsExpression extends Logic{
 	 */
 	public NotEqualsExpression(Expression left, Expression right, 
 			SourceLocation sourceLocation){
-		
+		super(left, right, sourceLocation);
 	}
 }

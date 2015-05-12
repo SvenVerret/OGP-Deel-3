@@ -12,6 +12,6 @@ public class IsSharksExpression extends Inspector{
 	 *  
 	 */
 	public IsSharksExpression(Expression expr, SourceLocation sourceLocation){
-		
+		super(expr, sourceLocation);
 	}
 }

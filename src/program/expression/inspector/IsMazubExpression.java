@@ -12,6 +12,6 @@ public class IsMazubExpression extends Inspector{
 	 *  
 	 */
 	public IsMazubExpression(Expression expr, SourceLocation sourceLocation){
-		
+		super(expr, sourceLocation);
 	}
 }

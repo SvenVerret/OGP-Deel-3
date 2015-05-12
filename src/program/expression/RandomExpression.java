@@ -11,6 +11,6 @@ public class RandomExpression extends Expression{
 	 * @param sourceLocation
 	 */
 	public RandomExpression(Expression maxValue, SourceLocation sourceLocation){
-		
+		super(sourceLocation);
 	}
 }

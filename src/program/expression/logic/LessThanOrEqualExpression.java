@@ -13,6 +13,6 @@ public class LessThanOrEqualExpression extends Logic{
 	 */
 	public LessThanOrEqualExpression(Expression left, Expression right, 
 			SourceLocation sourceLocation){
-		
+		super(left, right, sourceLocation);
 	}
 }

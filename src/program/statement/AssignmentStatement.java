@@ -14,6 +14,6 @@ public class AssignmentStatement extends Statement{
 	 */
 	public AssignmentStatement(String variableName, Type variableType, Expression value, 
 			SourceLocation sourceLocation){
-		
+		super(sourceLocation);
 	}
 }

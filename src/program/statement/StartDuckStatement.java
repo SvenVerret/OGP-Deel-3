@@ -3,13 +3,13 @@ package program.statement;
 import jumpingalien.part3.programs.SourceLocation;
 
 
-public class StartDuckStatement extends Statement{
+public class StartDuckStatement extends MoveStatement{
 
 	/**
 	 * 
 	 *  
 	 */
 	public StartDuckStatement(SourceLocation sourceLocation){
-		
+		super(sourceLocation);
 	}
 }

@@ -12,6 +12,6 @@ public class IsSlimeExpression extends Inspector{
 	 *  
 	 */
 	public IsSlimeExpression(Expression expr, SourceLocation sourceLocation){
-		
+		super(expr, sourceLocation);
 	}
 }

@@ -14,6 +14,16 @@ public class IsMovingExpression extends Inspector{
 	 */
 	public IsMovingExpression(Expression expr, Expression direction, 
 			SourceLocation sourceLocation){
-		
+		super(expr, sourceLocation);
+		dir = direction;
 	}
+	
+	
+	
+	
+	public Expression getDirection() {
+		return dir;
+	}
+
+	private final Expression dir;
 }

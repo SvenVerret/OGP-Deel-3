@@ -14,6 +14,6 @@ public class GreaterThanOrEqualExpression extends Logic{
 	 */
 	public GreaterThanOrEqualExpression(Expression left, Expression right
 			, SourceLocation sourceLocation){
-		
+		super(left, right, sourceLocation);
 	}
 }

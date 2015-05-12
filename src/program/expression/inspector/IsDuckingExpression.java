@@ -11,7 +11,7 @@ public class IsDuckingExpression extends Inspector{
 	 * @param expr
 	 *  
 	 */
-	public IsDuckingExpression(Expression exprn, SourceLocation sourceLocation) {
-		
+	public IsDuckingExpression(Expression expr, SourceLocation sourceLocation) {
+		super(expr, sourceLocation);
 	}
 }

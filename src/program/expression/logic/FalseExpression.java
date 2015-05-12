@@ -5,13 +5,13 @@ import program.expression.Expression;
 
 
 
-public class FalseExpression extends Logic{
+public class FalseExpression extends Expression{
 
 	/**
 	 * 
-	 *  
+	 * @param sourceLocation
 	 */
 	public FalseExpression(SourceLocation sourceLocation){
-		
+		super(sourceLocation);
 	}
 }

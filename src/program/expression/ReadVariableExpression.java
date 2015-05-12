@@ -13,6 +13,6 @@ public class ReadVariableExpression extends Expression{
 	 */
 	public ReadVariableExpression(String variableName, Type variableType, 
 			SourceLocation sourceLocation){
-		
+		super(sourceLocation);
 	}
 }

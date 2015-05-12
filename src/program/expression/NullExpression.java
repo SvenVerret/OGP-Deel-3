@@ -10,6 +10,6 @@ public class NullExpression extends Expression {
 	 * @param sourceLocation
 	 */
 	public NullExpression(SourceLocation sourceLocation){
-		
+		super(sourceLocation);
 	}
 }

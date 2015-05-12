@@ -12,6 +12,6 @@ public class IsMagmaExpression extends Inspector{
 	 *  
 	 */
 	public IsMagmaExpression(Expression expr, SourceLocation sourceLocation){
-		
+		super(expr, sourceLocation);
 	}
 }
