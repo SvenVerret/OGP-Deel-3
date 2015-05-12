@@ -40,6 +40,7 @@ import jumpingalien.util.Sprite;
 import ogp.framework.messages.Message;
 import ogp.framework.messages.MessageType;
 import ogp.framework.util.GUIUtils;
+import program.Program;
 
 public class JumpingAlienGamePart3 extends JumpingAlienGame {
 
