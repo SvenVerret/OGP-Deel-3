@@ -8,7 +8,7 @@ public class IsDeadExpression extends Expression{
 	/**
 	 * 
 	 * @param expr
-	 * @param sourceLocation
+	 *  
 	 */
 	public IsDeadExpression(Expression expr){
 		

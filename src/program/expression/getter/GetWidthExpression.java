@@ -7,7 +7,7 @@ public class GetWidthExpression extends Expression{
 	/**
 	 * 
 	 * @param expr
-	 * @param sourceLocation
+	 *  
 	 */
 	public GetWidthExpression(Expression expr){
 		

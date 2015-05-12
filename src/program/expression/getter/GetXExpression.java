@@ -7,7 +7,7 @@ public class GetXExpression extends Expression{
 	/**
 	 * 
 	 * @param expr
-	 * @param sourceLocation
+	 *  
 	 */
 	public GetXExpression(Expression expr){
 		

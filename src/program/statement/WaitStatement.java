@@ -8,7 +8,7 @@ public class WaitStatement extends Statement{
 	/**
 	 * 
 	 * @param duration
-	 * @param sourceLocation
+	 *  
 	 */
 	public WaitStatement(Expression duration){
 		

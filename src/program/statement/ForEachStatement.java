@@ -14,7 +14,7 @@ public class ForEachStatement extends Statement{
 	 * @param sort
 	 * @param sortDirection
 	 * @param body
-	 * @param sourceLocation
+	 *  
 	 */
 	public ForEachStatement(String variableName, Kind variableKind, Expression where, 
 			Expression sort, SortDirection sortDirection, Statement body){

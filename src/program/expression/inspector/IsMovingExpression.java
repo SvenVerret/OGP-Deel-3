@@ -9,7 +9,7 @@ public class IsMovingExpression extends Expression{
 	 * 
 	 * @param expr
 	 * @param direction
-	 * @param sourceLocation
+	 *  
 	 */
 	public IsMovingExpression(Expression expr, Expression direction){
 		

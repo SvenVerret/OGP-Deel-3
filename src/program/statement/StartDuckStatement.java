@@ -5,7 +5,7 @@ public class StartDuckStatement extends Statement{
 
 	/**
 	 * 
-	 * @param sourceLocation
+	 *  
 	 */
 	public StartDuckStatement(){
 		

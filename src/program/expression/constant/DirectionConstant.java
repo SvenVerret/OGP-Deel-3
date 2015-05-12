@@ -9,7 +9,7 @@ public class DirectionConstant extends Expression{
 	/**
 	 * 
 	 * @param value
-	 * @param sourceLocation
+	 *  
 	 */
 	public DirectionConstant(Direction value){
 		
