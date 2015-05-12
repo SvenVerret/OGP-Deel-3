@@ -1,5 +1,13 @@
 package program.statement;
 
-public class SkipStatement {
+import jumpingalien.part3.programs.SourceLocation;
 
+public class SkipStatement {
+	/**
+	 * 
+	 * @param sourceLocation
+	 */
+	public SkipStatement(SourceLocation sourceLocation){
+		
+	}
 }

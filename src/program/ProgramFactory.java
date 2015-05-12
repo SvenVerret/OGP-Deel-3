@@ -1,12 +1,16 @@
-package jumpingalien.model.program;
+package program;
 
 import java.util.List;
 import java.util.Map;
 
+import program.expression.Expression;
+import program.statement.Statement;
+import program.type.Type;
+import jumpingalien.part3.programs.IProgramFactory;
 import jumpingalien.part3.programs.SourceLocation;
 
-public class ProgramFactory implements jumpingalien.part3.programs.
-IProgramFactory<Expression, Statement, Type, Program> {
+
+public class ProgramFactory implements IProgramFactory<Expression, Statement, Type, Program> {
 
 	@Override
 	public Expression createReadVariable(String variableName,
@@ -396,8 +400,6 @@ IProgramFactory<Expression, Statement, Type, Program> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 
 	@Override
 	public Type getDoubleType() {

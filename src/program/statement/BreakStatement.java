@@ -1,5 +1,13 @@
 package program.statement;
 
-public class BreakStatement {
+import jumpingalien.part3.programs.SourceLocation;
 
+public class BreakStatement {
+	/**
+	 * 
+	 * @param sourcelocation
+	 */
+	public BreakStatement(SourceLocation sourcelocation){
+		
+	}
 }
