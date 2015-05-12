@@ -2,8 +2,8 @@ package jumpingalien.part3.facade;
 
 import java.util.Collection;
 
+import program.Program;
 import jumpingalien.model.*;
-import jumpingalien.model.program.Program;
 import jumpingalien.part3.programs.ParseOutcome;
 import jumpingalien.util.ModelException;
 import jumpingalien.util.Sprite;
