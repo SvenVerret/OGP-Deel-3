@@ -1,5 +1,12 @@
 package program.statement;
 
-public class BreakStatement {
 
+public class BreakStatement extends Statement{
+	/**
+	 * 
+	 *  
+	 */
+	public BreakStatement(){
+		
+	}
 }

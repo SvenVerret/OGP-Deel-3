@@ -1,5 +1,15 @@
 package program.expression.getter;
 
-public class GetHitPointsExpression {
+import program.expression.Expression;
 
+public class GetHitPointsExpression extends Getter{
+
+	/**
+	 * 
+	 * @param expr
+	 *  
+	 */
+	public GetHitPointsExpression(Expression expr){
+		
+	}
 }

@@ -1,5 +1,13 @@
 package program.statement;
 
-public class StartJumpStatement {
 
+public class StartJumpStatement extends Statement{
+
+	/**
+	 * 
+	 *  
+	 */
+	public StartJumpStatement(){
+		
+	}
 }

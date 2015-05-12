@@ -1,5 +1,13 @@
 package program.statement;
 
-public class SkipStatement {
 
+
+public class SkipStatement extends Statement{
+	/**
+	 * 
+	 *  
+	 */
+	public SkipStatement(){
+		
+	}
 }

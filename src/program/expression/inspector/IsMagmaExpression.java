@@ -1,5 +1,16 @@
 package program.expression.inspector;
 
-public class IsMagmaExpression {
 
+import program.expression.Expression;
+
+public class IsMagmaExpression extends Inspector{
+
+	/**
+	 * 
+	 * @param expr
+	 *  
+	 */
+	public IsMagmaExpression(Expression expr){
+		
+	}
 }

@@ -25,7 +25,6 @@ import jumpingalien.model.School;
 import jumpingalien.model.Shark;
 import jumpingalien.model.Slime;
 import jumpingalien.model.World;
-import jumpingalien.model.program.Program;
 import jumpingalien.part2.internal.AlienInfoProvider2;
 import jumpingalien.part2.internal.ObjectInfoProvider;
 import jumpingalien.part2.internal.Part2WorldInfoProvider;
@@ -41,6 +40,7 @@ import jumpingalien.util.Sprite;
 import ogp.framework.messages.Message;
 import ogp.framework.messages.MessageType;
 import ogp.framework.util.GUIUtils;
+import program.Program;
 
 public class JumpingAlienGamePart3 extends JumpingAlienGame {
 

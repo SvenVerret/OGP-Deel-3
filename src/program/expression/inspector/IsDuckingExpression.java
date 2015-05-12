@@ -1,5 +1,16 @@
 package program.expression.inspector;
 
-public class IsDuckingExpression {
 
+import program.expression.Expression;
+
+public class IsDuckingExpression extends Inspector{
+
+	/**
+	 * 
+	 * @param expr
+	 *  
+	 */
+	public IsDuckingExpression(Expression exprn) {
+		
+	}
 }

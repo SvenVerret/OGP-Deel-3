@@ -1,5 +1,16 @@
 package program.expression.inspector;
 
-public class IsSlimeExpression {
 
+import program.expression.Expression;
+
+public class IsSlimeExpression extends Inspector{
+
+	/**
+	 * 
+	 * @param expr
+	 *  
+	 */
+	public IsSlimeExpression(Expression expr){
+		
+	}
 }

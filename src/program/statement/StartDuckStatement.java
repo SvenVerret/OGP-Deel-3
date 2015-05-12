@@ -1,5 +1,13 @@
 package program.statement;
 
-public class StartDuckStatement {
 
+public class StartDuckStatement extends Statement{
+
+	/**
+	 * 
+	 *  
+	 */
+	public StartDuckStatement(){
+		
+	}
 }

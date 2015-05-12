@@ -1,5 +1,16 @@
 package program.expression.inspector;
 
-public class IsPlantExpression {
 
+import program.expression.Expression;
+
+public class IsPlantExpression extends Inspector{
+
+	/**
+	 * 
+	 * @param expr
+	 *  
+	 */
+	public IsPlantExpression(Expression expr){
+		
+	}
 }

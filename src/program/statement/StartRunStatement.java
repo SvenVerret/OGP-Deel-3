@@ -1,5 +1,13 @@
 package program.statement;
 
-public class StartRunStatement {
 
+public class StartRunStatement extends Statement{
+
+	/**
+	 * 
+	 *  
+	 */
+	public StartRunStatement(){
+		
+	}
 }

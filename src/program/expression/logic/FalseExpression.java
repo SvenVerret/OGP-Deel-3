@@ -1,5 +1,16 @@
 package program.expression.logic;
 
-public class FalseExpression {
+import program.expression.Expression;
 
+
+
+public class FalseExpression extends Logic{
+
+	/**
+	 * 
+	 *  
+	 */
+	public FalseExpression(){
+		
+	}
 }

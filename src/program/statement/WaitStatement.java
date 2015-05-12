@@ -1,5 +1,16 @@
 package program.statement;
 
-public class WaitStatement {
+import program.expression.Expression;
 
+
+public class WaitStatement extends Statement{
+
+	/**
+	 * 
+	 * @param duration
+	 *  
+	 */
+	public WaitStatement(Expression duration){
+		
+	}
 }

@@ -1,5 +1,16 @@
 package program.expression.operation;
 
-public class SqrtExpression {
 
+import program.expression.Expression;
+
+public class SqrtExpression extends Operation{
+
+	/**
+	 * 
+	 * @param expr
+	 *  
+	 */
+	public SqrtExpression(Expression expr){
+		
+	}
 }

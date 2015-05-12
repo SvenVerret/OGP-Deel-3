@@ -1,5 +1,13 @@
 package program.statement;
 
-public class StopRunStatement {
 
+public class StopRunStatement extends Statement{
+
+	/**
+	 * 
+	 *  
+	 */
+	public StopRunStatement(){
+		
+	}
 }

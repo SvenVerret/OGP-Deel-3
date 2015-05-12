@@ -1,5 +1,16 @@
 package program.expression.inspector;
 
-public class IsWaterExpression {
 
+import program.expression.Expression;
+
+public class IsWaterExpression extends Inspector{
+
+	/**
+	 * 
+	 * @param expr
+	 *  
+	 */
+	public IsWaterExpression(Expression expr){
+		
+	}
 }

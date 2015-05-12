@@ -1,5 +1,16 @@
 package program.expression.inspector;
 
-public class IsMazubExpression {
+import program.expression.Expression;
 
+
+public class IsMazubExpression extends Inspector{
+
+	/**
+	 * 
+	 * @param expr
+	 *  
+	 */
+	public IsMazubExpression(Expression expr){
+		
+	}
 }

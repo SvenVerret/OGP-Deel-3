@@ -1,5 +1,13 @@
 package program.expression;
 
-public class SelfExpression {
 
+public class SelfExpression extends Expression{
+
+	/**
+	 * 
+	 *  
+	 */
+	public SelfExpression(){
+		
+	}
 }
