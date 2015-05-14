@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import program.expression.Expression;
+import program.statement.SkipStatement;
 import program.statement.Statement;
 import program.type.Type;
 import jumpingalien.part3.programs.IProgramFactory;
@@ -22,8 +23,7 @@ public class ProgramFactory implements IProgramFactory<Expression, Statement, Ty
 	@Override
 	public Expression createDoubleConstant(double value,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		Expression constant = new DoubleConstant
 	}
 
 	@Override
@@ -390,8 +390,9 @@ public class ProgramFactory implements IProgramFactory<Expression, Statement, Ty
 
 	@Override
 	public Statement createSkip(SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Skip");
+		SkipStatement result = new SkipStatement(sourceLocation);
+		return result;
 	}
 
 	@Override

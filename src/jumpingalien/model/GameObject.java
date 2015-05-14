@@ -1,6 +1,7 @@
 package jumpingalien.model;
 import java.util.HashSet;
 
+import program.Program;
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
 import jumpingalien.util.Sprite;
@@ -26,10 +27,31 @@ public abstract class GameObject {
 	 * @effect	...
 	 * 			| initializeHP();
 	 */
-	public GameObject() {
-
+	public GameObject(Program program) {
+		if (program != null){
+			this.Program = program;
+			this.ProgramLoaded = true;
+		} else{
+			this.Program = null;
+			this.ProgramLoaded = false;
+		}
 		initializeHP();
 	}
+	
+	public GameObject(){
+		this(null);
+	}
+	
+	public boolean hasProgramLoaded() {
+		return ProgramLoaded;
+	}
+	
+	public Program getProgram() {
+		return Program;
+	}
+
+	private final boolean ProgramLoaded;
+	private final Program Program;
 
 
 	/**
@@ -44,7 +66,6 @@ public abstract class GameObject {
 	protected boolean isTerminated() {
 		return this.isTerminated;
 	}
-
 
 
 	/**
@@ -219,7 +240,9 @@ public abstract class GameObject {
 	 * @throws 	IllegalArgumentException
 	 * 			...
 	 */
-	protected abstract void advanceTime(double dt) throws IllegalArgumentException;
+	protected abstract void advanceTimeWithoutProgram(double dt) throws IllegalArgumentException;
+	
+	protected abstract void advanceTimeWithProgram(double dt) throws IllegalArgumentException;
 
 	/**
 	 * This method updates the acceleration in the Y direction
@@ -1152,6 +1175,61 @@ public abstract class GameObject {
 	public double StartTime;
 	public double TimeTimed;
 	public double TimeDying;
+	
+	
+	
+	
+	/////////////////////////////////
+	
+	
+	public abstract double getRightVelocity();
+	public abstract double getLeftVelocity();
+	public abstract double getJumpVelocity();
+	public abstract double getRightAcc();
+	public abstract double getLeftAcc();
+	
+	
+	
+	public void startMoveProgram(boolean direction){
+		
+		if(direction){
+			this.setVelocity(new Vector(getRightVelocity(),getVelocity().getElemy()));
+			this.setAccCurr(new Vector(getRightAcc(),getAccCurr().getElemy()));
+			this.setOrientation('R');
+		}
+		else{
+			this.setVelocity(new Vector(getLeftVelocity(),getVelocity().getElemy()));
+			this.setAccCurr(new Vector(getLeftAcc(),getAccCurr().getElemy()));
+			this.setOrientation('L');
+		}
+	}
+	public void stopMoveProgram(){
+		this.setVelocity(new Vector(0,getVelocity().getElemy()));
+		this.setAccCurr(new Vector(0,getAccCurr().getElemy()));
+		this.setOrientation('X');
+	}
+	public void startJumpProgram(){
+		this.setVelocity(new Vector(getVelocity().getElemx(),getJumpVelocity()));
+		this.setAccCurr(new Vector(getAccCurr().getElemx(),ACCY));
+	}
+	public void stopJumpProgram(){
+		this.setVelocity(new Vector(getVelocity().getElemx(),0));
+		this.setAccCurr(new Vector(getAccCurr().getElemx(),0));
+	}
+	
+	public void startDuckProgram(){
+	}
+	public void stopDuckProgram(){
+	}
+	
+	private static final double ACCY = -10.0;
+	
+	
+	
+	
+	
+	
+	
 
 
 

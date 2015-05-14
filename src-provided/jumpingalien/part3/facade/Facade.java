@@ -1,12 +1,17 @@
 package jumpingalien.part3.facade;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 import program.Program;
+import program.ProgramFactory;
 import jumpingalien.model.*;
 import jumpingalien.part3.programs.ParseOutcome;
 import jumpingalien.util.ModelException;
 import jumpingalien.util.Sprite;
+import jumpingalien.part3.programs.ProgramParser;
 
 public class Facade implements IFacadePart3{
 
@@ -112,7 +117,7 @@ public class Facade implements IFacadePart3{
 	@Override
 	public void advanceTime(Mazub alien, double dt) {
 		try{
-			alien.advanceTime(dt);
+			alien.advanceTimeWithoutProgram(dt);
 		}catch(IllegalArgumentException e){
 			throw new ModelException("Wrong dT");
 		}
@@ -331,19 +336,19 @@ public class Facade implements IFacadePart3{
 	public School getSchool(Slime slime) {
 		return slime.getSchool();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// PART 3
 
 	@Override
@@ -381,8 +386,17 @@ public class Facade implements IFacadePart3{
 
 	@Override
 	public ParseOutcome<?> parse(String text) {
-		// TODO Auto-generated method stub
-		return null;
+		ProgramFactory factory = new ProgramFactory();
+		ProgramParser<?,?,?,?> parser = new ProgramParser(factory);
+
+		Optional<?> parse_outcome = parser.parseString(text);
+		if(parse_outcome == Optional.empty()){
+			System.out.println("Parse Failure");
+			return ParseOutcome.failure(parser.getErrors());
+		}else{
+			System.out.println("Parse Succes");
+			return ParseOutcome.success((Program) parse_outcome.get());
+		}
 	}
 
 	@Override
@@ -425,7 +439,7 @@ public class Facade implements IFacadePart3{
 		Sprite sprite = alien.getCurrentSprite();
 		return sprite;
 	}
-	
+
 	@Override
 	public int getNbHitPoints(Buzam alien) {
 		return alien.getHP();
