@@ -10,12 +10,12 @@ import org.junit.Test;
 
 public class PartialFacadeTest {
 
-	@Test
-	public void testParseSimplestProgram() {
-		IFacadePart3 facade = new Facade();
-		ParseOutcome<?> outcome = facade.parse("skip;");
-		assertTrue(outcome.isSuccess());
-	}
+//	@Test
+//	public void testParseSimplestProgram() {
+//		IFacadePart3 facade = new Facade();
+//		ParseOutcome<?> outcome = facade.parse("skip;");
+//		assertTrue(outcome.isSuccess());
+//	}
 	
 	@Test
 	public void testParseSimplestProgram2() {

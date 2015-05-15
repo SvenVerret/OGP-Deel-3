@@ -7,7 +7,9 @@ import program.Program;
 import program.ProgramFactory;
 import program.expression.Expression;
 import program.statement.Statement;
+import program.type.Type;
 import jumpingalien.model.*;
+import jumpingalien.part3.programs.IProgramFactory;
 import jumpingalien.part3.programs.ParseOutcome;
 import jumpingalien.part3.programs.ProgramParser;
 import jumpingalien.util.ModelException;
@@ -386,11 +388,10 @@ public class Facade implements IFacadePart3{
 
 	@Override
 	public ParseOutcome<?> parse(String text) {
-		ProgramFactory factory = new ProgramFactory();
-		ProgramParser<Expression, Statement, Object, Program> parser = new ProgramParser(factory);
+		IProgramFactory<Expression<?>, Statement, Type, Program> factory = new ProgramFactory();
+		ProgramParser<Expression<?>, Statement, Type, Program> parser = new ProgramParser<>(factory);
 
-		
-		Optional<Program> parse_outcome = (Optional<Program>) parser.parseString(text);
+		Optional<Program> parse_outcome = parser.parseString(text);
 		return parse_outcome.isPresent() ? ParseOutcome.success(parse_outcome.get()) : ParseOutcome.failure(parser.getErrors());
 	}
 
