@@ -1,33 +1,33 @@
 package program.expression.operation;
 
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 import program.expression.Expression;
-import program.expression.SingleValueExpression;
+import program.expression.ValueExpression;
 import jumpingalien.part3.programs.SourceLocation;
 
-public class BinaryExpressionOperation<T,E1,E2> extends SingleValueExpression<T>{
+public class BinaryExpressionOperation<R,E1,E2> extends Expression<R>{
 
-	public BinaryExpressionOperation(T e1, T e2, BiFunction<T,T,T> f, SourceLocation sourcelocation) {
-		super(null,sourcelocation);
-		value1 = e1;
-		value2 = e2;
-		function = f;
+	public BinaryExpressionOperation(ValueExpression<E1> e1, ValueExpression<E2> e2, BiFunction<E1,E2,R> f, SourceLocation sourcelocation) {
+		super(sourcelocation);
 		
-		super.setValue(function.apply(e1., e2));
+		function = f;
 	}
 
-	public Expression<E1> getValue1(){
-		return value1;
+	private ValueExpression<E1> e1;
+	private ValueExpression<E2> e2;
+	private BiFunction<E1,E2,R> function;
+	
+	public ValueExpression<E1> getE1(){
+		return e1;
 	}
-	public Expression<E2> getValue2(){
-		return value2;
+	public ValueExpression<E2> getE2(){
+		return e2;
 	}
 	
-
-	private Expression<E1> value1;
-	private Expression<E2> value2;
-	private BiFunction<T,T,T> function;
+	public R evaluate(){
+		return this.function.apply(this.getE1().evaluate(),this.getE2().evaluate());
+	}
+	
 
 }

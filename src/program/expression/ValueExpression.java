@@ -2,9 +2,11 @@ package program.expression;
 
 import jumpingalien.part3.programs.SourceLocation;
 
-public class SingleValueExpression<T> extends Expression<T> {
+public class ValueExpression<T> extends Expression<T> {
 	
-	public SingleValueExpression(T value,SourceLocation sourcelocation) {
+	// An expression with a value of type T.
+	
+	public ValueExpression(T value,SourceLocation sourcelocation) {
 		super(sourcelocation);
 		this.value = value;	
 		}
@@ -13,7 +15,7 @@ public class SingleValueExpression<T> extends Expression<T> {
 	public void setValue(T value){
 		this.value=value;
 	}
-	public T getValue(){
+	public T evaluate() {
 		return value;
 	}
 
