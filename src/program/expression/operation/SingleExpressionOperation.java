@@ -3,16 +3,14 @@ package program.expression.operation;
 import program.expression.Expression;
 import jumpingalien.part3.programs.SourceLocation;
 
-public class SingleExpressionOperation extends Operation{
+public class SingleExpressionOperation<T,E> extends Expression<T>{
 
-	public SingleExpressionOperation(Expression e, SourceLocation sourcelocation) {
+	public SingleExpressionOperation(Expression<E> e, SourceLocation sourcelocation) {
 		super(sourcelocation);
-		expr = e;
+		value = e;	
 	}
-
-	public Expression getExpression() {
-		return expr;
+	public Expression<E> getValue(){
+		return value;
 	}
-
-	private final Expression expr;
+	private final Expression<E> value;
 }

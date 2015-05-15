@@ -1,10 +1,15 @@
 package jumpingalien.part3.facade;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import program.Program;
+import program.ProgramFactory;
+import program.expression.Expression;
+import program.statement.Statement;
 import jumpingalien.model.*;
 import jumpingalien.part3.programs.ParseOutcome;
+import jumpingalien.part3.programs.ProgramParser;
 import jumpingalien.util.ModelException;
 import jumpingalien.util.Sprite;
 
@@ -381,8 +386,12 @@ public class Facade implements IFacadePart3{
 
 	@Override
 	public ParseOutcome<?> parse(String text) {
-		// TODO Auto-generated method stub
-		return null;
+		ProgramFactory factory = new ProgramFactory();
+		ProgramParser<Expression, Statement, Object, Program> parser = new ProgramParser(factory);
+
+		
+		Optional<Program> parse_outcome = (Optional<Program>) parser.parseString(text);
+		return parse_outcome.isPresent() ? ParseOutcome.success(parse_outcome.get()) : ParseOutcome.failure(parser.getErrors());
 	}
 
 	@Override

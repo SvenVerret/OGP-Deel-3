@@ -2,7 +2,7 @@ package program.expression;
 
 import jumpingalien.part3.programs.SourceLocation;
 
-public abstract class Expression {
+public abstract class Expression<T> {
 
 	public Expression(SourceLocation sourcelocation){
 		SL = sourcelocation;
