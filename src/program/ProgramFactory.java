@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import program.expression.Expression;
-import program.expression.SingleValueExpression;
+import program.expression.ValueExpression;
 import program.statement.Statement;
 import program.type.Type;
 import jumpingalien.part3.programs.IProgramFactory;
@@ -23,18 +23,18 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<Double> createDoubleConstant(double value,
 			SourceLocation sourceLocation) {
-		return new SingleValueExpression<Double>(value, sourceLocation);
+		return new ValueExpression<Double>(value, sourceLocation);
 	}
 
 	@Override
 	public Expression<Boolean> createTrue(SourceLocation sourceLocation) {
-		return new SingleValueExpression<Boolean>(true, sourceLocation);
+		return new ValueExpression<Boolean>(true, sourceLocation);
 		
 	}
 
 	@Override
 	public Expression<Boolean> createFalse(SourceLocation sourceLocation) {
-		return new SingleValueExpression<Boolean>(true, sourceLocation);
+		return new ValueExpression<Boolean>(true, sourceLocation);
 	}
 
 	@Override
@@ -57,9 +57,9 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	}
 
 	@Override
-	public Expression<?> createAddition(Expression<?> left,
-			Expression<?> right, SourceLocation sourceLocation) {
-		return new BinaryExpressionOperation(Expression<?> left, Expression<?> right, (a,b) -> a+b)
+	public Expression<?> createAddition(Expression<E1> left,
+			Expression<E1> right, SourceLocation sourceLocation) {
+		return new BinaryExpressionOperation(Expression<E1> left, Expression<E1> right, (a,b) -> a+b)
 	}
 
 	@Override
