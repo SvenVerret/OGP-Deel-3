@@ -10,7 +10,7 @@ public class SingleExpressionOperation<R,E> extends Expression<R>{
 
 	public SingleExpressionOperation(ValueExpression<E> e1, Function<E,R> f, SourceLocation sourcelocation) {
 		super(sourcelocation);
-
+		this.e = e1;
 		function = f;
 	}
 
