@@ -2,13 +2,24 @@ package jumpingalien.part3.facade;
 
 import java.util.ArrayList;
 import java.util.Collection;
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> refs/remotes/origin/master
 import java.util.Optional;
 
 import program.Program;
 import program.ProgramFactory;
+<<<<<<< HEAD
+=======
+import program.expression.Expression;
+import program.statement.Statement;
+import program.type.Type;
+>>>>>>> refs/remotes/origin/master
 import jumpingalien.model.*;
+import jumpingalien.part3.programs.IProgramFactory;
 import jumpingalien.part3.programs.ParseOutcome;
+import jumpingalien.part3.programs.ProgramParser;
 import jumpingalien.util.ModelException;
 import jumpingalien.util.Sprite;
 import jumpingalien.part3.programs.ProgramParser;
@@ -386,6 +397,7 @@ public class Facade implements IFacadePart3{
 
 	@Override
 	public ParseOutcome<?> parse(String text) {
+<<<<<<< HEAD
 		ProgramFactory factory = new ProgramFactory();
 		ProgramParser<?,?,?,?> parser = new ProgramParser(factory);
 
@@ -397,6 +409,13 @@ public class Facade implements IFacadePart3{
 			System.out.println("Parse Succes");
 			return ParseOutcome.success((Program) parse_outcome.get());
 		}
+=======
+		IProgramFactory<Expression<?>, Statement, Type, Program> factory = new ProgramFactory();
+		ProgramParser<Expression<?>, Statement, Type, Program> parser = new ProgramParser<>(factory);
+
+		Optional<Program> parse_outcome = parser.parseString(text);
+		return parse_outcome.isPresent() ? ParseOutcome.success(parse_outcome.get()) : ParseOutcome.failure(parser.getErrors());
+>>>>>>> refs/remotes/origin/master
 	}
 
 	@Override

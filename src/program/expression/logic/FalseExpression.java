@@ -1,16 +1,17 @@
 package program.expression.logic;
 
+import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
 
 
 
-public class FalseExpression extends Logic{
+public class FalseExpression extends Expression{
 
 	/**
 	 * 
-	 *  
+	 * @param sourceLocation
 	 */
-	public FalseExpression(){
-		
+	public FalseExpression(SourceLocation sourceLocation){
+		super(sourceLocation);
 	}
 }

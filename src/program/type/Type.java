@@ -2,7 +2,9 @@ package program.type;
 
 public abstract class Type {
 
-	public abstract boolean equals(Type type);
+	public boolean equals(Type type){
+		return (this.getClass() == type);
+	}
 	
 	public abstract Object getValue();
 		

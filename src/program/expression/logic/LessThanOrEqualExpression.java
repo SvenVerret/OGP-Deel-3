@@ -1,5 +1,6 @@
 package program.expression.logic;
 
+import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
 
 public class LessThanOrEqualExpression extends Logic{
@@ -10,7 +11,8 @@ public class LessThanOrEqualExpression extends Logic{
 	 * @param right
 	 *  
 	 */
-	public LessThanOrEqualExpression(Expression left, Expression right){
-		
+	public LessThanOrEqualExpression(Expression left, Expression right, 
+			SourceLocation sourceLocation){
+		super(left, right, sourceLocation);
 	}
 }

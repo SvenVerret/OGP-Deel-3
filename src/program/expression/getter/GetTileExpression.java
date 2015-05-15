@@ -1,8 +1,9 @@
 package program.expression.getter;
 
+import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
 
-public class GetTileExpression extends Getter{
+public class GetTileExpression extends DoubleExpressionGetter{
 
 	/**
 	 * 
@@ -10,7 +11,10 @@ public class GetTileExpression extends Getter{
 	 * @param y
 	 *  
 	 */
-	public GetTileExpression(Expression x, Expression y){
+	public GetTileExpression(Expression e1, Expression e2, SourceLocation sourceLocation){
+		super(e1, e2, sourceLocation);
+		
 		
 	}
+	
 }

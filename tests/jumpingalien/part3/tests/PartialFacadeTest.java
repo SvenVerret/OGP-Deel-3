@@ -1,6 +1,10 @@
 package jumpingalien.part3.tests;
 
 import static org.junit.Assert.*;
+<<<<<<< HEAD
+=======
+import static org.junit.Assume.*;
+>>>>>>> refs/remotes/origin/master
 import jumpingalien.part3.facade.Facade;
 import jumpingalien.part3.facade.IFacadePart3;
 import jumpingalien.part3.programs.ParseOutcome;
@@ -9,13 +13,22 @@ import org.junit.Test;
 
 public class PartialFacadeTest {
 
+//	@Test
+//	public void testParseSimplestProgram() {
+//		IFacadePart3 facade = new Facade();
+//		ParseOutcome<?> outcome = facade.parse("skip;");
+//		assertTrue(outcome.isSuccess());
+//	}
+	
 	@Test
-	public void testParseSimplestProgram() {
+	public void testParseSimplestProgram2() {
 		IFacadePart3 facade = new Facade();
-		ParseOutcome<?> outcome = facade.parse("skip;");
+		ParseOutcome<?> outcome = facade.parse("double d := 1.0;");
 		assertTrue(outcome.isSuccess());
 	}
-//
+
+	
+	
 //	@Test
 //	public void testParseFails() {
 //		IFacadePart3 facade = new Facade();
