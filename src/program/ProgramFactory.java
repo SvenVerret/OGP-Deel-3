@@ -63,13 +63,12 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<DoubleType> createAddition(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-
 		BinaryExpressionOperation<Double, Double, Double> result =
 				new BinaryExpressionOperation<Double, Double, Double>(
 						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
 						(a,b) -> (Double)a+(Double)b, sourceLocation);
 
-		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -81,7 +80,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
 						(a,b) -> (Double)a-(Double)b, sourceLocation);
 
-		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -93,7 +92,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
 						(a,b) -> (Double)a*(Double)b, sourceLocation);
 
-		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
@@ -104,7 +103,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
 						(a,b) -> (Double)a/(Double)b, sourceLocation);
 
-		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -116,7 +115,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 						(ValueExpression<Double>)expr, 
 						e -> Math.sqrt((Double)e), sourceLocation);
 
-		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
