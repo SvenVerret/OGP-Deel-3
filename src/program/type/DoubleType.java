@@ -4,22 +4,19 @@ public class DoubleType extends Type {
 
 
 	/**
-	 * 
+	 *
 	 * @param value
 	 */
-	public DoubleType(Double value){
-		
+	public DoubleType(Double e){
+		value = e;
 	}
 
-	@Override
-	public boolean equals(Type type) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 
 	@Override
-	public Object getValue() {
-		// TODO Auto-generated method stub
-		return null;
+	public Double getValue() {
+		return value;
 	}
+
+	private final Double value;
 }
