@@ -7,7 +7,9 @@ import program.expression.Expression;
 import program.expression.ValueExpression;
 import program.expression.VariableValueExpression;
 import program.expression.operation.BinaryExpressionOperation;
+import program.expression.operation.SingleExpressionOperation;
 import program.statement.Statement;
+import program.type.DoubleType;
 import program.type.Type;
 import jumpingalien.part3.programs.IProgramFactory;
 import jumpingalien.part3.programs.SourceLocation;
@@ -52,47 +54,69 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 
 	@Override
 	public Expression<?> createDirectionConstant(
-			jumpingalien.part3.programs.IProgramFactory.Direction value,
-			SourceLocation sourceLocation) {
+			Direction value, SourceLocation sourceLocation) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public Expression<Double> createAddition(Expression<?> left,
+	public Expression<DoubleType> createAddition(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-		return new BinaryExpressionOperation((Expression<Double>) left, 
-				(Expression<Double>) right, 
-				(a,b) -> (double)a+(double)b, sourceLocation);
+
+		BinaryExpressionOperation<Double, Double, Double> result =
+				new BinaryExpressionOperation<Double, Double, Double>(
+						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(a,b) -> (Double)a+(Double)b, sourceLocation);
+
+		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Expression<?> createSubtraction(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		BinaryExpressionOperation<Double, Double, Double> result =
+				new BinaryExpressionOperation<Double, Double, Double>(
+						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(a,b) -> (Double)a-(Double)b, sourceLocation);
+
+		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Expression<?> createMultiplication(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		BinaryExpressionOperation<Double, Double, Double> result =
+				new BinaryExpressionOperation<Double, Double, Double>(
+						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(a,b) -> (Double)a*(Double)b, sourceLocation);
 
+		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
+	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Expression<?> createDivision(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		BinaryExpressionOperation<Double, Double, Double> result =
+				new BinaryExpressionOperation<Double, Double, Double>(
+						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(a,b) -> (Double)a/(Double)b, sourceLocation);
+
+		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Expression<?> createSqrt(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Double, Double> result =
+				new SingleExpressionOperation<Double, Double>(
+						(ValueExpression<Double>)expr, 
+						e -> Math.sqrt((Double)e), sourceLocation);
+
+		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
 	}
 
 	@Override
