@@ -9,8 +9,13 @@ import program.expression.VariableValueExpression;
 import program.expression.operation.BinaryExpressionOperation;
 import program.expression.operation.SingleExpressionOperation;
 import program.statement.Statement;
-import program.type.DoubleType;
 import program.type.Type;
+import jumpingalien.model.GameObject;
+import jumpingalien.model.Mazub;
+import jumpingalien.model.Plant;
+import jumpingalien.model.Shark;
+import jumpingalien.model.Slime;
+import jumpingalien.model.World;
 import jumpingalien.part3.programs.IProgramFactory;
 import jumpingalien.part3.programs.SourceLocation;
 
@@ -42,26 +47,23 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 
 	@Override
 	public Expression<?> createNull(SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ValueExpression<>(null,sourceLocation);
 	}
 
 	@Override
 	public Expression<?> createSelf(SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ValueExpression<Object>("self",sourceLocation);
 	}
 
 	@Override
 	public Expression<?> createDirectionConstant(
 			Direction value, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ValueExpression<Direction>(value,sourceLocation);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public Expression<DoubleType> createAddition(Expression<?> left,
+	public Expression<?> createAddition(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
 		BinaryExpressionOperation<Double, Double, Double> result =
 				new BinaryExpressionOperation<Double, Double, Double>(
@@ -118,116 +120,182 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Expression<?> createRandom(Expression<?> maxValue,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Double, Double> result =
+				new SingleExpressionOperation<Double, Double>(
+						(ValueExpression<Double>)maxValue, 
+						e -> Math.random()*e, sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Expression<?> createAnd(Expression<?> left, Expression<?> right,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		BinaryExpressionOperation<Boolean, Boolean, Boolean> result =
+				new BinaryExpressionOperation<Boolean, Boolean, Boolean>(
+						(ValueExpression<Boolean>) left, (ValueExpression<Boolean>) right,
+						(a,b) -> (a&&b), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createOr(Expression<?> left, Expression<?> right,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		BinaryExpressionOperation<Boolean, Boolean, Boolean> result =
+				new BinaryExpressionOperation<Boolean, Boolean, Boolean>(
+						(ValueExpression<Boolean>) left, (ValueExpression<Boolean>) right,
+						(a,b) -> (a||b), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createNot(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Boolean, Boolean> result =
+				new SingleExpressionOperation<Boolean, Boolean>(
+						(ValueExpression<Boolean>)expr, 
+						e -> !e, sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createLessThan(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		BinaryExpressionOperation<Boolean, Double, Double> result =
+				new BinaryExpressionOperation<Boolean, Double, Double>(
+						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(a,b) -> (a<b), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createLessThanOrEqualTo(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		BinaryExpressionOperation<Boolean, Double, Double> result =
+				new BinaryExpressionOperation<Boolean, Double, Double>(
+						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(a,b) -> (a<=b), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createGreaterThan(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		BinaryExpressionOperation<Boolean, Double, Double> result =
+				new BinaryExpressionOperation<Boolean, Double, Double>(
+						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(a,b) -> (a>b), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createGreaterThanOrEqualTo(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		BinaryExpressionOperation<Boolean, Double, Double> result =
+				new BinaryExpressionOperation<Boolean, Double, Double>(
+						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(a,b) -> (a>=b), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createEquals(Expression<?> left, Expression<?> right,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		BinaryExpressionOperation<Boolean, Object, Object> result =
+				new BinaryExpressionOperation<Boolean, Object, Object>(
+						(ValueExpression<Object>) left, (ValueExpression<Object>) right,
+						(a,b) -> (a==b), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createNotEquals(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		BinaryExpressionOperation<Boolean, Object, Object> result =
+				new BinaryExpressionOperation<Boolean, Object, Object>(
+						(ValueExpression<Object>) left, (ValueExpression<Object>) right,
+						(a,b) -> (a!=b), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createGetX(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Double, GameObject> result =
+				new SingleExpressionOperation<Double, GameObject>(
+						(ValueExpression<GameObject>)expr, 
+						e -> e.getPos().getElemx(), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createGetY(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Double, GameObject> result =
+				new SingleExpressionOperation<Double, GameObject>(
+						(ValueExpression<GameObject>)expr, 
+						e -> e.getPos().getElemy(), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createGetWidth(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Double, GameObject> result =
+				new SingleExpressionOperation<Double, GameObject>(
+						(ValueExpression<GameObject>)expr, 
+						e -> e.getSize().getElemx(), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createGetHeight(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Double, GameObject> result =
+				new SingleExpressionOperation<Double, GameObject>(
+						(ValueExpression<GameObject>)expr, 
+						e -> e.getSize().getElemy(), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createGetHitPoints(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Integer, GameObject> result =
+				new SingleExpressionOperation<Integer, GameObject>(
+						(ValueExpression<GameObject>)expr, 
+						e -> e.getHP(), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createGetTile(Expression<?> x, Expression<?> y,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		BinaryExpressionOperation<int[], Integer, Integer> result =
+				new BinaryExpressionOperation<int[], Integer, Integer>(
+						(ValueExpression<Integer>) x, (ValueExpression<Integer>) y,
+						(a,b) -> World.convertXYtoXTYT(x, y) , sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
@@ -240,44 +308,64 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createIsMazub(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Boolean, GameObject> result =
+				new SingleExpressionOperation<Boolean, GameObject>(
+						(ValueExpression<GameObject>)expr, 
+						e -> e instanceof Mazub, sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createIsShark(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Boolean, GameObject> result =
+				new SingleExpressionOperation<Boolean, GameObject>(
+						(ValueExpression<GameObject>)expr, 
+						e -> e instanceof Shark, sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createIsSlime(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Boolean, GameObject> result =
+				new SingleExpressionOperation<Boolean, GameObject>(
+						(ValueExpression<GameObject>)expr, 
+						e -> e instanceof Slime, sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createIsPlant(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Boolean, GameObject> result =
+				new SingleExpressionOperation<Boolean, GameObject>(
+						(ValueExpression<GameObject>)expr, 
+						e -> e instanceof Plant, sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createIsDead(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Boolean, GameObject> result =
+				new SingleExpressionOperation<Boolean, GameObject>(
+						(ValueExpression<GameObject>)expr, 
+						e -> e.isDead(), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createIsTerrain(Expression<?> expr,
 			SourceLocation sourceLocation) {
 		// TODO Auto-generated method stub
-		return null;
-	}
+				return null;
+			}
 
 	@Override
 	public Expression<?> createIsPassable(Expression<?> expr,
@@ -310,22 +398,34 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createIsMoving(Expression<?> expr,
 			Expression<?> direction, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Boolean, GameObject> result =
+				new SingleExpressionOperation<Boolean, GameObject>(
+						(ValueExpression<GameObject>)expr, 
+						e -> e.getVelocity().normOfVector() != 0.0, sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createIsDucking(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Boolean, Mazub> result =
+				new SingleExpressionOperation<Boolean, Mazub>(
+						(ValueExpression<Mazub>)expr, 
+						e -> e.isDucked(), sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
 	public Expression<?> createIsJumping(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Boolean, GameObject> result =
+				new SingleExpressionOperation<Boolean, GameObject>(
+						(ValueExpression<GameObject>)expr, 
+						e -> e.getVelocity().getElemy() != 0.0, sourceLocation);
+
+		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
 	@Override
