@@ -1,24 +1,20 @@
 package program.type;
-
-
+ 
+ 
 public class BooleanType extends Type {
-
-	/**
-	 * 
-	 * @param value
-	 */
-	public BooleanType(boolean value){
-
-	}
-
-	@Override
-	public boolean equals(Type type) {
-		if (
-	}
-
-	@Override
-	public Object getValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+ 
+ 
+ 
+        public BooleanType(Boolean value) {
+                this.value = value;
+        }
+ 
+ 
+ 
+        @Override
+        public Boolean getValue() {
+                return value;
+        }
+       
+        private Boolean value;
 }
