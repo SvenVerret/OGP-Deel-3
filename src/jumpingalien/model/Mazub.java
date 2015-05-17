@@ -395,7 +395,7 @@ public class Mazub extends GameObject{
 	 *
 	 */
 	@Override
-	public void advanceTime(double dt) throws IllegalArgumentException{
+	public void advanceTimeWithoutProgram(double dt) throws IllegalArgumentException{
 
 
 		if ((dt < 0.0) || (dt > 0.2)){
@@ -450,6 +450,13 @@ public class Mazub extends GameObject{
 				}
 			}
 		}
+	}
+	
+	@Override
+	protected void advanceTimeWithProgram(double dt)
+			throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		
 	}
 
 
@@ -1049,6 +1056,33 @@ public class Mazub extends GameObject{
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public double getRightVelocity() {
+		return InitVelocityX;
+	}
+
+	@Override
+	public double getLeftVelocity() {
+		return -InitVelocityX;
+	}
+
+	@Override
+	public double getJumpVelocity() {
+		return INITVELOCITYY;
+	}
+
+	@Override
+	public double getRightAcc() {
+		return AccXFwd;
+	}
+
+	@Override
+	public double getLeftAcc() {
+		return AccXBkw;
+	}
+
+
 
 
 

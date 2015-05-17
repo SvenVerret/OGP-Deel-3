@@ -3,10 +3,16 @@ package program;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
 import program.expression.Expression;
 import program.expression.ValueExpression;
 import program.expression.VariableValueExpression;
 import program.expression.operation.BinaryExpressionOperation;
+=======
+import program.expression.Expression;
+import program.expression.ValueExpression;
+import program.expression.VariableValueExpression;
+>>>>>>> refs/remotes/origin/SvenBranch
 import program.statement.Statement;
 import program.type.Type;
 import jumpingalien.part3.programs.IProgramFactory;
@@ -19,6 +25,8 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	public Expression<Type> createReadVariable(String variableName,
 			Type variableType, SourceLocation sourceLocation) {
 		return new VariableValueExpression<Type>(variableName,variableType, sourceLocation);
+<<<<<<< HEAD
+=======
 	}
 
 	@Override
@@ -48,9 +56,42 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	public Expression<?> createSelf(SourceLocation sourceLocation) {
 		// TODO Auto-generated method stub
 		return null;
+>>>>>>> refs/remotes/origin/SvenBranch
 	}
 
 	@Override
+<<<<<<< HEAD
+	public Expression<Double> createDoubleConstant(double value,
+			SourceLocation sourceLocation) {
+		return new ValueExpression<Double>(value, sourceLocation);
+	}
+
+	@Override
+	public Expression<Boolean> createTrue(SourceLocation sourceLocation) {
+		return new ValueExpression<Boolean>(true, sourceLocation);
+
+	}
+
+	@Override
+	public Expression<Boolean> createFalse(SourceLocation sourceLocation) {
+		return new ValueExpression<Boolean>(true, sourceLocation);
+	}
+
+	@Override
+	public Expression<?> createNull(SourceLocation sourceLocation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Expression<?> createSelf(SourceLocation sourceLocation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+=======
+>>>>>>> refs/remotes/origin/SvenBranch
 	public Expression<?> createDirectionConstant(
 			jumpingalien.part3.programs.IProgramFactory.Direction value,
 			SourceLocation sourceLocation) {
@@ -398,8 +439,9 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 
 	@Override
 	public Statement createSkip(SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Skip");
+		SkipStatement result = new SkipStatement(sourceLocation);
+		return result;
 	}
 
 	@Override

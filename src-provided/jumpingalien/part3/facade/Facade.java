@@ -1,5 +1,6 @@
 package jumpingalien.part3.facade;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -14,6 +15,7 @@ import jumpingalien.part3.programs.ParseOutcome;
 import jumpingalien.part3.programs.ProgramParser;
 import jumpingalien.util.ModelException;
 import jumpingalien.util.Sprite;
+import jumpingalien.part3.programs.ProgramParser;
 
 public class Facade implements IFacadePart3{
 
@@ -119,7 +121,7 @@ public class Facade implements IFacadePart3{
 	@Override
 	public void advanceTime(Mazub alien, double dt) {
 		try{
-			alien.advanceTime(dt);
+			alien.advanceTimeWithoutProgram(dt);
 		}catch(IllegalArgumentException e){
 			throw new ModelException("Wrong dT");
 		}
@@ -338,19 +340,19 @@ public class Facade implements IFacadePart3{
 	public School getSchool(Slime slime) {
 		return slime.getSchool();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// PART 3
 
 	@Override
@@ -435,7 +437,7 @@ public class Facade implements IFacadePart3{
 		Sprite sprite = alien.getCurrentSprite();
 		return sprite;
 	}
-	
+
 	@Override
 	public int getNbHitPoints(Buzam alien) {
 		return alien.getHP();

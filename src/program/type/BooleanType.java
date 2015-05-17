@@ -1,7 +1,7 @@
 package program.type;
 
-
 public class BooleanType extends Type {
+
 
 	/**
 	 * 
@@ -11,10 +11,10 @@ public class BooleanType extends Type {
 
 	}
 
-	@Override
-	public boolean equals(Type type) {
-		if (
-	}
+//	@Override
+//	public boolean equals(Type type) {
+//		//if (
+//	}
 
 	@Override
 	public Object getValue() {
@@ -22,3 +22,4 @@ public class BooleanType extends Type {
 		return null;
 	}
 }
+

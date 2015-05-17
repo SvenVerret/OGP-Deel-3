@@ -95,7 +95,7 @@ public class Plant extends GameObject {
 	 * 			If a position of a velocity are not valid an exception is thrown
 	 */
 	@Override
-	protected void advanceTime(double dt) throws IllegalArgumentException {
+	protected void advanceTimeWithoutProgram(double dt) throws IllegalArgumentException {
 		if (!isDying()){
 			if (getStartTimeDir() > 0.5){
 				if (getVelocity().getElemx() == RightVelocity)
@@ -130,10 +130,35 @@ public class Plant extends GameObject {
 			this.setPos(newPos);
 
 		}
-
-
-
 	}
+	
+	@Override
+	protected void advanceTimeWithProgram(double dt) throws IllegalArgumentException {
+		if (!isDying()){
+
+			HashSet<String> hits  = collisionDetection(dt);
+
+			if ((hits != null) && (!hits.isEmpty())){
+				if (hits.contains("X")){
+
+
+					if (getVelocity().getElemx() >= 0){
+						setPos(new Vector(getPos().getElemx(),getPos().getElemy()));
+						setVelocity(new Vector(LeftVelocity,0.0));
+					}else if(getVelocity().getElemx() < 0){
+						setPos(new Vector(getPos().getElemx(),getPos().getElemy()));
+						setVelocity(new Vector(RightVelocity,0.0));
+					}
+					resetStartTimeDir();
+				}
+			}
+			Vector dxy = getVelocity().multiplyBy(dt);
+			Vector newPos = getPos().addVector(dxy.multiplyBy(100));
+			this.setPos(newPos);
+
+		}
+	}
+	
 
 	/**
 	 * This method adds time to the timer
@@ -263,6 +288,24 @@ public class Plant extends GameObject {
 	protected HashSet<String> collisionObject() {
 		HashSet<String> emptyset = new HashSet<String>();
 		return emptyset;
+	}
+
+
+	@Override
+	public double getRightVelocity() {
+		return RightVelocity;
+	}
+
+
+	@Override
+	public double getLeftVelocity() {
+		return LeftVelocity;
+	}
+
+
+	@Override
+	public double getJumpVelocity() {
+		return 0.0;
 	}
 
 }

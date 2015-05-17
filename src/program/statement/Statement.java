@@ -1,14 +1,47 @@
 package program.statement;
+import java.util.HashMap;
 
-import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
+import program.type.Type;
+import jumpingalien.part3.programs.SourceLocation;
 
-public abstract class Statement extends Expression{
 
-	public Statement(SourceLocation sourcelocation) {
-		super(sourcelocation);
-		// TODO Auto-generated constructor stub
+
+public abstract class Statement{
+
+	public Statement(SourceLocation sourceLocation) {
+		SL = sourceLocation;
 	}
-	
 
+	public SourceLocation getSourceLocation() {
+		return SL;
+	}
+
+	private final SourceLocation SL;
+	
+	
+	
+	public abstract void advanceTime(double dt,  HashMap<String, Expression<? extends Type>> variables);
+	
+	public static double defaultDT = 0.001;
+	
+	// state bijhouden als interrupt (door dt)
+	public abstract boolean isExecutionComplete();
+	
+	// illegal operation -> execution stops (force quit)
+	public abstract void forceReset();
+	
+	// reset -> global variables re-initialised en begin programma aangeduid voor te beginnen
+	// CASCADING RESET -> herstarten van programma als gedaan is
+	public abstract void Reset();
+	
+	
+	
+	
+	
+	// program is finished -> finished true & program reset -> volgende advanceTime terug bij begin beginnen
+
+	// print e -> print evaluation of expression
+	
 }
+
