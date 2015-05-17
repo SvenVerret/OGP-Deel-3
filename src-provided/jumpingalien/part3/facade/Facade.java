@@ -2,20 +2,13 @@ package jumpingalien.part3.facade;
 
 import java.util.ArrayList;
 import java.util.Collection;
-<<<<<<< HEAD
-import java.util.List;
-=======
->>>>>>> refs/remotes/origin/master
 import java.util.Optional;
 
 import program.Program;
 import program.ProgramFactory;
-<<<<<<< HEAD
-=======
 import program.expression.Expression;
 import program.statement.Statement;
 import program.type.Type;
->>>>>>> refs/remotes/origin/master
 import jumpingalien.model.*;
 import jumpingalien.part3.programs.IProgramFactory;
 import jumpingalien.part3.programs.ParseOutcome;
@@ -397,25 +390,11 @@ public class Facade implements IFacadePart3{
 
 	@Override
 	public ParseOutcome<?> parse(String text) {
-<<<<<<< HEAD
-		ProgramFactory factory = new ProgramFactory();
-		ProgramParser<?,?,?,?> parser = new ProgramParser(factory);
-
-		Optional<?> parse_outcome = parser.parseString(text);
-		if(parse_outcome == Optional.empty()){
-			System.out.println("Parse Failure");
-			return ParseOutcome.failure(parser.getErrors());
-		}else{
-			System.out.println("Parse Succes");
-			return ParseOutcome.success((Program) parse_outcome.get());
-		}
-=======
 		IProgramFactory<Expression<?>, Statement, Type, Program> factory = new ProgramFactory();
 		ProgramParser<Expression<?>, Statement, Type, Program> parser = new ProgramParser<>(factory);
 
 		Optional<Program> parse_outcome = parser.parseString(text);
 		return parse_outcome.isPresent() ? ParseOutcome.success(parse_outcome.get()) : ParseOutcome.failure(parser.getErrors());
->>>>>>> refs/remotes/origin/master
 	}
 
 	@Override

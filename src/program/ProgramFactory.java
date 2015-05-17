@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import program.expression.Expression;
+import program.expression.ValueExpression;
+import program.expression.VariableValueExpression;
 import program.statement.Statement;
 import program.type.Type;
 import jumpingalien.part3.programs.IProgramFactory;
@@ -21,9 +23,6 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<Double> createDoubleConstant(double value,
 			SourceLocation sourceLocation) {
-<<<<<<< HEAD
-		Expression constant = new DoubleConstant
-=======
 		return new ValueExpression<Double>(value, sourceLocation);
 	}
 
@@ -42,7 +41,6 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	public Expression<?> createNull(SourceLocation sourceLocation) {
 		// TODO Auto-generated method stub
 		return null;
->>>>>>> refs/remotes/origin/master
 	}
 
 	@Override
