@@ -1,13 +1,7 @@
 package jumpingalien.part3.tests;
 
 import static org.junit.Assert.*;
-<<<<<<< HEAD
-=======
-import static org.junit.Assume.*;
-<<<<<<< HEAD
-=======
->>>>>>> refs/remotes/origin/master
->>>>>>> refs/remotes/origin/SvenBranch
+
 import jumpingalien.part3.facade.Facade;
 import jumpingalien.part3.facade.IFacadePart3;
 import jumpingalien.part3.programs.ParseOutcome;
