@@ -8,8 +8,10 @@ import program.expression.ValueExpression;
 import program.expression.VariableValueExpression;
 import program.expression.operation.BinaryExpressionOperation;
 import program.expression.operation.SingleExpressionOperation;
+
 import program.statement.Statement;
 import program.statement.WaitStatement;
+
 import program.type.DoubleType;
 import program.type.Type;
 import jumpingalien.part3.programs.IProgramFactory;

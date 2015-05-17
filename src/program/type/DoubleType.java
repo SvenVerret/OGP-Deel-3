@@ -1,6 +1,7 @@
 package program.type;
  
 public class DoubleType extends Type {
+
  
         /**
          *
@@ -19,4 +20,5 @@ public class DoubleType extends Type {
        
         private final Double value;
 }
+
 

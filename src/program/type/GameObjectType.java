@@ -3,6 +3,7 @@ package program.type;
 import jumpingalien.model.GameObject;
  
 public class GameObjectType<T extends GameObject> extends Type{
+
         /**
          *
          * @param object
@@ -20,3 +21,4 @@ public class GameObjectType<T extends GameObject> extends Type{
  
         private final T object;
 }
+
