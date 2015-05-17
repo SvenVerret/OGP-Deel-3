@@ -9,6 +9,10 @@ public abstract class Type{
 	public abstract Object getValue();
 
 
+<<<<<<< HEAD
 }
 
 
+=======
+}
+>>>>>>> branch 'master' of https://github.com/SvenVerret/OGP-Deel-3.git

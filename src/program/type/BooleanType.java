@@ -3,6 +3,10 @@ package program.type;
 public class BooleanType extends Type {
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/SvenVerret/OGP-Deel-3.git
 	public BooleanType(Boolean value) {
 		this.value = value;
 	}
@@ -15,6 +19,10 @@ public class BooleanType extends Type {
 	}
 
 	private Boolean value;
+<<<<<<< HEAD
 
 }
 
+=======
+}
+>>>>>>> branch 'master' of https://github.com/SvenVerret/OGP-Deel-3.git
