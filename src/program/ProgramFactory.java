@@ -10,11 +10,8 @@ import program.expression.VariableValueExpression;
 import program.expression.operation.BinaryExpressionOperation;
 import program.expression.operation.SingleExpressionOperation;
 import program.statement.Statement;
-<<<<<<< HEAD
 import program.statement.WaitStatement;
-import program.type.DoubleType;
-=======
->>>>>>> refs/remotes/origin/KevinUberBranch
+
 import program.type.Type;
 import jumpingalien.model.GameObject;
 import jumpingalien.model.Mazub;
@@ -295,12 +292,13 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createGetTile(Expression<?> x, Expression<?> y,
 			SourceLocation sourceLocation) {
-		BinaryExpressionOperation<int[], Integer, Integer> result =
-				new BinaryExpressionOperation<int[], Integer, Integer>(
-						(ValueExpression<Integer>) x, (ValueExpression<Integer>) y,
-						(a,b) -> World.convertXYtoXTYT(x, y) , sourceLocation);
-
-		return ( new ValueExpression(result.evaluate(),sourceLocation));
+//		BinaryExpressionOperation<int[], Integer, Integer> result =
+//				new BinaryExpressionOperation<int[], Integer, Integer>(
+//						(ValueExpression<Integer>) x, (ValueExpression<Integer>) y,
+//						(a,b) -> World.convertXYtoXTYT(x, y) , sourceLocation);
+//
+//		return ( new ValueExpression(result.evaluate(),sourceLocation));
+		return null;
 	}
 
 	@Override
