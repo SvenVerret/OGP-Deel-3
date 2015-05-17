@@ -1,6 +1,5 @@
 package program;
 
-package program;
 
 import java.util.List;
 import java.util.Map;
@@ -11,6 +10,7 @@ import program.expression.VariableValueExpression;
 import program.expression.operation.BinaryExpressionOperation;
 import program.expression.operation.SingleExpressionOperation;
 import program.statement.Statement;
+import program.statement.WaitStatement;
 import program.type.DoubleType;
 import program.type.Type;
 import jumpingalien.part3.programs.IProgramFactory;
