@@ -2,7 +2,6 @@ package program;
 
 import java.util.HashMap;
 
-import jumpingalien.model.GameObject;
 import program.expression.Expression;
 import program.statement.Statement;
 import program.type.GameObjectType;
