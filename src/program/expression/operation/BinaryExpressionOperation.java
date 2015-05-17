@@ -8,7 +8,8 @@ import jumpingalien.part3.programs.SourceLocation;
 
 public class BinaryExpressionOperation<R,E1,E2> extends Expression<R>{
 
-	public BinaryExpressionOperation(ValueExpression<E1> e1, ValueExpression<E2> e2, BiFunction<E1,E2,R> f, SourceLocation sourcelocation) {
+	public BinaryExpressionOperation(ValueExpression<E1> e1, ValueExpression<E2> e2, 
+			BiFunction<E1,E2,R> f, SourceLocation sourcelocation) {
 		super(sourcelocation);
 		this.e1 = e1;
 		this.e2 = e2;

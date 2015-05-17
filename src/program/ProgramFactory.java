@@ -3,17 +3,14 @@ package program;
 import java.util.List;
 import java.util.Map;
 
-<<<<<<< HEAD
 import program.expression.Expression;
 import program.expression.ValueExpression;
 import program.expression.VariableValueExpression;
 import program.expression.operation.BinaryExpressionOperation;
-=======
-import program.expression.Expression;
-import program.expression.ValueExpression;
-import program.expression.VariableValueExpression;
->>>>>>> refs/remotes/origin/SvenBranch
+import program.expression.operation.SingleExpressionOperation;
 import program.statement.Statement;
+import program.statement.WaitStatement;
+import program.type.DoubleType;
 import program.type.Type;
 import jumpingalien.part3.programs.IProgramFactory;
 import jumpingalien.part3.programs.SourceLocation;
@@ -25,8 +22,6 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	public Expression<Type> createReadVariable(String variableName,
 			Type variableType, SourceLocation sourceLocation) {
 		return new VariableValueExpression<Type>(variableName,variableType, sourceLocation);
-<<<<<<< HEAD
-=======
 	}
 
 	@Override
@@ -56,84 +51,73 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	public Expression<?> createSelf(SourceLocation sourceLocation) {
 		// TODO Auto-generated method stub
 		return null;
->>>>>>> refs/remotes/origin/SvenBranch
 	}
 
 	@Override
-<<<<<<< HEAD
-	public Expression<Double> createDoubleConstant(double value,
-			SourceLocation sourceLocation) {
-		return new ValueExpression<Double>(value, sourceLocation);
-	}
-
-	@Override
-	public Expression<Boolean> createTrue(SourceLocation sourceLocation) {
-		return new ValueExpression<Boolean>(true, sourceLocation);
-
-	}
-
-	@Override
-	public Expression<Boolean> createFalse(SourceLocation sourceLocation) {
-		return new ValueExpression<Boolean>(true, sourceLocation);
-	}
-
-	@Override
-	public Expression<?> createNull(SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Expression<?> createSelf(SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-=======
->>>>>>> refs/remotes/origin/SvenBranch
 	public Expression<?> createDirectionConstant(
-			jumpingalien.part3.programs.IProgramFactory.Direction value,
-			SourceLocation sourceLocation) {
+			Direction value, SourceLocation sourceLocation) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public Expression<Double> createAddition(Expression<?> left,
+	public Expression<DoubleType> createAddition(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-		return new BinaryExpressionOperation((Expression<Double>) left, 
-				(Expression<Double>) right, 
-				(a,b) -> (double)a+(double)b, sourceLocation);
+
+		BinaryExpressionOperation<Double, Double, Double> result =
+				new BinaryExpressionOperation<Double, Double, Double>(
+						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(a,b) -> (Double)a+(Double)b, sourceLocation);
+
+		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Expression<?> createSubtraction(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		BinaryExpressionOperation<Double, Double, Double> result =
+				new BinaryExpressionOperation<Double, Double, Double>(
+						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(a,b) -> (Double)a-(Double)b, sourceLocation);
+
+		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Expression<?> createMultiplication(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		BinaryExpressionOperation<Double, Double, Double> result =
+				new BinaryExpressionOperation<Double, Double, Double>(
+						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(a,b) -> (Double)a*(Double)b, sourceLocation);
 
+		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
+	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Expression<?> createDivision(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		BinaryExpressionOperation<Double, Double, Double> result =
+				new BinaryExpressionOperation<Double, Double, Double>(
+						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(a,b) -> (Double)a/(Double)b, sourceLocation);
+
+		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Expression<?> createSqrt(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		SingleExpressionOperation<Double, Double> result =
+				new SingleExpressionOperation<Double, Double>(
+						(ValueExpression<Double>)expr, 
+						e -> Math.sqrt((Double)e), sourceLocation);
+
+		return ( new ValueExpression(new DoubleType(result.evaluate()),sourceLocation));
 	}
 
 	@Override
@@ -440,7 +424,8 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Statement createSkip(SourceLocation sourceLocation) {
 		System.out.println("Skip");
-		SkipStatement result = new SkipStatement(sourceLocation);
+		ValueExpression<Double> time = new ValueExpression<Double>((double) 1,sourceLocation);
+		WaitStatement result = new WaitStatement(time,sourceLocation);
 		return result;
 	}
 
