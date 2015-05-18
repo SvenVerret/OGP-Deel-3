@@ -1,6 +1,7 @@
 package program.statement;
 
-import java.util.HashMap;
+import java.util.Map;
+
 import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
 import program.expression.ValueExpression;
@@ -15,7 +16,7 @@ public class PrintStatement extends Statement{
 
 	@Override
 	public void advanceTime(double dt,
-			HashMap<String, Expression<? extends Type>> variables) {
+			Map<String, Type> globalVariables) {
 		if(!isExecutionComplete()){
 			System.out.println(getValueToBePrinted().evaluate());
 			setValueIsPrinted(true);

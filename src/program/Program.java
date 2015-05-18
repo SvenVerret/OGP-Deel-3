@@ -1,8 +1,6 @@
 package program;
+import java.util.Map;
 
-import java.util.HashMap;
-
-import program.expression.Expression;
 import program.statement.Statement;
 import program.type.GameObjectType;
 import program.type.Type;
@@ -16,13 +14,13 @@ public class Program {
 	private final Statement mainstatement;
 	
 	
-	public HashMap<String, Expression<? extends Type>> getVariables() {
-		return variables;
+	public Map<String, Type> getVariables() {
+		return globalVariables;
 	}
-	public void setVariables(HashMap<String, Expression<? extends Type>> variables) {
-		this.variables = variables;
+	public void setVariables(Map<String, Type> globalVariables) {
+		this.globalVariables = globalVariables;
 	}
-	private HashMap<String, Expression<? extends Type>> variables;
+	private Map<String, Type> globalVariables;
 	
 	
 	public void setGameObject(GameObjectType<?> gameobject){
@@ -34,12 +32,12 @@ public class Program {
 	private GameObjectType<?> gameobject;
 	
 
-	public Program(Statement mainstatement, HashMap<String, Expression<? extends Type>> variables){
+	public Program(Statement mainstatement, Map<String, Type> globalVariables){
 		this.mainstatement = mainstatement;
-		this.setVariables(variables);
+		this.setVariables(globalVariables);
 	}
 	
 	public void advanceTime(double dt){
-		getMainStatement().advanceTime(dt, variables);
+		getMainStatement().advanceTime(dt, globalVariables);
 	}
 }

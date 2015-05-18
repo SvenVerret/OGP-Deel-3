@@ -1,6 +1,6 @@
 package program.statement;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
@@ -58,7 +58,7 @@ public class WaitStatement extends Statement{
 	}
 
 	@Override
-	public void advanceTime(double dt,  HashMap<String, Expression<? extends Type>> variables) {
+	public void advanceTime(double dt,  Map<String, Type> globalVariables) {
 		// TODO Auto-generated method stub
 	}
 

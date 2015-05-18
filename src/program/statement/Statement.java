@@ -1,5 +1,6 @@
 package program.statement;
 import java.util.HashMap;
+import java.util.Map;
 
 import program.expression.Expression;
 import program.type.Type;
@@ -21,7 +22,7 @@ public abstract class Statement{
 	
 	
 	
-	public abstract void advanceTime(double dt,  HashMap<String, Expression<? extends Type>> variables);
+	public abstract void advanceTime(double dt, Map<String, Type> globalVariables);
 	
 	public static double defaultDT = 0.001;
 	

@@ -1,8 +1,7 @@
 package program.statement;
 
+import java.util.Map;
 
-
-import java.util.HashMap;
 import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
 import program.expression.ValueExpression;
@@ -36,12 +35,12 @@ public class IfStatement extends Statement{
 
 	@Override
 	public void advanceTime(double dt,
-			HashMap<String, Expression<? extends Type>> variables) {
+			Map<String, Type> globalVariables) {
 		if (!isExecutionComplete() && !ExecutionDone && !ForceReset){
 			if(EvaluatedCondition){
-				IfBody.advanceTime(dt, variables);
+				IfBody.advanceTime(dt, globalVariables);
 			}else{
-				ElseBody.advanceTime(dt, variables);
+				ElseBody.advanceTime(dt, globalVariables);
 			}
 			ExecutionDone = true;
 		}

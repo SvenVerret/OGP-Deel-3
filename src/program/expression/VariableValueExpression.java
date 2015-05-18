@@ -9,6 +9,7 @@ public class VariableValueExpression<T> extends ValueExpression<T> {
 		super(null,sourcelocation);
 		this.variable = new ValueExpression<T>(null,sourcelocation);
 		this.name = variableName;
+		
 	}
 	public ValueExpression<T> getVariable(){
 		return variable;
@@ -19,4 +20,5 @@ public class VariableValueExpression<T> extends ValueExpression<T> {
 		return name;
 	}
 	private String name;
+	
 }

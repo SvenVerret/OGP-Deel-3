@@ -9,9 +9,9 @@ import program.expression.ValueExpression;
 import program.expression.VariableValueExpression;
 import program.expression.operation.BinaryExpressionOperation;
 import program.expression.operation.SingleExpressionOperation;
+import program.statement.AssignmentStatement;
 import program.statement.Statement;
 import program.statement.WaitStatement;
-
 import program.type.Type;
 import jumpingalien.model.GameObject;
 import jumpingalien.model.Mazub;
@@ -148,6 +148,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		return ( new ValueExpression(result.evaluate(),sourceLocation));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Expression<?> createOr(Expression<?> left, Expression<?> right,
 			SourceLocation sourceLocation) {
@@ -436,8 +437,8 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Statement createAssignment(String variableName, Type variableType,
 			Expression<?> value, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new AssignmentStatement(variableName, variableType,
+				value, sourceLocation);
 	}
 
 	@Override
@@ -566,8 +567,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Program createProgram(Statement mainStatement,
 			Map<String, Type> globalVariables) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Program(mainStatement, globalVariables);
 	}
 }
 

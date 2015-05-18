@@ -20,7 +20,14 @@ public class PartialFacadeTest {
 	@Test
 	public void testParseSimplestProgram2() {
 		IFacadePart3 facade = new Facade();
-		ParseOutcome<?> outcome = facade.parse("double d := 1.0;");
+		ParseOutcome<?> outcome = facade.parse("wait(10);");
+		assertTrue(outcome.isSuccess());
+	}
+	
+	@Test
+	public void testParseSimplestProgram3() {
+		IFacadePart3 facade = new Facade();
+		ParseOutcome<?> outcome = facade.parse("double y := 0.1;");
 		assertTrue(outcome.isSuccess());
 	}
 

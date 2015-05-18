@@ -1,8 +1,6 @@
 package program.statement;
 
-
-
-import java.util.HashMap;
+import java.util.Map;
 
 import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
@@ -33,10 +31,10 @@ public class WhileStatement extends Statement{
 
 	@Override
 	public void advanceTime(double dt,
-			HashMap<String, Expression<? extends Type>> variables) {
+			Map<String, Type> globalVariables) {
 		if(!isExecutionComplete() && !ExecutionDone && !ForceReset){
 			while((boolean) UnevaluatedCondition.evaluate()){
-				WhileBody.advanceTime(dt, variables);
+				WhileBody.advanceTime(dt, globalVariables);
 			}
 			ExecutionDone = true;
 		}	
