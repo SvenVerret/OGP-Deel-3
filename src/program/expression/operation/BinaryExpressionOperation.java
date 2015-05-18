@@ -4,13 +4,12 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 import program.expression.Expression;
-import program.expression.ValueExpression;
 import program.type.Type;
 import jumpingalien.part3.programs.SourceLocation;
 
 public class BinaryExpressionOperation<R,E1,E2> extends Expression<R>{
 
-	public BinaryExpressionOperation(ValueExpression<E1> e1, ValueExpression<E2> e2, 
+	public BinaryExpressionOperation(Expression<E1> e1,Expression<E2> e2, 
 			BiFunction<E1,E2,R> f, SourceLocation sourcelocation) {
 		super(sourcelocation);
 		this.e1 = e1;
@@ -18,14 +17,14 @@ public class BinaryExpressionOperation<R,E1,E2> extends Expression<R>{
 		function = f;
 	}
 
-	private ValueExpression<E1> e1;
-	private ValueExpression<E2> e2;
+	private Expression<E1> e1;
+	private Expression<E2> e2;
 	private BiFunction<E1,E2,R> function;
 	
-	public ValueExpression<E1> getE1(){
+	public Expression<E1> getE1(){
 		return e1;
 	}
-	public ValueExpression<E2> getE2(){
+	public Expression<E2> getE2(){
 		return e2;
 	}
 	
