@@ -2,6 +2,7 @@ package program.statement;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import program.expression.Expression;
 import program.type.Type;
@@ -15,13 +16,32 @@ public class SequenceStatement extends Statement{
 	 *  
 	 */
 	public SequenceStatement(List<Statement> statements, SourceLocation sourceLocation){
+		
 		super(sourceLocation);
+		lst = statements;
+		
 	}
 
+	
 	@Override
-	public void advanceTime(double dt,
-			HashMap<String, Expression<? extends Type>> variables) {s
+	public void advanceTime(double dt, Map<String, Type> globalVariables) {
+		lst = getLst();
 		
+		for (Statement statement: getLst()){
+			
+			//getdt and decrease dt
+			if (dt <0.001)
+				break;
+			
+			statement.advanceTime(dt, globalVariables);
+
+		}
+			
+	}
+
+
+	public List<Statement> getLst(){
+		return lst;
 	}
 
 	@Override
@@ -41,4 +61,7 @@ public class SequenceStatement extends Statement{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	private List<Statement> lst;
 }

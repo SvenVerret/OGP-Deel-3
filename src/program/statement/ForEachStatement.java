@@ -1,7 +1,9 @@
 package program.statement;
 
 import java.util.HashMap;
+import java.util.Map;
 
+import program.Program;
 import program.expression.Expression;
 import program.expression.ValueExpression;
 import program.expression.VariableValueExpression;
@@ -47,6 +49,15 @@ public class ForEachStatement extends Statement{
 	}
 	
 	
+	@Override
+	public void advanceTime(double dt, Map<String, Type> globalVariables) {
+
+		program.getGameObject().getWorld();
+		action = filter(a =
+		
+	}
+
+
 	private void ConstructAllVariablesWithKind(Kind VariableKind){
 		
 	}
@@ -63,12 +74,6 @@ public class ForEachStatement extends Statement{
 	private boolean ForceReset = false;
 	private boolean ExecutionDone = false;
 
-	@Override
-	public void advanceTime(double dt,
-			HashMap<String, Expression<? extends Type>> variables) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public boolean isExecutionComplete() {
