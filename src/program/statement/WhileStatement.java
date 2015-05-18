@@ -21,24 +21,26 @@ public class WhileStatement extends Statement{
 		WhileBody = body;
 		UnevaluatedCondition = ((ValueExpression<?>) condition);
 	}
-	
-	
+
+
 	private ValueExpression<?> UnevaluatedCondition;
 	private Statement WhileBody;
 	private boolean ForceReset = false;
 	private boolean ExecutionDone = false;
-	
 
+
+	
+	// WORDT CONDITION GEUPDATED?
 	@Override
 	public void advanceTime(double dt,
 			Map<String, Type> globalVariables) {
-		if(!isExecutionComplete() && !ExecutionDone && !ForceReset){
-			while((boolean) UnevaluatedCondition.evaluate()){
-				WhileBody.advanceTime(dt, globalVariables);
-			}
+		while(!isExecutionComplete() && (boolean) UnevaluatedCondition.evaluate(globalVariables)){
+			WhileBody.advanceTime(dt, globalVariables);
+		}
+		if(!ForceReset){
 			ExecutionDone = true;
-		}	
-	}
+		}
+	}	
 
 	@Override
 	public boolean isExecutionComplete() {
