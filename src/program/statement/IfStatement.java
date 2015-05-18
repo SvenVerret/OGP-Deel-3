@@ -15,32 +15,33 @@ public class IfStatement extends Statement{
 	 * @param elseBody
 	 * @param loc
 	 */
-	public IfStatement(Expression<?> condition, Statement ifBody, Statement elseBody, 
+	public IfStatement(Expression<Boolean> condition, Statement ifBody, Statement elseBody, 
 			SourceLocation sourceLocation){
 		super(sourceLocation);
 		
 		IfBody = ifBody;
 		ElseBody = elseBody;
 		
-		UnevaluatedCondition = ((ValueExpression<?>) condition);
-		EvaluatedCondition = (Boolean) UnevaluatedCondition.evaluate();
+		UnevaluatedCondition = ((ValueExpression<Boolean>) condition);
 	}
 	
-	private ValueExpression<?> UnevaluatedCondition;
-	private Boolean EvaluatedCondition;
+	private ValueExpression<Boolean> UnevaluatedCondition;
 	private Statement IfBody;
 	private Statement ElseBody;
 	private boolean ForceReset = false;
 	private boolean ExecutionDone = false;
+	private Boolean IfBodyCalled = null;
 
 	@Override
 	public void advanceTime(double dt,
 			Map<String, Type> globalVariables) {
-		if (!isExecutionComplete() && !ExecutionDone && !ForceReset){
-			if(EvaluatedCondition){
+		if (!isExecutionComplete()){
+			if((Boolean) UnevaluatedCondition.evaluate(globalVariables)){
 				IfBody.advanceTime(dt, globalVariables);
+				IfBodyCalled = true;
 			}else{
 				ElseBody.advanceTime(dt, globalVariables);
+				IfBodyCalled = false;
 			}
 			ExecutionDone = true;
 		}
@@ -62,10 +63,10 @@ public class IfStatement extends Statement{
 	@Override
 	public void Reset() {
 		ExecutionDone = false;
-		if(EvaluatedCondition){
+		if(IfBodyCalled)
 			IfBody.Reset();
-		}else{
+		else
 			ElseBody.Reset();
-		}
+		IfBodyCalled = null;
 	}
 }
