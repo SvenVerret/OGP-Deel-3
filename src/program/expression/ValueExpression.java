@@ -1,5 +1,8 @@
 package program.expression;
 
+import java.util.Map;
+
+import program.type.Type;
 import jumpingalien.part3.programs.SourceLocation;
 
 public class ValueExpression<T> extends Expression<T> {
@@ -11,11 +14,11 @@ public class ValueExpression<T> extends Expression<T> {
 		this.value = value;	
 		}
 	
-	private T value;
+	protected T value;
 	public void setValue(T value){
 		this.value=value;
 	}
-	public T evaluate() {
+	public T evaluate(Map<String,Type> globalVariables) {
 		return value;
 	}
 
