@@ -18,6 +18,8 @@ public class ValueExpression<T> extends Expression<T> {
 	public void setValue(T value){
 		this.value=value;
 	}
+	
+	@Override
 	public T evaluate(Map<String,Type> globalVariables) {
 		return value;
 	}

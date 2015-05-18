@@ -1,9 +1,11 @@
 package program.expression.operation;
 
+import java.util.Map;
 import java.util.function.Function;
 
 import program.expression.Expression;
 import program.expression.ValueExpression;
+import program.type.Type;
 import jumpingalien.part3.programs.SourceLocation;
 
 public class SingleExpressionOperation<R,E> extends Expression<R>{
@@ -21,7 +23,8 @@ public class SingleExpressionOperation<R,E> extends Expression<R>{
 		return e;
 	}
 
-	public R evaluate(){
-		return this.function.apply(this.getE().evaluate());
+	@Override
+	public R evaluate(Map<String, Type> globalVariables){
+		return this.function.apply(this.getE().evaluate(globalVariables));
 	}
 }

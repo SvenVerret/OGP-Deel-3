@@ -1,9 +1,11 @@
 package program.expression.operation;
 
+import java.util.Map;
 import java.util.function.BiFunction;
 
 import program.expression.Expression;
 import program.expression.ValueExpression;
+import program.type.Type;
 import jumpingalien.part3.programs.SourceLocation;
 
 public class BinaryExpressionOperation<R,E1,E2> extends Expression<R>{
@@ -27,8 +29,9 @@ public class BinaryExpressionOperation<R,E1,E2> extends Expression<R>{
 		return e2;
 	}
 	
-	public R evaluate(){
-		return this.function.apply(this.getE1().evaluate(),this.getE2().evaluate());
+	@Override
+	public R evaluate(Map<String, Type> globalVariables){
+		return this.function.apply(this.getE1().evaluate(globalVariables),this.getE2().evaluate(globalVariables));
 	}
 	
 
