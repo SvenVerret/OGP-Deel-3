@@ -1,8 +1,6 @@
 package program.statement;
-import java.util.Map;
 
 import program.Program;
-import program.type.Type;
 import jumpingalien.part3.programs.SourceLocation;
 
 

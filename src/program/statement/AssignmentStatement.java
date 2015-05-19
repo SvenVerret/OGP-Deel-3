@@ -3,6 +3,7 @@ package program.statement;
 import java.util.Map;
 
 import jumpingalien.part3.programs.SourceLocation;
+import program.Program;
 import program.expression.Expression;
 import program.type.DoubleType;
 import program.type.Type;
@@ -11,11 +12,11 @@ public class AssignmentStatement extends Statement{
 	/**
 	 * 
 	 * @param variableName
-	 * @param variableType2
+	 * @param variableType
 	 * @param value
 	 * @param loc
 	 */
-	public AssignmentStatement(String variableName, Type variableType, Expression<?> value, 
+	public AssignmentStatement(String variableName, Object variableType, Expression<?> value, 
 			SourceLocation sourceLocation){
 		super(sourceLocation);
 		VariableName = variableName;
@@ -26,15 +27,15 @@ public class AssignmentStatement extends Statement{
 	private boolean ForceReset = false;
 	private boolean ExecutionDone = false;
 	private String VariableName;
-	private Type VariableType;
+	private Object VariableType;
 	private Expression<?> VariableValue;
 
 
 	@Override
-	public void advanceTime(double dt, Map<String, Type> globalVariables) {
+	public void advanceTime(double dt,Program program) {
 		if(!isExecutionComplete()){
-			DoubleType value = (DoubleType) VariableValue.evaluate(globalVariables);
-			globalVariables.put(VariableName,value);
+			
+			program.getVariables().put(VariableName,VariableValue.evaluate(program));
 			ExecutionDone = true;		
 			}
 

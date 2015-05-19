@@ -1,11 +1,9 @@
 package program.statement;
 
-import java.util.Map;
-
 import jumpingalien.part3.programs.SourceLocation;
+import program.Program;
 import program.expression.Expression;
 import program.expression.ValueExpression;
-import program.type.Type;
 
 public class IfStatement extends Statement{
 	/**
@@ -33,14 +31,13 @@ public class IfStatement extends Statement{
 	private Boolean IfBodyCalled = null;
 
 	@Override
-	public void advanceTime(double dt,
-			Map<String, Type> globalVariables) {
+	public void advanceTime(double dt,Program program) {
 		if (!isExecutionComplete()){
-			if((Boolean) UnevaluatedCondition.evaluate(globalVariables)){
-				IfBody.advanceTime(dt, globalVariables);
+			if((Boolean) UnevaluatedCondition.evaluate(program)){
+				IfBody.advanceTime(dt, program);
 				IfBodyCalled = true;
 			}else{
-				ElseBody.advanceTime(dt, globalVariables);
+				ElseBody.advanceTime(dt, program);
 				IfBodyCalled = false;
 			}
 			ExecutionDone = true;

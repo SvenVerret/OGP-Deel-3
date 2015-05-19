@@ -24,7 +24,7 @@ public class ForEachStatement extends Statement{
 	 * @param body
 	 *  
 	 */
-	@SuppressWarnings("unchecked")
+	
 	public ForEachStatement(String variableName, Kind variableKind, Expression<?> where, 
 			Expression<?> sort, SortDirection sortDirection, Statement body, 
 			SourceLocation sourceLocation) throws IllegalArgumentException{
@@ -50,21 +50,21 @@ public class ForEachStatement extends Statement{
 	
 	
 	@Override
-	public void advanceTime(double dt, Map<String, Type> globalVariables) {
+	public void advanceTime(double dt, Program program) {
 
-		program.getGameObject().getWorld();
-		action = filter(a =
-		
+//		program.getGameObject().getWorld();
+//		action = filter(a =
+//		
 	}
 
 
-	private void ConstructAllVariablesWithKind(Kind VariableKind){
-		
-	}
-	
-	private void FilterVariables(where){
-		
-	}
+//	private void ConstructAllVariablesWithKind(Kind VariableKind){
+//		
+//	}
+//	
+//	private void FilterVariables(where){
+//		
+//	}
 	private VariableValueExpression<?> IterationVariable;
 	private ValueExpression<Boolean> WhereExpression;
 	private ValueExpression<Double> SortExpression;

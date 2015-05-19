@@ -1,11 +1,9 @@
 package program.statement;
 
-import java.util.Map;
-
 import jumpingalien.part3.programs.SourceLocation;
+import program.Program;
 import program.expression.Expression;
 import program.expression.ValueExpression;
-import program.type.Type;
 
 public class WhileStatement extends Statement{
 
@@ -22,20 +20,19 @@ public class WhileStatement extends Statement{
 		UnevaluatedCondition = ((ValueExpression<?>) condition);
 	}
 
-
 	private ValueExpression<?> UnevaluatedCondition;
 	private Statement WhileBody;
 	private boolean ForceReset = false;
 	private boolean ExecutionDone = false;
 
-
-	
 	// WORDT CONDITION GEUPDATED?
 	@Override
-	public void advanceTime(double dt,
-			Map<String, Type> globalVariables) {
-		while(!isExecutionComplete() && (boolean) UnevaluatedCondition.evaluate(globalVariables)){
-			WhileBody.advanceTime(dt, globalVariables);
+	public void advanceTime(double dt, Program program) {
+		while(!isExecutionComplete() && (Boolean) UnevaluatedCondition.evaluate(program)){
+			WhileBody.advanceTime(dt, program);
+//			if(break is called in body){
+//				break;
+//			}
 		}
 		if(!ForceReset){
 			ExecutionDone = true;

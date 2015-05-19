@@ -3,6 +3,7 @@ package program.statement;
 import java.util.Map;
 
 import jumpingalien.part3.programs.SourceLocation;
+import program.Program;
 import program.expression.Expression;
 import program.expression.ValueExpression;
 import program.type.Type;
@@ -10,9 +11,9 @@ import program.type.Type;
 
 public class WaitStatement extends Statement{
 
-	public WaitStatement(Expression<Double> duration, SourceLocation sourceLocation){
+	public WaitStatement(Expression<Double> time, SourceLocation sourceLocation){
 		super(sourceLocation);
-		WaitDuration = duration;
+		WaitDuration = time;
 		
 	}
 
@@ -37,8 +38,8 @@ public class WaitStatement extends Statement{
 	}
 
 	@Override
-	public void advanceTime(double dt,  Map<String, Type> globalVariables) {
-		double duration= ((ValueExpression<Double>) WaitDuration).evaluate(globalVariables);
+	public void advanceTime(double dt,Program program) {
+		double duration= (double) ((ValueExpression<Double>) WaitDuration).evaluate(program);
 		//return (dt-duration)
 	}
 

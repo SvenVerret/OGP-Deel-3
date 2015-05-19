@@ -14,27 +14,27 @@ public class Program {
 	private final Statement mainstatement;
 	
 	
-	public Map<String, Type<?>> getVariables() {
+	public Map<String, Object> getVariables() {
 		return globalVariables;
 	}
-	public void setVariables(Map<String, Type<?>> globalVariables) {
+	public void setVariables(Map<String, Object> globalVariables) {
 		this.globalVariables = globalVariables;
 	}
-	private Map<String, Type<?>> globalVariables;
+	private Map<String, Object> globalVariables;
 	
 	
-	public void setGameObject(Type<GameObject> gameobject){
+	public void setGameObject(GameObject gameobject){
 		this.gameobject = gameobject;
 	}
-	public Type<GameObject> getGameObject(){
+	public GameObject getGameObject(){
 		return gameobject;
 	}
-	private Type<GameObject> gameobject;
+	private GameObject gameobject;
 	
 
-	public Program(Statement mainstatement, Map<String, Type<?>> globalVariables2){
+	public Program(Statement mainstatement, Map<String,Object> globalVariables){
 		this.mainstatement = mainstatement;
-		this.setVariables(globalVariables2);
+		this.setVariables(globalVariables);
 	}
 	
 	public void advanceTime(double dt){

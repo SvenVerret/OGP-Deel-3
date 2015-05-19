@@ -1,26 +1,30 @@
-	package program.expression;
+package program.expression;
 
-import java.util.Map;
-
+import program.Program;
 import program.type.Type;
 import jumpingalien.part3.programs.SourceLocation;
 
 public class VariableValueExpression<T> extends ValueExpression<T> {
 
-	public VariableValueExpression(String variableName,Type T, SourceLocation sourcelocation) {
+	public VariableValueExpression(String variableName, Object variableType, SourceLocation sourcelocation) {
 		super(null,sourcelocation);
-		this.name = variableName;
+		setName(variableName);
 	}
-	
+	public void setName(String name){
+		this.name = name;
+	}
 	public String getName(){
 		return name;
 	}
 	private String name;
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	public T evaluate(Map<String,Type> globalVariables){
+	public Object evaluate(Program program){
+		if(program.getVariables().containsKey(getName())){
+			return program.getVariables().get(getName());
+		} else {
+			return null;
+		}
 		
-		return (T) globalVariables.get(getName());
 	}
 }

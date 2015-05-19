@@ -1,11 +1,9 @@
 package program.statement;
 
-import java.util.Map;
-
 import jumpingalien.part3.programs.SourceLocation;
+import program.Program;
 import program.expression.Expression;
 import program.expression.ValueExpression;
-import program.type.Type;
 
 public class PrintStatement extends Statement{
 
@@ -15,10 +13,9 @@ public class PrintStatement extends Statement{
 	}
 
 	@Override
-	public void advanceTime(double dt,
-			Map<String, Type> globalVariables) {
+	public void advanceTime(double dt,Program program) {
 		if(!isExecutionComplete()){
-			System.out.println(getValueToBePrinted().evaluate(globalVariables));
+			System.out.println(getValueToBePrinted().evaluate(program));
 			setValueIsPrinted(true);
 		}
 	}

@@ -25,20 +25,20 @@ import jumpingalien.part3.programs.SourceLocation;
 
 
 //supress warning needed
-public class ProgramFactory implements IProgramFactory<Expression<?>, Statement, Type<?>, Program> {
+public class ProgramFactory implements IProgramFactory<Expression<?>, Statement, Object, Program> {
 
 	@Override
 	public Expression<?> createReadVariable(String variableName,
-			Type<?> variableType, SourceLocation sourceLocation) {
+			Object variableType, SourceLocation sourceLocation) {
 		System.out.println("ReadVariables");
-		return new VariableValueExpression<Type>(variableName,variableType,sourceLocation);
+		return new VariableValueExpression<Object>(variableName,variableType,sourceLocation);
 	}
 	
 	@Override
 	public Expression<Double> createDoubleConstant(double value,
 			SourceLocation sourceLocation) {
 		System.out.println("DoubleConstant");
-		return new ValueExpression<Double>(value, sourceLocation);
+		return new ValueExpression<Double>(new Double(value), sourceLocation);
 	}
 
 	@Override
@@ -439,7 +439,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	}
 
 	@Override
-	public Statement createAssignment(String variableName, Type<?> variableType,
+	public Statement createAssignment(String variableName, Object variableType,
 			Expression<?> value, SourceLocation sourceLocation) {
 		System.out.println("Assignment");
 		return new AssignmentStatement(variableName, variableType,
@@ -546,31 +546,30 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	}
 
 	@Override
-	public Type<?> getDoubleType() {
+	public Object getDoubleType() {
 		System.out.println("Getdoubletypes");
-		return new Type<Double>();
+		return new Double();
 	}
 
 	@Override
-	public Type<?> getBoolType() {
+	public Object getBoolType() {
 		// TODO Auto-generated method stub
-		return new Type<Boolean>();
+		return new Boolean();
 	}
 
 	@Override
-	public Type<?> getGameObjectType() {
+	public Object getGameObjectType() {
 		return new Type<GameObject>();
 	}
 
 	@Override
-	public Type<?> getDirectionType() {
-		// TODO Auto-generated method stub
-		return null;
+	public Object getDirectionType() {
+		return new Type<IProgramFactory.Direction>();
 	}
 
 	@Override
 	public Program createProgram(Statement mainStatement,
-			Map<String, Type<?>> globalVariables) {
+			Map<String, Object> globalVariables) {
 		System.out.println(mainStatement);
 		System.out.println(globalVariables);
 		return new Program(mainStatement, globalVariables);
