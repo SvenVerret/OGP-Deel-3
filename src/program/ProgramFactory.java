@@ -25,11 +25,11 @@ import jumpingalien.part3.programs.SourceLocation;
 
 
 //supress warning needed
-public class ProgramFactory implements IProgramFactory<Expression<?>, Statement, Type, Program> {
+public class ProgramFactory implements IProgramFactory<Expression<?>, Statement, Type<?>, Program> {
 
 	@Override
 	public Expression<?> createReadVariable(String variableName,
-			Type variableType, SourceLocation sourceLocation) {
+			Type<?> variableType, SourceLocation sourceLocation) {
 		System.out.println("ReadVariables");
 		return new VariableValueExpression<Type>(variableName,variableType,sourceLocation);
 	}
@@ -439,7 +439,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	}
 
 	@Override
-	public Statement createAssignment(String variableName, Type variableType,
+	public Statement createAssignment(String variableName, Type<?> variableType,
 			Expression<?> value, SourceLocation sourceLocation) {
 		System.out.println("Assignment");
 		return new AssignmentStatement(variableName, variableType,
@@ -546,32 +546,32 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	}
 
 	@Override
-	public Type getDoubleType() {
+	public Type<?> getDoubleType() {
 		System.out.println("Getdoubletypes");
 		return new DoubleType();
 	}
 
 	@Override
-	public Type getBoolType() {
+	public Type<?> getBoolType() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Type getGameObjectType() {
+	public Type<?> getGameObjectType() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Type getDirectionType() {
+	public Type<?> getDirectionType() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Program createProgram(Statement mainStatement,
-			Map<String, Type> globalVariables) {
+			Map<String, Type<?>> globalVariables) {
 		System.out.println(mainStatement);
 		System.out.println(globalVariables);
 		return new Program(mainStatement, globalVariables);

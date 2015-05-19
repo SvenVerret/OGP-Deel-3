@@ -1,6 +1,7 @@
 package program.statement;
 import java.util.Map;
 
+import program.Program;
 import program.type.Type;
 import jumpingalien.part3.programs.SourceLocation;
 
@@ -20,7 +21,7 @@ public abstract class Statement{
 	
 	
 	
-	public abstract void advanceTime(double dt, Map<String, Type> globalVariables);
+	public abstract void advanceTime(double dt, Program program);
 	
 	public static double defaultDT = 0.001;
 	

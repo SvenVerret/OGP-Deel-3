@@ -1,8 +1,8 @@
 package program;
 import java.util.Map;
 
+import jumpingalien.model.GameObject;
 import program.statement.Statement;
-import program.type.GameObjectType;
 import program.type.Type;
 
 
@@ -14,30 +14,30 @@ public class Program {
 	private final Statement mainstatement;
 	
 	
-	public Map<String, Type> getVariables() {
+	public Map<String, Type<?>> getVariables() {
 		return globalVariables;
 	}
-	public void setVariables(Map<String, Type> globalVariables) {
+	public void setVariables(Map<String, Type<?>> globalVariables) {
 		this.globalVariables = globalVariables;
 	}
-	private Map<String, Type> globalVariables;
+	private Map<String, Type<?>> globalVariables;
 	
 	
-	public void setGameObject(GameObjectType<?> gameobject){
+	public void setGameObject(Type<GameObject> gameobject){
 		this.gameobject = gameobject;
 	}
-	public GameObjectType<?> getGameObject(){
+	public Type<GameObject> getGameObject(){
 		return gameobject;
 	}
-	private GameObjectType<?> gameobject;
+	private Type<GameObject> gameobject;
 	
 
-	public Program(Statement mainstatement, Map<String, Type> globalVariables2){
+	public Program(Statement mainstatement, Map<String, Type<?>> globalVariables2){
 		this.mainstatement = mainstatement;
 		this.setVariables(globalVariables2);
 	}
 	
 	public void advanceTime(double dt){
-		getMainStatement().advanceTime(dt, globalVariables);
+		getMainStatement().advanceTime(dt, this);
 	}
 }
