@@ -1,6 +1,6 @@
 package program.type;
 
-public class BooleanType extends Type {
+public class BooleanType implements Type {
 
 
 	public BooleanType(Boolean value) {
@@ -11,7 +11,6 @@ public class BooleanType extends Type {
 		setValue(getDefaultValue());
 	}
 
-	@Override
 	public Boolean getDefaultValue() {
 		return null;
 	}
@@ -20,11 +19,10 @@ public class BooleanType extends Type {
 		return value;
 	}
 
-	public void setValue(Boolean value) {
-		this.value = value;
+	public void setValue(Object value) {
+		this.value = (Boolean) value;	
 	}
 
-	private Boolean value;
-	
+	private Boolean value;	
 }
 
