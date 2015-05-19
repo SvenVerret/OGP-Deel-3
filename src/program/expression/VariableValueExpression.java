@@ -1,7 +1,6 @@
 package program.expression;
 
 import program.Program;
-import program.type.Type;
 import jumpingalien.part3.programs.SourceLocation;
 
 public class VariableValueExpression<T> extends ValueExpression<T> {
@@ -18,6 +17,7 @@ public class VariableValueExpression<T> extends ValueExpression<T> {
 	}
 	private String name;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public T evaluate(Program program){
 		if(program.getVariables().containsKey(getName())){

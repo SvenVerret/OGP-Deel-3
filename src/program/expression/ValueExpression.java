@@ -6,7 +6,7 @@ import jumpingalien.part3.programs.SourceLocation;
 
 public class ValueExpression<T> extends Expression<T> {
 
-	// An expression with a value of type Type<?>.
+	// An expression with a value of unknown type.
 
 	public ValueExpression(T value,SourceLocation sourcelocation) {
 		super(sourcelocation);

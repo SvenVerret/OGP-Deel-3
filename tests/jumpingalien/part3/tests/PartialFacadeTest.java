@@ -79,18 +79,18 @@ public class PartialFacadeTest {
 //		program.advanceTime(0.1);
 //	}
 	
-//	@Test
-//	public void testParseSimplestProgramEquals() {
-//		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
-//		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
-//
-//		Optional<Program> parse_outcome = parser.parseString("double y; double x; bool rslt := false; bool rslt2 := false;"
-//				+ "y := 1.0; x := 1.0; rslt := x == y; rslt2 := x != y;");
-//		Program program = parse_outcome.get();
-//		
-//		program.advanceTime(0.1);
-//		System.out.println(program.getVariables());
-//	}
+	@Test
+	public void testParseSimplestProgramEquals() {
+		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+
+		Optional<Program> parse_outcome = parser.parseString("double y; double x; bool rslt := false; bool rslt2 := false;"
+				+ "y := 1.0; x := 1.0; rslt := x == y; rslt2 := x != y;");
+		Program program = parse_outcome.get();
+		
+		program.advanceTime(0.1);
+		System.out.println(program.getVariables());
+	}
 	
 	
 	

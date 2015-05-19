@@ -16,14 +16,12 @@ public class AssignmentStatement extends Statement{
 			SourceLocation sourceLocation){
 		super(sourceLocation);
 		VariableName = variableName;
-		VariableType = variableType;
 		VariableValue = value;
 	}
 
 	private boolean ForceReset = false;
 	private boolean ExecutionDone = false;
 	private String VariableName;
-	private Object VariableType;
 	private Expression<?> VariableValue;
 
 

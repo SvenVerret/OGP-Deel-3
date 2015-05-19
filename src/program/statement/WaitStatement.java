@@ -1,12 +1,10 @@
 package program.statement;
 
-import java.util.Map;
 
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 import program.expression.Expression;
 import program.expression.ValueExpression;
-import program.type.Type;
 
 
 public class WaitStatement extends Statement{
