@@ -1,11 +1,27 @@
 package program.type;
 
-public interface Type{
+public class Type<T>{
 
-	public Object getDefaultValue();
+	public Type(){
+		setValue(getDefaultValue());
+	}
 	
-	public Object getValue();
+	public Type(T value){
+		setValue(value);
+	}
+	
+	public T getDefaultValue() {
+		return null;
+	}
+	
+	public T getValue() {
+		return value;
+	}
 
-	public void setValue(Object value);
+	public void setValue(T value) {
+		this.value = value;
+	}
+	
+	private T value;
 
 }

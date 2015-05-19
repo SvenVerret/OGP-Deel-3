@@ -1,25 +1,9 @@
 package program.type;
 
-public class DoubleType implements Type {
-
-	public DoubleType(Double value){
-		setValue(value);
-	}
-
-	public DoubleType(){
-		setValue(getDefaultValue());
-	}
+public class DoubleType extends Type<Double> {
 
 	public Double getDefaultValue() {
 		return 0.0;
-	}
-
-	public void setValue(Object value) {
-		this.value = (Double) value;
-	}
-
-	public Double getValue() {
-		return value;
 	}
 
 	public Integer getValueInt() {
@@ -33,7 +17,6 @@ public class DoubleType implements Type {
 		}
 	}
 
-	private Double value;   	
 }
 
 
