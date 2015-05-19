@@ -1,4 +1,4 @@
-package program.expression;
+	package program.expression;
 
 import java.util.Map;
 
@@ -17,8 +17,10 @@ public class VariableValueExpression<T> extends ValueExpression<T> {
 	}
 	private String name;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public T evaluate(Map<String,Type> globalVariables){
-		return value;
+		
+		return (T) globalVariables.get(getName());
 	}
 }

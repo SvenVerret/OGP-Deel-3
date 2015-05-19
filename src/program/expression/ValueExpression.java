@@ -20,7 +20,11 @@ public class ValueExpression<T> extends Expression<T> {
 	}
 	
 	@Override
-	public T evaluate(Map<String,Type> globalVariables) {
+	public T evaluate(Map<String, Type> globalVariables) {
+		return value;
+	}
+
+	public T evaluateWithoutGlobals(){
 		return value;
 	}
 
