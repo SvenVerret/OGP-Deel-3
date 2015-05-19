@@ -31,8 +31,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	public Expression<?> createReadVariable(String variableName,
 			Type variableType, SourceLocation sourceLocation) {
 		System.out.println("ReadVariables");
-		// TODO Auto-generated method stub
-		return null;
+		return new VariableValueExpression<Type>(variableName,variableType,sourceLocation);
 	}
 	
 	@Override
