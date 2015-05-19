@@ -6,5 +6,5 @@ public abstract class Type{
 		return (this.getClass() == type.getClass());
 	}
 
-	public abstract Object getValue();
+	public abstract Object getDefaultValue();
 }

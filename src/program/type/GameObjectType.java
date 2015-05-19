@@ -1,24 +1,13 @@
 package program.type;
  
+import program.expression.Expression;
 import jumpingalien.model.GameObject;
  
 public class GameObjectType<T extends GameObject> extends Type{
-
-        /**
-         *
-         * @param object
-         */
-        public GameObjectType(T object){
-                this.object = object;
-               
-        }
- 
- 
-        @Override
-        public T getValue() {
-                return object;
-        }
- 
-        private final T object;
+    
+    	@Override
+    	public Expression<?> getDefaultValue() {
+    		return null;
+    	}
 }
 

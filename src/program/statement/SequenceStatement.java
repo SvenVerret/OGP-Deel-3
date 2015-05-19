@@ -30,10 +30,12 @@ public class SequenceStatement extends Statement{
 		for (Statement statement: getLst()){
 			
 			//getdt and decrease dt
-			if (dt <0.001)
+			if (dt <0.001){
 				break;
-			
-			statement.advanceTime(dt, globalVariables);
+			}
+			if(!statement.isExecutionComplete()){
+				statement.advanceTime(dt, globalVariables);
+			}
 
 		}
 			

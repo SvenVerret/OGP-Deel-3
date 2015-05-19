@@ -18,7 +18,7 @@ public class PrintStatement extends Statement{
 	public void advanceTime(double dt,
 			Map<String, Type> globalVariables) {
 		if(!isExecutionComplete()){
-			System.out.println(getValueToBePrinted().evaluate());
+			System.out.println(getValueToBePrinted().evaluate(globalVariables));
 			setValueIsPrinted(true);
 		}
 	}

@@ -4,13 +4,14 @@ import java.util.Map;
 
 import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
+import program.type.DoubleType;
 import program.type.Type;
 
 public class AssignmentStatement extends Statement{
 	/**
 	 * 
 	 * @param variableName
-	 * @param variableType
+	 * @param variableType2
 	 * @param value
 	 * @param loc
 	 */
@@ -19,20 +20,23 @@ public class AssignmentStatement extends Statement{
 		super(sourceLocation);
 		VariableName = variableName;
 		VariableType = variableType;
+		VariableValue = value;
 	}
 
 	private boolean ForceReset = false;
 	private boolean ExecutionDone = false;
 	private String VariableName;
 	private Type VariableType;
+	private Expression<?> VariableValue;
 
 
 	@Override
 	public void advanceTime(double dt, Map<String, Type> globalVariables) {
-		if(!ExecutionDone||!ForceReset){
-			globalVariables.put(VariableName, VariableType);
-			ExecutionDone = true;
-		}
+		if(!isExecutionComplete()){
+			DoubleType value = (DoubleType) VariableValue.evaluate(globalVariables);
+			globalVariables.put(VariableName,value);
+			ExecutionDone = true;		
+			}
 
 	}
 

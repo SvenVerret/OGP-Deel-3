@@ -1,18 +1,18 @@
 package program.type;
 
+import program.expression.Expression;
+
 public class BooleanType extends Type {
 
 
-	public BooleanType(Boolean value) {
-		this.value = value;
+	public BooleanType() {
 	}
 
 	@Override
-	public Boolean getValue() {
-		return value;
+	public Expression<?> getDefaultValue() {
+		return null;
 	}
 
-	private Boolean value;
 
 }
 
