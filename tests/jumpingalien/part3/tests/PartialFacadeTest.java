@@ -34,26 +34,86 @@ public class PartialFacadeTest {
 //		assertTrue(outcome.isSuccess());
 //	}
 	
-	@Test
-	public void testParseSimplestProgram3() {
-		IProgramFactory<Expression<?>, Statement, Type, Program> factory = new ProgramFactory();
-		ProgramParser<Expression<?>, Statement, Type, Program> parser = new ProgramParser<>(factory);
-
-		Optional<Program> parse_outcome = parser.parseString("double y; y:= 1.0;");
-		Program program = parse_outcome.get();
-		
-		program.advanceTime(0.1);
-
-	}
-
+//	@Test
+//	public void testParseSimplestProgramAdd() {
+//		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+//		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+//
+//		Optional<Program> parse_outcome = parser.parseString("double y; y := 1.0 + 2.0;");
+//		Program program = parse_outcome.get();
+//		
+//		program.advanceTime(0.1);
+//	}
+//	
+//	@Test
+//	public void testParseSimplestProgramSubtract() {
+//		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+//		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+//
+//		Optional<Program> parse_outcome = parser.parseString("double y; y := 1.0 - 2.0;");
+//		Program program = parse_outcome.get();
+//		
+//		program.advanceTime(0.1);
+//	}
+//	
+//	@Test
+//	public void testParseSimplestProgramMultiply() {
+//		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+//		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+//
+//		Optional<Program> parse_outcome = parser.parseString("double y; y := 4.0 * 2.0;");
+//		Program program = parse_outcome.get();
+//		
+//		program.advanceTime(0.1);
+//		System.out.println(program.getVariables());
+//	}
+//	
+//	@Test
+//	public void testParseSimplestProgramDivide() {
+//		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+//		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+//
+//		Optional<Program> parse_outcome = parser.parseString("double y; y := 1.0 / 0.0;");
+//		Program program = parse_outcome.get();
+//		
+//		program.advanceTime(0.1);
+//	}
+	
+//	@Test
+//	public void testParseSimplestProgramEquals() {
+//		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+//		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+//
+//		Optional<Program> parse_outcome = parser.parseString("double y; double x; bool rslt := false; bool rslt2 := false;"
+//				+ "y := 1.0; x := 1.0; rslt := x == y; rslt2 := x != y;");
+//		Program program = parse_outcome.get();
+//		
+//		program.advanceTime(0.1);
+//		System.out.println(program.getVariables());
+//	}
+	
 	
 	
 //	@Test
-//	public void testParseFails() {
-//		IFacadePart3 facade = new Facade();
-//		ParseOutcome<?> outcome = facade.parse("skip && 3;");
-//		assertFalse(outcome.isSuccess());
+//	public void testParseSimplestProgram4() {
+//		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+//		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+//
+//		Optional<Program> parse_outcome = parser.parseString("direction currentxdir := up; direction newxdir := left;");
+//		Program program = parse_outcome.get();
+//		
+//		program.advanceTime(0.1);
+//
 //	}
+
+	
+	
+	@Test
+	public void testParseFails() {
+		IFacadePart3 facade = new Facade();
+		ParseOutcome<?> outcome = facade.parse("skip && 3;");
+		assertFalse(outcome.isSuccess());
+	}
 //
 //	@Test
 //	public void testBreakNotWellformed() {

@@ -9,18 +9,18 @@ public class ValueExpression<T> extends Expression<T> {
 	
 	// An expression with a value of type Type<?>.
 	
-	public ValueExpression(Object value,SourceLocation sourcelocation) {
+	public ValueExpression(T value,SourceLocation sourcelocation) {
 		super(sourcelocation);
 		this.value = value;	
 		}
 	
-	protected Object value;
-	public void setValue(Object value){
+	protected T value;
+	public void setValue(T value){
 		this.value = value;
 	}
 	
 	@Override
-	public Object evaluate(Program program) {
+	public T evaluate(Program program) {
 		return value;
 	}
 

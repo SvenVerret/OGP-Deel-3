@@ -10,21 +10,18 @@ import program.expression.VariableValueExpression;
 import program.expression.operation.BinaryExpressionOperation;
 import program.expression.operation.SingleExpressionOperation;
 import program.statement.AssignmentStatement;
+import program.statement.SequenceStatement;
 import program.statement.Statement;
 import program.statement.WaitStatement;
-import program.type.DoubleType;
-import program.type.Type;
 import jumpingalien.model.GameObject;
 import jumpingalien.model.Mazub;
 import jumpingalien.model.Plant;
 import jumpingalien.model.Shark;
 import jumpingalien.model.Slime;
-import jumpingalien.model.World;
 import jumpingalien.part3.programs.IProgramFactory;
 import jumpingalien.part3.programs.SourceLocation;
 
-
-//supress warning needed
+@SuppressWarnings("unchecked")
 public class ProgramFactory implements IProgramFactory<Expression<?>, Statement, Object, Program> {
 
 	@Override
@@ -49,7 +46,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 
 	@Override
 	public Expression<Boolean> createFalse(SourceLocation sourceLocation) {
-		return new ValueExpression<Boolean>(true, sourceLocation);
+		return new ValueExpression<Boolean>(false, sourceLocation);
 	}
 
 	@Override
@@ -68,7 +65,6 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		return new ValueExpression<Direction>(value,sourceLocation);
 	}
 
-	@SuppressWarnings({"unchecked"})
 	@Override
 	public Expression<?> createAddition(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
@@ -80,7 +76,6 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		return result;
 	}
 
-	@SuppressWarnings({"unchecked"})
 	@Override
 	public Expression<?> createSubtraction(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
@@ -92,7 +87,6 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		return result;
 	}
 
-	@SuppressWarnings({ "unchecked"})
 	@Override
 	public Expression<?> createMultiplication(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
@@ -103,7 +97,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 
 		return result;
 	}
-	@SuppressWarnings({ "unchecked"})
+
 	@Override
 	public Expression<?> createDivision(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
@@ -115,7 +109,6 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		return result;
 	}
 
-	@SuppressWarnings({ "unchecked"})
 	@Override
 	public Expression<?> createSqrt(Expression<?> expr,
 			SourceLocation sourceLocation) {
@@ -127,38 +120,35 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		return result;
 	}
 
-	@SuppressWarnings({ "unchecked"})
 	@Override
 	public Expression<?> createRandom(Expression<?> maxValue,
 			SourceLocation sourceLocation) {
 		SingleExpressionOperation<Double, Double> result =
 				new SingleExpressionOperation<Double, Double>(
 						(ValueExpression<Double>)maxValue, 
-						e -> Math.random()*e, sourceLocation);
+						e -> Math.random()*(Double)e, sourceLocation);
 
 		return result;
 	}
 
-	@SuppressWarnings({ "unchecked"})
 	@Override
 	public Expression<?> createAnd(Expression<?> left, Expression<?> right,
 			SourceLocation sourceLocation) {
 		BinaryExpressionOperation<Boolean, Boolean, Boolean> result =
 				new BinaryExpressionOperation<Boolean, Boolean, Boolean>(
 						(ValueExpression<Boolean>) left, (ValueExpression<Boolean>) right,
-						(a,b) -> (a&&b), sourceLocation);
+						(a,b) -> ((Boolean)a && (Boolean)b), sourceLocation);
 
 		return result;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Expression<?> createOr(Expression<?> left, Expression<?> right,
 			SourceLocation sourceLocation) {
 		BinaryExpressionOperation<Boolean, Boolean, Boolean> result =
 				new BinaryExpressionOperation<Boolean, Boolean, Boolean>(
 						(ValueExpression<Boolean>) left, (ValueExpression<Boolean>) right,
-						(a,b) -> (a||b), sourceLocation);
+						(a,b) -> ((Boolean)a || (Boolean)b), sourceLocation);
 
 		return result;
 	}
@@ -166,11 +156,10 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createNot(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		@SuppressWarnings("unchecked")
 		SingleExpressionOperation<Boolean, Boolean> result =
 				new SingleExpressionOperation<Boolean, Boolean>(
 						(Expression<Boolean>)expr, 
-						e -> !e, sourceLocation);
+						e -> !(Boolean)e, sourceLocation);
 
 		return result;
 	}
@@ -181,7 +170,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		BinaryExpressionOperation<Boolean, Double, Double> result =
 				new BinaryExpressionOperation<Boolean, Double, Double>(
 						 (Expression<Double>)left, (Expression<Double>) right,
-						(a,b) -> (a<b), sourceLocation);
+						(a,b) -> ((Double)a<(Double)b), sourceLocation);
 
 		return result;
 	}
@@ -192,7 +181,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		BinaryExpressionOperation<Boolean, Double, Double> result =
 				new BinaryExpressionOperation<Boolean, Double, Double>(
 						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
-						(a,b) -> (a<=b), sourceLocation);
+						(a,b) -> ((Double)a<=(Double)b), sourceLocation);
 
 		return result;
 	}
@@ -203,7 +192,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		BinaryExpressionOperation<Boolean, Double, Double> result =
 				new BinaryExpressionOperation<Boolean, Double, Double>(
 						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
-						(a,b) -> (a>b), sourceLocation);
+						(a,b) -> ((Double)a>(Double)b), sourceLocation);
 
 		return result;
 	}
@@ -214,7 +203,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		BinaryExpressionOperation<Boolean, Double, Double> result =
 				new BinaryExpressionOperation<Boolean, Double, Double>(
 						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
-						(a,b) -> (a>=b), sourceLocation);
+						(a,b) -> ((Double)a>=(Double)b), sourceLocation);
 
 		return result;
 	}
@@ -225,7 +214,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		BinaryExpressionOperation<Boolean, Object, Object> result =
 				new BinaryExpressionOperation<Boolean, Object, Object>(
 						(ValueExpression<Object>) left, (ValueExpression<Object>) right,
-						(a,b) -> (a==b), sourceLocation);
+						(a,b) -> (a.equals(b)), sourceLocation);
 
 		return result;
 	}
@@ -236,7 +225,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		BinaryExpressionOperation<Boolean, Object, Object> result =
 				new BinaryExpressionOperation<Boolean, Object, Object>(
 						(ValueExpression<Object>) left, (ValueExpression<Object>) right,
-						(a,b) -> (a!=b), sourceLocation);
+						(a,b) -> (!a.equals(b)), sourceLocation);
 
 		return result;
 	}
@@ -247,7 +236,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		SingleExpressionOperation<Double, GameObject> result =
 				new SingleExpressionOperation<Double, GameObject>(
 						(ValueExpression<GameObject>)expr, 
-						e -> e.getPos().getElemx(), sourceLocation);
+						e -> ((GameObject) e).getPos().getElemx(), sourceLocation);
 
 		return result;
 	}
@@ -258,7 +247,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		SingleExpressionOperation<Double, GameObject> result =
 				new SingleExpressionOperation<Double, GameObject>(
 						(ValueExpression<GameObject>)expr, 
-						e -> e.getPos().getElemy(), sourceLocation);
+						e -> ((GameObject) e).getPos().getElemy(), sourceLocation);
 
 		return result;
 	}
@@ -269,7 +258,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		SingleExpressionOperation<Double, GameObject> result =
 				new SingleExpressionOperation<Double, GameObject>(
 						(ValueExpression<GameObject>)expr, 
-						e -> e.getSize().getElemx(), sourceLocation);
+						e -> ((GameObject) e).getSize().getElemx(), sourceLocation);
 
 		return result;
 	}
@@ -280,7 +269,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		SingleExpressionOperation<Double, GameObject> result =
 				new SingleExpressionOperation<Double, GameObject>(
 						(ValueExpression<GameObject>)expr, 
-						e -> e.getSize().getElemy(), sourceLocation);
+						e -> ((GameObject) e).getSize().getElemy(), sourceLocation);
 
 		return result;
 	}
@@ -291,7 +280,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		SingleExpressionOperation<Integer, GameObject> result =
 				new SingleExpressionOperation<Integer, GameObject>(
 						(ValueExpression<GameObject>)expr, 
-						e -> e.getHP(), sourceLocation);
+						e -> ((GameObject) e).getHP(), sourceLocation);
 
 		return result;
 	}
@@ -365,7 +354,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		SingleExpressionOperation<Boolean, GameObject> result =
 				new SingleExpressionOperation<Boolean, GameObject>(
 						(ValueExpression<GameObject>)expr, 
-						e -> e.isDead(), sourceLocation);
+						e -> ((GameObject) e).isDead(), sourceLocation);
 
 		return result;
 	}
@@ -411,7 +400,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		SingleExpressionOperation<Boolean, GameObject> result =
 				new SingleExpressionOperation<Boolean, GameObject>(
 						(ValueExpression<GameObject>)expr, 
-						e -> e.getVelocity().normOfVector() != 0.0, sourceLocation);
+						e -> ((GameObject) e).getVelocity().normOfVector() != 0.0, sourceLocation);
 
 		return result;
 	}
@@ -422,7 +411,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		SingleExpressionOperation<Boolean, Mazub> result =
 				new SingleExpressionOperation<Boolean, Mazub>(
 						(ValueExpression<Mazub>)expr, 
-						e -> e.isDucked(), sourceLocation);
+						e -> ((Mazub) e).isDucked(), sourceLocation);
 
 		return result;
 	}
@@ -433,7 +422,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		SingleExpressionOperation<Boolean, GameObject> result =
 				new SingleExpressionOperation<Boolean, GameObject>(
 						(ValueExpression<GameObject>)expr, 
-						e -> e.getVelocity().getElemy() != 0.0, sourceLocation);
+						e -> ((GameObject) e).getVelocity().getElemy() != 0.0, sourceLocation);
 
 		return result;
 	}
@@ -541,37 +530,42 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Statement createSequence(List<Statement> statements,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Sequence is called");
+		return new SequenceStatement(statements,sourceLocation);
 	}
 
 	@Override
 	public Object getDoubleType() {
 		System.out.println("Getdoubletypes");
-		return new Double();
+		return new Double(0.0);
 	}
 
 	@Override
 	public Object getBoolType() {
-		// TODO Auto-generated method stub
-		return new Boolean();
+		return new Boolean(null);
 	}
 
 	@Override
 	public Object getGameObjectType() {
-		return new Type<GameObject>();
+		return null;
 	}
-
+	
 	@Override
 	public Object getDirectionType() {
-		return new Type<IProgramFactory.Direction>();
+		return null;
 	}
 
 	@Override
 	public Program createProgram(Statement mainStatement,
 			Map<String, Object> globalVariables) {
+		System.out.println(" ");
+		System.out.println("Parsetime outcome : ");
+		System.out.println(" ");
 		System.out.println(mainStatement);
 		System.out.println(globalVariables);
+		System.out.println(" ");
+		System.out.println("--------------------");
+		System.out.println(" ");
 		return new Program(mainStatement, globalVariables);
 	}
 }

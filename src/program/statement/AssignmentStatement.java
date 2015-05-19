@@ -1,12 +1,8 @@
 package program.statement;
 
-import java.util.Map;
-
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 import program.expression.Expression;
-import program.type.DoubleType;
-import program.type.Type;
 
 public class AssignmentStatement extends Statement{
 	/**
@@ -34,7 +30,6 @@ public class AssignmentStatement extends Statement{
 	@Override
 	public void advanceTime(double dt,Program program) {
 		if(!isExecutionComplete()){
-			
 			program.getVariables().put(VariableName,VariableValue.evaluate(program));
 			ExecutionDone = true;		
 			}

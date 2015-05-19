@@ -6,7 +6,7 @@ import jumpingalien.part3.programs.SourceLocation;
 
 public class VariableValueExpression<T> extends ValueExpression<T> {
 
-	public VariableValueExpression(String variableName, Object variableType, SourceLocation sourcelocation) {
+	public VariableValueExpression(String variableName, T variableType, SourceLocation sourcelocation) {
 		super(null,sourcelocation);
 		setName(variableName);
 	}
@@ -19,9 +19,9 @@ public class VariableValueExpression<T> extends ValueExpression<T> {
 	private String name;
 	
 	@Override
-	public Object evaluate(Program program){
+	public T evaluate(Program program){
 		if(program.getVariables().containsKey(getName())){
-			return program.getVariables().get(getName());
+			return (T) program.getVariables().get(getName());
 		} else {
 			return null;
 		}

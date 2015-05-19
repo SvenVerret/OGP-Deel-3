@@ -7,7 +7,6 @@ public abstract class Expression<T> {
 
 	public Expression(SourceLocation sourcelocation){
 		SL = sourcelocation;
-		System.out.println(this.getClass().getTypeParameters());
 	}
 	
 	public SourceLocation getSourceLocation() {
