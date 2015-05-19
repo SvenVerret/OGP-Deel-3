@@ -32,9 +32,9 @@ public class Program {
 	private GameObjectType<?> gameobject;
 	
 
-	public Program(Statement mainstatement, Map<String, Type> globalVariables){
+	public Program(Statement mainstatement, Map<String, Type> globalVariables2){
 		this.mainstatement = mainstatement;
-		this.setVariables(globalVariables);
+		this.setVariables(globalVariables2);
 	}
 	
 	public void advanceTime(double dt){
