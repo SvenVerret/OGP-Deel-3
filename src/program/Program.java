@@ -3,8 +3,6 @@ import java.util.Map;
 
 import jumpingalien.model.GameObject;
 import program.statement.Statement;
-import program.type.Type;
-
 
 public class Program {
 
