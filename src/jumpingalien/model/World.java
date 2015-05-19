@@ -377,6 +377,30 @@ public class World {
 		Objects.addAll(Slimes);
 		return Collections.unmodifiableSet(Objects);      
 	}
+	
+	/**
+	 * This method returns all objects, including Mazub and Buzam
+	 * 
+	 * @return	set<GameObject>
+	 * 			| return Collections.unmodifiableSet(Objects);
+	 * 
+	 * 
+	 */
+	public Set<GameObject> getEachAndEveryObject(){
+		
+		Set<Plant> Plants = getAllPlants();
+		Set<Shark> Sharks = getAllSharks();
+		Set<Slime> Slimes = getAllSlimes();
+
+		Set<GameObject> Objects = new HashSet<GameObject>();
+		Objects.add(getMazub());
+		Objects.add(getBuzam());
+		Objects.addAll(Plants);
+		Objects.addAll(Sharks);
+		Objects.addAll(Slimes);
+		return Collections.unmodifiableSet(Objects); 
+		
+	}
 
 
 	/**

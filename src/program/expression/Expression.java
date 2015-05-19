@@ -8,12 +8,13 @@ public abstract class Expression<T> {
 	public Expression(SourceLocation sourcelocation){
 		SL = sourcelocation;
 	}
-	
+
 	public SourceLocation getSourceLocation() {
 		return SL;
 	}
 
+
 	private final SourceLocation SL;
-	
+
 	public abstract Object evaluate(Program program);
 }
