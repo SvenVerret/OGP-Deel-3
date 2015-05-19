@@ -548,19 +548,18 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Type<?> getDoubleType() {
 		System.out.println("Getdoubletypes");
-		return new DoubleType();
+		return new Type<Double>();
 	}
 
 	@Override
 	public Type<?> getBoolType() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Type<Boolean>();
 	}
 
 	@Override
 	public Type<?> getGameObjectType() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Type<GameObject>();
 	}
 
 	@Override
