@@ -1,6 +1,10 @@
 package program.type;
 
+<<<<<<< HEAD
 public class BooleanType implements Type {
+=======
+public class BooleanType extends Type<Boolean>{
+>>>>>>> refs/remotes/origin/KevinUberBranch
 
 
 	public BooleanType(Boolean value) {
@@ -15,14 +19,14 @@ public class BooleanType implements Type {
 		return null;
 	}
 	
-	public Boolean getValue() {
-		return value;
-	}
 
+<<<<<<< HEAD
 	public void setValue(Object value) {
 		this.value = (Boolean) value;	
 	}
 
 	private Boolean value;	
+=======
+>>>>>>> refs/remotes/origin/KevinUberBranch
 }
 

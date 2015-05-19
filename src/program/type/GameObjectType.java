@@ -2,6 +2,7 @@ package program.type;
 
 import jumpingalien.model.GameObject;
 
+<<<<<<< HEAD
 public class GameObjectType implements Type{
 
 	public GameObjectType(GameObject value) {
@@ -25,5 +26,12 @@ public class GameObjectType implements Type{
 	}
 
 	private GameObject value;
+=======
+public class GameObjectType extends Type<GameObject>{
+
+	public GameObjectType() {}
+
+
+>>>>>>> refs/remotes/origin/KevinUberBranch
 }
 

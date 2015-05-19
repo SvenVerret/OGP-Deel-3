@@ -38,6 +38,6 @@ public class Program {
 	}
 	
 	public void advanceTime(double dt){
-		getMainStatement().advanceTime(dt, globalVariables);
+		getMainStatement().advanceTime(dt, this);
 	}
 }
