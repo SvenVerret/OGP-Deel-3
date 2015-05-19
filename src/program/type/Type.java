@@ -1,10 +1,11 @@
 package program.type;
 
-public abstract class Type{
+public interface Type{
 
-	public boolean equals(Type type){
-		return (this.getClass() == type.getClass());
-	}
+	public Object getDefaultValue();
+	
+	public Object getValue();
 
-	public abstract Object getDefaultValue();
+	public void setValue(Object value);
+
 }
