@@ -30,7 +30,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		System.out.println("ReadVariables");
 		return new VariableValueExpression<Object>(variableName,variableType,sourceLocation);
 	}
-	
+
 	@Override
 	public Expression<Double> createDoubleConstant(double value,
 			SourceLocation sourceLocation) {
@@ -68,9 +68,10 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createAddition(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
+
 		BinaryExpressionOperation<Double, Double, Double> result =
 				new BinaryExpressionOperation<Double, Double, Double>(
-						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(Expression<Double>) left, (Expression<Double>) right,
 						(a,b) -> (Double)a+(Double)b, sourceLocation);
 
 		return result;
@@ -81,7 +82,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			Expression<?> right, SourceLocation sourceLocation) {
 		BinaryExpressionOperation<Double, Double, Double> result =
 				new BinaryExpressionOperation<Double, Double, Double>(
-						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(Expression<Double>) left, (Expression<Double>) right,
 						(a,b) -> (Double)a-(Double)b, sourceLocation);
 
 		return result;
@@ -92,7 +93,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			Expression<?> right, SourceLocation sourceLocation) {
 		BinaryExpressionOperation<Double, Double, Double> result =
 				new BinaryExpressionOperation<Double, Double, Double>(
-						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(Expression<Double>) left, (Expression<Double>) right,
 						(a,b) -> (Double)a*(Double)b, sourceLocation);
 
 		return result;
@@ -103,7 +104,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			Expression<?> right, SourceLocation sourceLocation) {
 		BinaryExpressionOperation<Double, Double, Double> result =
 				new BinaryExpressionOperation<Double, Double, Double>(
-						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(Expression<Double>) left, (Expression<Double>) right,
 						(a,b) -> (Double)a/(Double)b, sourceLocation);
 
 		return result;
@@ -114,7 +115,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			SourceLocation sourceLocation) {
 		SingleExpressionOperation<Double, Double> result =
 				new SingleExpressionOperation<Double, Double>(
-						(ValueExpression<Double>)expr, 
+						(Expression<Double>)expr, 
 						e -> Math.sqrt((Double)e), sourceLocation);
 
 		return result;
@@ -125,7 +126,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			SourceLocation sourceLocation) {
 		SingleExpressionOperation<Double, Double> result =
 				new SingleExpressionOperation<Double, Double>(
-						(ValueExpression<Double>)maxValue, 
+						(Expression<Double>)maxValue, 
 						e -> Math.random()*(Double)e, sourceLocation);
 
 		return result;
@@ -134,11 +135,11 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createAnd(Expression<?> left, Expression<?> right,
 			SourceLocation sourceLocation) {
+		System.out.println("AND");
 		BinaryExpressionOperation<Boolean, Boolean, Boolean> result =
 				new BinaryExpressionOperation<Boolean, Boolean, Boolean>(
-						(ValueExpression<Boolean>) left, (ValueExpression<Boolean>) right,
+						(Expression<Boolean>) left, (Expression<Boolean>) right,
 						(a,b) -> ((Boolean)a && (Boolean)b), sourceLocation);
-
 		return result;
 	}
 
@@ -147,7 +148,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			SourceLocation sourceLocation) {
 		BinaryExpressionOperation<Boolean, Boolean, Boolean> result =
 				new BinaryExpressionOperation<Boolean, Boolean, Boolean>(
-						(ValueExpression<Boolean>) left, (ValueExpression<Boolean>) right,
+						(Expression<Boolean>) left, (Expression<Boolean>) right,
 						(a,b) -> ((Boolean)a || (Boolean)b), sourceLocation);
 
 		return result;
@@ -169,7 +170,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			Expression<?> right, SourceLocation sourceLocation) {
 		BinaryExpressionOperation<Boolean, Double, Double> result =
 				new BinaryExpressionOperation<Boolean, Double, Double>(
-						 (Expression<Double>)left, (Expression<Double>) right,
+						(Expression<Double>)left, (Expression<Double>) right,
 						(a,b) -> ((Double)a<(Double)b), sourceLocation);
 
 		return result;
@@ -180,7 +181,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			Expression<?> right, SourceLocation sourceLocation) {
 		BinaryExpressionOperation<Boolean, Double, Double> result =
 				new BinaryExpressionOperation<Boolean, Double, Double>(
-						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(Expression<Double>) left, (Expression<Double>) right,
 						(a,b) -> ((Double)a<=(Double)b), sourceLocation);
 
 		return result;
@@ -191,7 +192,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			Expression<?> right, SourceLocation sourceLocation) {
 		BinaryExpressionOperation<Boolean, Double, Double> result =
 				new BinaryExpressionOperation<Boolean, Double, Double>(
-						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(Expression<Double>) left, (Expression<Double>) right,
 						(a,b) -> ((Double)a>(Double)b), sourceLocation);
 
 		return result;
@@ -202,7 +203,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			Expression<?> right, SourceLocation sourceLocation) {
 		BinaryExpressionOperation<Boolean, Double, Double> result =
 				new BinaryExpressionOperation<Boolean, Double, Double>(
-						(ValueExpression<Double>) left, (ValueExpression<Double>) right,
+						(Expression<Double>) left, (Expression<Double>) right,
 						(a,b) -> ((Double)a>=(Double)b), sourceLocation);
 
 		return result;
@@ -213,7 +214,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			SourceLocation sourceLocation) {
 		BinaryExpressionOperation<Boolean, Object, Object> result =
 				new BinaryExpressionOperation<Boolean, Object, Object>(
-						(ValueExpression<Object>) left, (ValueExpression<Object>) right,
+						(Expression<Object>) left, (Expression<Object>) right,
 						(a,b) -> (a.equals(b)), sourceLocation);
 
 		return result;
@@ -224,7 +225,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			Expression<?> right, SourceLocation sourceLocation) {
 		BinaryExpressionOperation<Boolean, Object, Object> result =
 				new BinaryExpressionOperation<Boolean, Object, Object>(
-						(ValueExpression<Object>) left, (ValueExpression<Object>) right,
+						(Expression<Object>) left, (Expression<Object>) right,
 						(a,b) -> (!a.equals(b)), sourceLocation);
 
 		return result;
@@ -288,12 +289,12 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createGetTile(Expression<?> x, Expression<?> y,
 			SourceLocation sourceLocation) {
-//		BinaryExpressionOperation<int[], Integer, Integer> result =
-//				new BinaryExpressionOperation<int[], Integer, Integer>(
-//						(ValueExpression<Integer>) x, (ValueExpression<Integer>) y,
-//						(a,b) -> World.convertXYtoXTYT(x, y) , sourceLocation);
-//
-//		return result;
+		//		BinaryExpressionOperation<int[], Integer, Integer> result =
+		//				new BinaryExpressionOperation<int[], Integer, Integer>(
+		//						(ValueExpression<Integer>) x, (ValueExpression<Integer>) y,
+		//						(a,b) -> World.convertXYtoXTYT(x, y) , sourceLocation);
+		//
+		//		return result;
 		return null;
 	}
 
@@ -363,8 +364,8 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	public Expression<?> createIsTerrain(Expression<?> expr,
 			SourceLocation sourceLocation) {
 		// TODO Auto-generated method stub
-				return null;
-			}
+		return null;
+	}
 
 	@Override
 	public Expression<?> createIsPassable(Expression<?> expr,
@@ -549,10 +550,10 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	public Object getGameObjectType() {
 		return null;
 	}
-	
+
 	@Override
 	public Object getDirectionType() {
-		return null;
+		return Direction.UP;
 	}
 
 	@Override

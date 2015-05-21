@@ -28,8 +28,10 @@ public class BinaryExpressionOperation<R,E1,E2> extends Expression<R>{
 	}
 	
 	@Override
-	public Object evaluate(Program program){
-		return this.function.apply(getE1().evaluate(program),getE2().evaluate(program));
+	public R evaluate(Program program){
+		Object Value1 = getE1().evaluate(program);
+		Object Value2 = getE2().evaluate(program);
+		return this.function.apply(Value1,Value2);
 	}
 	
 

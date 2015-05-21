@@ -389,13 +389,19 @@ public class Facade implements IFacadePart3{
 	public ParseOutcome<?> parse(String text) {
 		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
 		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
-
-		Optional<Program> parse_outcome = parser.parseString(text);
-		
-		if (parse_outcome.isPresent()){
-			return ParseOutcome.success(parse_outcome.get());
-		}else{
-			return ParseOutcome.failure(parser.getErrors());
+		try{
+			Optional<Program> parse_outcome = parser.parseString(text);
+			if (parse_outcome.isPresent()){
+				return ParseOutcome.success(parse_outcome.get());
+			}else{
+				return ParseOutcome.failure(parser.getErrors());
+			}
+		} catch(ClassCastException e){
+			System.out.println("Parsing failed: wrong cast");
+			throw new ModelException("Parsing failed: wrong cast");
+		} catch(NullPointerException e){
+			System.out.println("Parsing failed: null pointer");
+			throw new ModelException("Parsing failed: null pointer");
 		}
 	}
 

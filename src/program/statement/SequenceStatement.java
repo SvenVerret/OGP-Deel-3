@@ -12,32 +12,40 @@ public class SequenceStatement extends Statement{
 		super(sourceLocation);
 		lst = statements;
 	}
-	
+
 	public List<Statement> getLst(){
 		return lst;
 	}
-	
+
 	private List<Statement> lst;
 	private boolean ForceReset = false;
 	private boolean ExecutionDone = false;
 
-	
+
 	@Override
 	public void advanceTime(double dt,Program program) {
-		lst = getLst();
-		
-		for (Statement statement: getLst()){
-			
-			//getdt and decrease dt
-//			if (dt <0.001){
-//				break;
-//			}
-			
-			if(statement != null && !statement.isExecutionComplete()){
-				statement.advanceTime(dt, program);
+		if(!isExecutionComplete()){
+
+			for (Statement statement: getLst()){
+				if(statement != null && !statement.isExecutionComplete()){
+					statement.advanceTime(dt, program);
+				}
 			}
+			if(CheckExecutionDone())
+				ExecutionDone = true;	
 		}
-		ExecutionDone = true;	
+	}
+
+	/**
+	 * Checks if all statements of the sequence are executed.
+	 * @return boolean
+	 */
+	private boolean CheckExecutionDone(){
+		for(Statement statement: getLst()){
+			if(!statement.isExecutionComplete())
+				return false;
+		}
+		return true;
 	}
 
 	@Override
