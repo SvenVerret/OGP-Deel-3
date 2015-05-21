@@ -59,15 +59,15 @@ public class Buzam extends Mazub{
 		}
 		updateHPTile(dt);              
 		UpdateAccY();
-		
-//		if(isEndDuckPressed())
-//			endDuck();
+
+		//		if(isEndDuckPressed())
+		//			endDuck();
 
 		if (isImmune()){
 			addToImmuneTimer(dt);
 			setImmune(false);
 		}
-		
+
 		getProgram().advanceTime(dt);
 
 		correctSpawnedInGround();
@@ -104,7 +104,6 @@ public class Buzam extends Mazub{
 					setPos(new Vector(getPos().getElemx(),getPos().getElemy()+1));
 					setVelocity(new Vector(getVelocity().getElemx(),0.0));
 					setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
-
 				}
 			}
 		}
@@ -147,8 +146,4 @@ public class Buzam extends Mazub{
 	protected void initializeHP() {
 		this.setHP(500);
 	}
-
-
-
-
 }

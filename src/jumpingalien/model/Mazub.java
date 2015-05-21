@@ -66,6 +66,7 @@ public class Mazub extends GameObject{
 			double maxvelocityx, Program program)
 					throws IllegalArgumentException, OutOfBoundsException{
 		super(program);
+
 		this.setPos(new Vector(pixelLeftX,pixelBottomY+1));
 
 		if ((initvelocityx >= 1.0) && (maxvelocityx >= initvelocityx)){
@@ -85,8 +86,13 @@ public class Mazub extends GameObject{
 		this.setSize(new Vector(sprites[0].getWidth(),sprites[0].getHeight()));
 	}
 
+	public Mazub(int pixelLeftX, int pixelBottomY,Sprite[] sprites, program.Program program){
+		this(pixelLeftX, pixelBottomY, sprites, 1.0,3.0, program);
+	}
+	
 	public Mazub(int pixelLeftX, int pixelBottomY,Sprite[] sprites){
 		this(pixelLeftX, pixelBottomY, sprites, 1.0,3.0,null);
+
 	}
 
 	
@@ -388,7 +394,6 @@ public class Mazub extends GameObject{
 	 */
 	@Override
 	public void advanceTime(double dt) throws IllegalArgumentException{
-
 
 		if ((dt < 0.0) || (dt > 0.2)){
 			throw new IllegalArgumentException();

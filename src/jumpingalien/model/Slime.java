@@ -45,11 +45,11 @@ public class Slime extends GameObject {
 	 * 			If the sprites are nog 2 or null
 	 * 			an IllegalArgumentException is thrown
 	 */
+
 	public Slime(int x, int y, Sprite[] sprites, School school, Program program)
 			throws IllegalArgumentException{
 		super(program);
 		this.setSchool(school);
-
 		if (sprites.length != 2|| sprites == null)
 			throw new IllegalArgumentException("Sprites");
 		else{
@@ -66,8 +66,6 @@ public class Slime extends GameObject {
 			throws IllegalArgumentException{
 		this(x,y,sprites,school,null);
 	}
-
-
 
 	/**
 	 * This method returns if a slime is just spawned
@@ -351,7 +349,6 @@ public class Slime extends GameObject {
 	@Override
 	protected void advanceTime(double dt) throws IllegalArgumentException{
 
-		//System.out.println("Time" + getStartTimeDir());
 		if ((dt < 0.0) || (dt > 0.2)){
 			throw new IllegalArgumentException();
 		}
@@ -369,7 +366,7 @@ public class Slime extends GameObject {
 		if(!isDying()){
 			updateHPTile(dt);
 			UpdateAccY();
-			
+
 			if(getProgram() == null){
 				if (getStartTimeDir() > getPeriodCurrentMove()){
 					//RANDOM MOVEMENT
@@ -396,21 +393,27 @@ public class Slime extends GameObject {
 						setVelocity(new Vector(0.0,getVelocity().getElemy()));
 						setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
 
-						setRandomMovement("X+");
+						if(getProgram() == null){
+							setRandomMovement("X+");
+						}
+
 
 					}else if(getOrientation() == 'L') {
 
 						setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
 						setVelocity(new Vector(0.0,getVelocity().getElemy()));
 						setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+						
+						if(getProgram() == null){
+							setRandomMovement("X-");
+						}
 
-						setRandomMovement("X-");
 					}
 
 				}else if (hits.contains("Y")){
-
-
+					
 					if (getVelocity().getElemy() >= 0.0){
+						
 						setPos(new Vector(getPos().getElemx(),getPos().getElemy()-1));
 						setVelocity(new Vector(getVelocity().getElemx(),0.0));
 
@@ -584,6 +587,7 @@ public class Slime extends GameObject {
 	}
 
 	@Override
+
 	public void startDuckProgram() {} // slimes cannot duck
 
 	@Override
@@ -598,14 +602,13 @@ public class Slime extends GameObject {
 	@Override
 	public void startMoveProgram(boolean direction) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void stopMoveProgram() {
 		// TODO Auto-generated method stub
-
 	}
+
 
 }
 

@@ -1,7 +1,6 @@
 package jumpingalien.model;
 
 import java.util.HashSet;
-
 import program.Program;
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
@@ -35,6 +34,7 @@ public class Plant extends GameObject {
 		super(program);
 		this.setPos(new Vector(x, y));
 		this.setVelocity(new Vector(RightVelocity,0));
+
 
 
 		if (sprites.length != 2|| sprites == null)
@@ -125,15 +125,19 @@ public class Plant extends GameObject {
 			if ((hits != null) && (!hits.isEmpty())){
 				if (hits.contains("X")){
 
-
-					if (getVelocity().getElemx() >= 0){
-						setPos(new Vector(getPos().getElemx(),getPos().getElemy()));
-						setVelocity(new Vector(LeftVelocity,0.0));
-					}else if(getVelocity().getElemx() < 0){
-						setPos(new Vector(getPos().getElemx(),getPos().getElemy()));
-						setVelocity(new Vector(RightVelocity,0.0));
+					if(getProgram() == null){
+						if (getVelocity().getElemx() >= 0){
+							setPos(new Vector(getPos().getElemx(),getPos().getElemy()));
+							setVelocity(new Vector(LeftVelocity,0.0));
+						}else if(getVelocity().getElemx() < 0){
+							setPos(new Vector(getPos().getElemx(),getPos().getElemy()));
+							setVelocity(new Vector(RightVelocity,0.0));
+						}
+						resetStartTimeDir();
+					}else{
+						stopMoveProgram();
 					}
-					resetStartTimeDir();
+
 				}
 			}
 			Vector dxy = getVelocity().multiplyBy(dt);
@@ -294,6 +298,7 @@ public class Plant extends GameObject {
 	//	}
 
 
+
 	@Override
 	public void startDuckProgram() {} // plants cannot duck
 
@@ -311,14 +316,12 @@ public class Plant extends GameObject {
 
 	@Override
 	public void startMoveProgram(boolean direction) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
-
+	
 	@Override
 	public void stopMoveProgram() {
 		// TODO Auto-generated method stub
-		
 	}
 
 

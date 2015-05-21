@@ -43,6 +43,7 @@ public class Shark extends GameObject {
 		this.setVelocity(new Vector(-getInitVelocityX(),0));
 		this.setAccCurr(new Vector(getACCX(), 0.0));
 
+
 		if (sprites.length != 2|| sprites == null)
 			throw new IllegalArgumentException("Sprites");
 		else{
@@ -50,7 +51,7 @@ public class Shark extends GameObject {
 			this.setSize(new Vector(sprites[0].getWidth(),sprites[0].getHeight()));
 		}
 	}
-	
+
 	public Shark(int x, int y, Sprite[] sprites) 
 			throws IllegalArgumentException{
 		this(x,y,sprites,null);
@@ -258,7 +259,6 @@ public class Shark extends GameObject {
 	@Override
 	protected void advanceTime(double dt) throws IllegalArgumentException {
 
-
 		if (!isDead()){
 			updateHPTile(dt);
 			UpdateAccY();
@@ -298,7 +298,7 @@ public class Shark extends GameObject {
 					// NOG IN MOVEPERIODE
 					addTimeDir(dt);
 				}	
-				
+
 			}else{
 				this.getProgram().advanceTime(dt);
 			}
@@ -314,12 +314,22 @@ public class Shark extends GameObject {
 					endJump();
 
 				if (hits.contains("X")){
-					setRandomMovement("X");
-					resetStartTimeDir();
+
+					if(getProgram() == null){
+						setRandomMovement("X");
+						resetStartTimeDir();
+					}else{
+						stopMoveProgram();
+					}
 
 				}else if (hits.contains("Y")){
-					setRandomMovement("Y");
-					resetStartTimeDir();
+					
+					if(getProgram() == null){
+						setRandomMovement("Y");
+						resetStartTimeDir();
+					}else{
+						stopMoveProgram();
+					}
 
 				}
 			}
@@ -749,13 +759,11 @@ public class Shark extends GameObject {
 	@Override
 	public void startMoveProgram(boolean direction) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void stopMoveProgram() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -766,25 +774,19 @@ public class Shark extends GameObject {
 	@Override
 	public void stopDuckProgram() {
 		// Shark can't duck
-		
+
 	}
 
 	@Override
 	public void startJumpProgram() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void stopJumpProgram() {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
-
-
-
-
 
 }
