@@ -6,6 +6,7 @@ import java.util.Set;
 
 import be.kuleuven.cs.som.annotate.Basic;
 import be.kuleuven.cs.som.annotate.Raw;
+import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -566,6 +567,54 @@ public class Slime extends GameObject {
 	@Override
 	protected double getMaxVelocityX() {
 		return MaxVelocityX;
+	}
+
+	@Override
+	protected void advanceTimeWithoutProgram(double dt)
+			throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void advanceTimeWithProgram(double dt)
+			throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startDuckProgram() {} // slimes cannot duck
+
+	@Override
+	public void stopDuckProgram() {} // slimes cannot duck
+
+	@Override
+	public void startJumpProgram() {} // slimes cannot jump}
+
+	@Override
+	public void stopJumpProgram() {} // slimes cannot jump
+
+	@Override
+	public void startRunProgram(Direction dir) {
+		switch(dir){
+		
+		case LEFT:
+			this.setVelocity(new Vector(getVelocity().getElemx(),0.0));
+			this.setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
+		case RIGHT:
+			this.setVelocity(new Vector(getVelocity().getElemx(),0.0));
+			this.setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
+			
+		default:
+			this.setVelocity(new Vector(0,0));
+		}		
+	}
+
+	@Override
+	public void stopRunProgram(Direction dir) {
+		this.setVelocity(new Vector(0,0));
+		
 	}
 
 }

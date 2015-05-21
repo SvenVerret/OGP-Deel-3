@@ -4,9 +4,9 @@ package program.expression;
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 
-public class GetTileExpression extends Expression<SourceLocation>{
+public class TileExpression extends Expression<SourceLocation>{
 	
-	public GetTileExpression(Expression<?> x, Expression<?> y,
+	public TileExpression(Expression<?> x, Expression<?> y,
 			SourceLocation sourceLocation){
 		super(sourceLocation);
 		this.x = (ValueExpression<Integer>)x;

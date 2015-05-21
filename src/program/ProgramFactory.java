@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import program.expression.Expression;
-import program.expression.GetTileExpression;
+import program.expression.TileExpression;
 import program.expression.SearchObjectExpression;
 import program.expression.ValueExpression;
 import program.expression.VariableValueExpression;
@@ -296,7 +296,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createGetTile(Expression<?> x, Expression<?> y,
 			SourceLocation sourceLocation) {
-		return new GetTileExpression(x, y, sourceLocation);
+		return new TileExpression(x, y, sourceLocation);
 	}
 
 	@Override
@@ -417,7 +417,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		SingleExpressionOperation<Boolean, GameObject> result =
 				new SingleExpressionOperation<Boolean, GameObject>(
 						(ValueExpression<GameObject>)expr, 
-						e -> ((GameObject) e).getVelocity().getElemy() != 0.0, sourceLocation);
+						e -> (!((GameObject) e).isOnGround()), sourceLocation);
 
 		return result;
 	}

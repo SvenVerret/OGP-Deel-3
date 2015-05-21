@@ -4,9 +4,9 @@ package program.expression.inspector;
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 import program.expression.Expression;
-import program.expression.GetTileExpression;
+import program.expression.TileExpression;
 
-public class IsMagmaExpression extends Inspector<GetTileExpression>{
+public class IsMagmaExpression extends Inspector<TileExpression>{
 
 	/**
 	 * 
@@ -20,7 +20,7 @@ public class IsMagmaExpression extends Inspector<GetTileExpression>{
 	@Override
 	public Boolean evaluate(Program program) {
 		
-		GetTileExpression value = getExpression();
+		TileExpression value = getExpression();
 		
 		int posx = value.getXValue();
 		int posy = value.getYValue();

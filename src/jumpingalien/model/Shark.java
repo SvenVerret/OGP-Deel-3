@@ -7,6 +7,7 @@ import java.util.Set;
 import be.kuleuven.cs.som.annotate.Basic;
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
+import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -738,6 +739,51 @@ public class Shark extends GameObject {
 
 
 	private int PeriodCurrentMove;
+
+
+	@Override
+	protected void advanceTimeWithoutProgram(double dt)
+			throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void advanceTimeWithProgram(double dt)
+			throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startDuckProgram() {} // sharks cannot duck
+
+	@Override
+	public void stopDuckProgram() {} // sharks cannot duck
+
+	@Override
+	public void startJumpProgram() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stopJumpProgram() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startRunProgram(Direction dir) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stopRunProgram(Direction dir) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 
