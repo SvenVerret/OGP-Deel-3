@@ -33,18 +33,26 @@ public class IfStatement extends Statement{
 	@Override
 	public void advanceTime(double dt,Program program) {
 		if (!isExecutionComplete()){
+			
 			if((Boolean) UnevaluatedCondition.evaluate(program)){
-				IfBody.advanceTime(dt, program);
 				IfBodyCalled = true;
 			}else{
-				ElseBody.advanceTime(dt, program);
 				IfBodyCalled = false;
 			}
-			ExecutionDone = true;
+			program.decreaseRemainingTime();
+			
+			
+			if(IfBodyCalled){
+				IfBody.advanceTime(dt, program);
+				if(IfBody.isExecutionComplete())
+					ExecutionDone = true;
+			}else{
+				ElseBody.advanceTime(dt, program);
+				if(ElseBody.isExecutionComplete())
+					ExecutionDone = true;
+			}
 		}
-		
 	}
-	// eventuele IfBody.isExecutionComplete();
 
 	@Override
 	public boolean isExecutionComplete() {

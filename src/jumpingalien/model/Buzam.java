@@ -1,8 +1,12 @@
 package jumpingalien.model;
 
+import java.util.HashSet;
+
+import program.Program;
 import be.kuleuven.cs.som.annotate.Raw;
 import jumpingalien.exception.OutOfBoundsException;
 import jumpingalien.util.Sprite;
+import jumpingalien.util.Vector;
 
 public class Buzam extends Mazub{
 
@@ -38,13 +42,72 @@ public class Buzam extends Mazub{
 	 *
 	 */
 	public Buzam(int pixelLeftX, int pixelBottomY, Sprite[] sprites,
-			double initvelocityx, double maxvelocityx)
+			double initvelocityx, double maxvelocityx, Program program)
 					throws IllegalArgumentException, OutOfBoundsException {
-		super(pixelLeftX, pixelBottomY, sprites, initvelocityx, maxvelocityx);	
+		super(pixelLeftX, pixelBottomY, sprites, initvelocityx, maxvelocityx, program);	
 	}
 
-	public Buzam(int pixelLeftX, int pixelBottomY,Sprite[] sprites){
-		super(pixelLeftX, pixelBottomY, sprites, 1.0,3.0);
+	public Buzam(int pixelLeftX, int pixelBottomY,Sprite[] sprites,Program program){
+		super(pixelLeftX, pixelBottomY, sprites, 1.0,3.0, program);
+	}
+
+	@Override
+	public void advanceTime(double dt) throws IllegalArgumentException{
+
+		if ((dt < 0.0) || (dt > 0.2)){
+			throw new IllegalArgumentException();
+		}
+		updateHPTile(dt);              
+		UpdateAccY();
+		
+//		if(isEndDuckPressed())
+//			endDuck();
+
+		if (isImmune()){
+			addToImmuneTimer(dt);
+			setImmune(false);
+		}
+		
+		getProgram().advanceTime(dt);
+
+		correctSpawnedInGround();
+		HashSet<String> hits  = collisionDetection(dt);
+
+		if ((hits != null) && (!hits.isEmpty())){
+
+			if (hits.contains("X")){
+
+				if (getVelocity().getElemx() >= 0.0){
+
+					setPos(new Vector(getPos().getElemx()-1,getPos().getElemy()));
+					setVelocity(new Vector(0.0,getVelocity().getElemy()));
+					setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+
+				}else if(getVelocity().getElemx() < 0.0) {
+
+					setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
+					setVelocity(new Vector(0.0,getVelocity().getElemy()));
+					setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+				}
+
+			}else if (hits.contains("Y")){
+
+				if (isOnGround() && isJumped()){
+					setOnGround(false);
+
+				}else if (getVelocity().getElemy() >= 0.0){
+					setPos(new Vector(getPos().getElemx(),getPos().getElemy()-1));
+					setVelocity(new Vector(getVelocity().getElemx(),0.0));
+
+				}else if (getVelocity().getElemy() < 0.0){
+
+					setPos(new Vector(getPos().getElemx(),getPos().getElemy()+1));
+					setVelocity(new Vector(getVelocity().getElemx(),0.0));
+					setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
+
+				}
+			}
+		}
 	}
 
 

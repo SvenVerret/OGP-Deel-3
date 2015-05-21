@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import program.Program;
 import be.kuleuven.cs.som.annotate.Basic;
 import be.kuleuven.cs.som.annotate.Raw;
-import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -45,8 +45,9 @@ public class Slime extends GameObject {
 	 * 			If the sprites are nog 2 or null
 	 * 			an IllegalArgumentException is thrown
 	 */
-	public Slime(int x, int y, Sprite[] sprites, School school)
+	public Slime(int x, int y, Sprite[] sprites, School school, Program program)
 			throws IllegalArgumentException{
+		super(program);
 		this.setSchool(school);
 
 		if (sprites.length != 2|| sprites == null)
@@ -58,9 +59,15 @@ public class Slime extends GameObject {
 
 		this.setPos(new Vector(x, y));
 		setAccCurr(new Vector(0, 0));
-		generateNewPeriodCurrentMove();
-		setRandomMovement("N");
+
 	}
+
+	public Slime(int x, int y, Sprite[] sprites, School school)
+			throws IllegalArgumentException{
+		this(x,y,sprites,school,null);
+	}
+
+
 
 	/**
 	 * This method returns if a slime is just spawned
@@ -348,24 +355,33 @@ public class Slime extends GameObject {
 		if ((dt < 0.0) || (dt > 0.2)){
 			throw new IllegalArgumentException();
 		}
+
 		if (isJustSpawned()){
 			correctSpawnedInGround();
 			setJustSpawned(false);
-			UpdateAccY();	
+			UpdateAccY();
+			if(getProgram() == null){
+				generateNewPeriodCurrentMove();
+				setRandomMovement("N");
+			}
 		}
 
 		if(!isDying()){
 			updateHPTile(dt);
 			UpdateAccY();
-
-			if (getStartTimeDir() > getPeriodCurrentMove()){
-				//RANDOM MOVEMENT
-				setRandomMovement("N");
-				resetStartTimeDir();
-				generateNewPeriodCurrentMove();
+			
+			if(getProgram() == null){
+				if (getStartTimeDir() > getPeriodCurrentMove()){
+					//RANDOM MOVEMENT
+					setRandomMovement("N");
+					resetStartTimeDir();
+					generateNewPeriodCurrentMove();
+				}else{
+					// NOG IN MOVEPERIODE
+					addTimeDir(dt);
+				}
 			}else{
-				// NOG IN MOVEPERIODE
-				addTimeDir(dt);
+				getProgram().advanceTime(dt);
 			}
 
 
@@ -408,8 +424,6 @@ public class Slime extends GameObject {
 				}
 			}
 		}
-
-
 	}
 
 	/**
@@ -426,9 +440,9 @@ public class Slime extends GameObject {
 
 		if (overlapsWith(mazub)){
 			if (overlapsWithX(mazub)){
-				
+
 				hits.add("X");
-				
+
 				if (!this.isDying()){
 					this.slimeGetsHitFor(-50);
 					if (!mazub.isImmune()){
@@ -570,20 +584,6 @@ public class Slime extends GameObject {
 	}
 
 	@Override
-	protected void advanceTimeWithoutProgram(double dt)
-			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void advanceTimeWithProgram(double dt)
-			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void startDuckProgram() {} // slimes cannot duck
 
 	@Override
@@ -596,25 +596,16 @@ public class Slime extends GameObject {
 	public void stopJumpProgram() {} // slimes cannot jump
 
 	@Override
-	public void startRunProgram(Direction dir) {
-		switch(dir){
-		
-		case LEFT:
-			this.setVelocity(new Vector(getVelocity().getElemx(),0.0));
-			this.setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
-		case RIGHT:
-			this.setVelocity(new Vector(getVelocity().getElemx(),0.0));
-			this.setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
-			
-		default:
-			this.setVelocity(new Vector(0,0));
-		}		
+	public void startMoveProgram(boolean direction) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	public void stopRunProgram(Direction dir) {
-		this.setVelocity(new Vector(0,0));
-		
+	public void stopMoveProgram() {
+		// TODO Auto-generated method stub
+
 	}
 
 }
+
