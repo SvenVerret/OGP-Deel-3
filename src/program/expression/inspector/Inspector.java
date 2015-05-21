@@ -3,19 +3,19 @@ package program.expression.inspector;
 import jumpingalien.part3.programs.SourceLocation;
 import program.expression.Expression;
 
-public abstract class Inspector extends Expression{
+public abstract class Inspector<T> extends Expression<SourceLocation>{
 	
-	public Inspector(Expression e, SourceLocation sourcelocation){
+	public Inspector(Expression<?> e, SourceLocation sourcelocation){
 		super(sourcelocation);
 		
-		expr = e;
+		this.expr = (T)e;
 		
 	}
 	
-	public Expression getExpression() {
+	public T getExpression() {
 		return expr;
 	}
 
-	private final Expression expr;
+	private T expr;
 
 }

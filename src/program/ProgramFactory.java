@@ -5,8 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import program.expression.Expression;
+import program.expression.SearchObjectExpression;
+import program.expression.TileExpression;
 import program.expression.ValueExpression;
 import program.expression.VariableValueExpression;
+import program.expression.inspector.IsAirExpression;
+import program.expression.inspector.IsMagmaExpression;
+import program.expression.inspector.IsPassableExpression;
+import program.expression.inspector.IsTerrainExpression;
+import program.expression.inspector.IsWaterExpression;
 import program.expression.operation.BinaryExpressionOperation;
 import program.expression.operation.SingleExpressionOperation;
 import program.statement.AssignmentStatement;
@@ -294,20 +301,12 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createGetTile(Expression<?> x, Expression<?> y,
 			SourceLocation sourceLocation) {
-		//		BinaryExpressionOperation<int[], Integer, Integer> result =
-		//				new BinaryExpressionOperation<int[], Integer, Integer>(
-		//						(ValueExpression<Integer>) x, (ValueExpression<Integer>) y,
-		//						(a,b) -> World.convertXYtoXTYT(x, y) , sourceLocation);
-		//
-		//		return result;
-		return null;
+		return new TileExpression(x, y, sourceLocation);
 	}
 
 	@Override
-	public Expression<?> createSearchObject(Expression<?> direction,
-			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+	public Expression<?> createSearchObject(Expression<?> direction, SourceLocation sourceLocation) {
+		return new SearchObjectExpression((ValueExpression<Direction>) direction, sourceLocation);
 	}
 
 	@Override
@@ -368,36 +367,31 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createIsTerrain(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new IsTerrainExpression(expr, sourceLocation);
 	}
 
 	@Override
 	public Expression<?> createIsPassable(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new IsPassableExpression(expr, sourceLocation);
 	}
 
 	@Override
 	public Expression<?> createIsWater(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new IsWaterExpression(expr, sourceLocation);
 	}
 
 	@Override
 	public Expression<?> createIsMagma(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new IsMagmaExpression( expr, sourceLocation);
 	}
 
 	@Override
 	public Expression<?> createIsAir(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new IsAirExpression(expr, sourceLocation);
 	}
 
 	@Override
@@ -428,7 +422,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		SingleExpressionOperation<Boolean, GameObject> result =
 				new SingleExpressionOperation<Boolean, GameObject>(
 						(ValueExpression<GameObject>)expr, 
-						e -> ((GameObject) e).getVelocity().getElemy() != 0.0, sourceLocation);
+						e -> (!((GameObject) e).isOnGround()), sourceLocation);
 
 		return result;
 	}
