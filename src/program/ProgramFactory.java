@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import program.expression.Expression;
+import program.expression.SearchObjectExpression;
+import program.expression.TileExpression;
 import program.expression.ValueExpression;
 import program.expression.VariableValueExpression;
 import program.expression.inspector.IsAirExpression;
