@@ -21,8 +21,6 @@ public abstract class Statement{
 	
 	public abstract void advanceTime(double dt, Program program);
 	
-	public static double defaultDT = 0.001;
-	
 	// state bijhouden als interrupt (door dt)
 	public abstract boolean isExecutionComplete();
 	
