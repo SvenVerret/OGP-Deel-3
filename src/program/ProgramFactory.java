@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import program.expression.Expression;
-import program.expression.TileExpression;
-import program.expression.SearchObjectExpression;
 import program.expression.ValueExpression;
 import program.expression.VariableValueExpression;
 import program.expression.inspector.IsAirExpression;
@@ -17,9 +15,14 @@ import program.expression.inspector.IsWaterExpression;
 import program.expression.operation.BinaryExpressionOperation;
 import program.expression.operation.SingleExpressionOperation;
 import program.statement.AssignmentStatement;
+import program.statement.BreakStatement;
+import program.statement.ForEachStatement;
+import program.statement.IfStatement;
+import program.statement.PrintStatement;
 import program.statement.SequenceStatement;
 import program.statement.Statement;
 import program.statement.WaitStatement;
+import program.statement.WhileStatement;
 import jumpingalien.model.GameObject;
 import jumpingalien.model.Mazub;
 import jumpingalien.model.Plant;
@@ -433,8 +436,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Statement createWhile(Expression<?> condition, Statement body,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new WhileStatement((Expression<Boolean>) condition, body, sourceLocation);
 	}
 
 	@Override
@@ -445,28 +447,24 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			Expression<?> sort,
 			jumpingalien.part3.programs.IProgramFactory.SortDirection sortDirection,
 			Statement body, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ForEachStatement(variableName, variableKind, (Expression<Boolean>)where, (Expression<Double>)sort, sortDirection, body, sourceLocation);
 	}
 
 	@Override
 	public Statement createBreak(SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new BreakStatement(sourceLocation);
 	}
 
 	@Override
 	public Statement createIf(Expression<?> condition, Statement ifBody,
 			Statement elseBody, SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new IfStatement((Expression<Boolean>) condition,ifBody,elseBody,sourceLocation);
 	}
 
 	@Override
 	public Statement createPrint(Expression<?> value,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrintStatement(value,sourceLocation);
 	}
 
 	@Override
@@ -510,16 +508,14 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Statement createWait(Expression<?> duration,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new WaitStatement((Expression<Double>)duration,sourceLocation);
 	}
 
 	@Override
 	public Statement createSkip(SourceLocation sourceLocation) {
 		System.out.println("Skip");
 		ValueExpression<Double> time = new ValueExpression<Double>((double) 1,sourceLocation);
-		WaitStatement result = new WaitStatement(time,sourceLocation);
-		return result;
+		return new WaitStatement(time,sourceLocation);
 	}
 
 	@Override
