@@ -30,11 +30,9 @@ public abstract class GameObject {
 	 */
 	public GameObject(Program program) {
 		if (program != null){
-			this.Program = program;
-			this.ProgramLoaded = true;
+			this.program = program;
 		} else{
-			this.Program = null;
-			this.ProgramLoaded = false;
+			this.program = null;
 		}
 		initializeHP();
 	}
@@ -43,16 +41,8 @@ public abstract class GameObject {
 		this(null);
 	}
 	
-	public boolean hasProgramLoaded() {
-		return ProgramLoaded;
-	}
 	
-	public Program getProgram() {
-		return Program;
-	}
 
-	private final boolean ProgramLoaded;
-	private final Program Program;
 
 
 	/**
@@ -241,10 +231,8 @@ public abstract class GameObject {
 	 * @throws 	IllegalArgumentException
 	 * 			...
 	 */
-	protected abstract void advanceTimeWithoutProgram(double dt) throws IllegalArgumentException;
+	protected abstract void advanceTime(double dt) throws IllegalArgumentException;
 	
-	protected abstract void advanceTimeWithProgram(double dt) throws IllegalArgumentException;
-
 	/**
 	 * This method updates the acceleration in the Y direction
 	 * 
@@ -1218,18 +1206,19 @@ public abstract class GameObject {
 //		this.setAccCurr(new Vector(getAccCurr().getElemx(),0));
 //	}
 	
+	public Program getProgram() {
+		return program;
+	}
+	private final Program program;
+	
+	public abstract void startMoveProgram(boolean direction);
+	public abstract void stopMoveProgram();
 	
 	public abstract void startDuckProgram();
-	
 	public abstract void stopDuckProgram();
 	
 	public abstract void startJumpProgram();
-	
 	public abstract void stopJumpProgram();
-	
-	public abstract void startRunProgram(Direction dir);
-	
-	public abstract void stopRunProgram(Direction dir);
 	
 	private static final double ACCY = -10.0;
 

@@ -15,8 +15,10 @@ public class PrintStatement extends Statement{
 	@Override
 	public void advanceTime(double dt,Program program) {
 		if(!isExecutionComplete()){
+			
 			System.out.println(getValueToBePrinted().evaluate(program));
-			setValueIsPrinted(true);
+			ExecutionDone = true;
+			program.decreaseRemainingTime();
 		}
 	}
 	
@@ -25,29 +27,24 @@ public class PrintStatement extends Statement{
 	}
 	private final ValueExpression<?> ValueToBePrinted;
 	
-	public boolean isValueIsPrinted() {
-		return ValueIsPrinted;
-	}
-	public void setValueIsPrinted(boolean valueIsPrinted) {
-		ValueIsPrinted = valueIsPrinted;
-	}
-	private boolean ValueIsPrinted=false;
 
+	private boolean ForceReset = false;
+	private boolean ExecutionDone = false;
 
 	@Override
 	public boolean isExecutionComplete() {
-		return isValueIsPrinted();
+		return ForceReset || ExecutionDone;
 	}
 
 	@Override
 	public void forceReset() {
-		setValueIsPrinted(false);
+		ForceReset = true;
 	}
 
 	@Override
 	public void Reset() {
 		if(isExecutionComplete()){
-			setValueIsPrinted(false);
+			ExecutionDone = false;
 		}
 	}
 

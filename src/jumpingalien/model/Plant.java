@@ -2,9 +2,9 @@ package jumpingalien.model;
 
 import java.util.HashSet;
 
+import program.Program;
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
-import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -30,9 +30,9 @@ public class Plant extends GameObject {
 	 * 			If the amount of sprites is not correct, nor null
 	 * 			an exception is thrown
 	 */
-	public Plant(int x, int y, Sprite[] sprites)
+	public Plant(int x, int y, Sprite[] sprites, Program program)
 			throws IllegalArgumentException{
-
+		super(program);
 		this.setPos(new Vector(x, y));
 		this.setVelocity(new Vector(RightVelocity,0));
 
@@ -43,6 +43,11 @@ public class Plant extends GameObject {
 			this.Sprites = sprites;
 			this.setSize(new Vector(sprites[0].getWidth(),sprites[0].getHeight()));
 		}
+	}
+
+	public Plant(int x, int y, Sprite[] sprites)
+			throws IllegalArgumentException{
+		this(x,y,sprites,null);
 	}
 
 
@@ -96,19 +101,24 @@ public class Plant extends GameObject {
 	 * 			If a position of a velocity are not valid an exception is thrown
 	 */
 	@Override
-	protected void advanceTimeWithoutProgram(double dt) throws IllegalArgumentException {
+	protected void advanceTime(double dt) throws IllegalArgumentException {
 		if (!isDying()){
-			if (getStartTimeDir() > 0.5){
-				if (getVelocity().getElemx() == RightVelocity)
-					this.setVelocity(new Vector(LeftVelocity, 0));
-				else
-					this.setVelocity(new Vector(RightVelocity,0));
+			
+			if(getProgram() == null){
+				
+				if (getStartTimeDir() > 0.5){
+					if (getVelocity().getElemx() == RightVelocity)
+						this.setVelocity(new Vector(LeftVelocity, 0));
+					else
+						this.setVelocity(new Vector(RightVelocity,0));
 
-				resetStartTimeDir();
-			}else
-				addTimeDir(dt);
-
-
+					resetStartTimeDir();
+				}else
+					addTimeDir(dt);
+				
+			}else{
+				getProgram().advanceTime(dt);
+			}
 
 			HashSet<String> hits  = collisionDetection(dt);
 
@@ -132,34 +142,7 @@ public class Plant extends GameObject {
 
 		}
 	}
-	
-	@Override
-	protected void advanceTimeWithProgram(double dt) throws IllegalArgumentException {
-		if (!isDying()){
 
-			HashSet<String> hits  = collisionDetection(dt);
-
-			if ((hits != null) && (!hits.isEmpty())){
-				if (hits.contains("X")){
-
-
-					if (getVelocity().getElemx() >= 0){
-						setPos(new Vector(getPos().getElemx(),getPos().getElemy()));
-						setVelocity(new Vector(LeftVelocity,0.0));
-					}else if(getVelocity().getElemx() < 0){
-						setPos(new Vector(getPos().getElemx(),getPos().getElemy()));
-						setVelocity(new Vector(RightVelocity,0.0));
-					}
-					resetStartTimeDir();
-				}
-			}
-			Vector dxy = getVelocity().multiplyBy(dt);
-			Vector newPos = getPos().addVector(dxy.multiplyBy(100));
-			this.setPos(newPos);
-
-		}
-	}
-	
 
 	/**
 	 * This method adds time to the timer
@@ -292,23 +275,23 @@ public class Plant extends GameObject {
 	}
 
 
-	
-//	@Override
-//	public double getRightVelocity() {
-//		return RightVelocity;
-//	}
-//
-//
-//	@Override
-//	public double getLeftVelocity() {
-//		return LeftVelocity;
-//	}
-//
-//
-//	@Override
-//	public double getJumpVelocity() {
-//		return 0.0;
-//	}
+
+	//	@Override
+	//	public double getRightVelocity() {
+	//		return RightVelocity;
+	//	}
+	//
+	//
+	//	@Override
+	//	public double getLeftVelocity() {
+	//		return LeftVelocity;
+	//	}
+	//
+	//
+	//	@Override
+	//	public double getJumpVelocity() {
+	//		return 0.0;
+	//	}
 
 
 	@Override
@@ -326,26 +309,18 @@ public class Plant extends GameObject {
 	@Override
 	public void stopJumpProgram() {} // plants cannot jump
 
-
 	@Override
-	public void startRunProgram(Direction dir) {
-		switch(dir){
-		
-		case LEFT:
-			this.setVelocity(new Vector(0,LeftVelocity));
-		case RIGHT:
-			this.setVelocity(new Vector(RightVelocity,0));
-			
-		default:
-			this.setVelocity(new Vector(0,0));
-		}
-	}
-
-
-	@Override
-	public void stopRunProgram(Direction dir) {
-		this.setVelocity(new Vector(0,0));
+	public void startMoveProgram(boolean direction) {
+		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void stopMoveProgram() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 }

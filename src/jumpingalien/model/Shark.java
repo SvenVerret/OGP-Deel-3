@@ -4,10 +4,10 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import program.Program;
 import be.kuleuven.cs.som.annotate.Basic;
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
-import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -36,8 +36,9 @@ public class Shark extends GameObject {
 	 * 			an IllegalArgumentException is thrown
 	 * 
 	 */
-	public Shark(int x, int y, Sprite[] sprites) 
+	public Shark(int x, int y, Sprite[] sprites,Program program) 
 			throws IllegalArgumentException{
+		super(program);
 		this.setPos(new Vector(x,y));
 		this.setVelocity(new Vector(-getInitVelocityX(),0));
 		this.setAccCurr(new Vector(getACCX(), 0.0));
@@ -48,6 +49,11 @@ public class Shark extends GameObject {
 			this.Sprites = sprites;
 			this.setSize(new Vector(sprites[0].getWidth(),sprites[0].getHeight()));
 		}
+	}
+	
+	public Shark(int x, int y, Sprite[] sprites) 
+			throws IllegalArgumentException{
+		this(x,y,sprites,null);
 	}
 
 	/**
@@ -257,44 +263,44 @@ public class Shark extends GameObject {
 			updateHPTile(dt);
 			UpdateAccY();
 
+			if(this.getProgram() == null){
 
-			if (getStartTimeDir() > getPeriodCurrentMove()){
+				if (getStartTimeDir() > getPeriodCurrentMove()){
+					// END OF THIS MOVEPERIOD
+					if (getAmountPeriodsAfterJump() >= 2 
+							&& getVelocity().getElemx() != 0 
+							&& getWorld().getGeologicalFeature((int)getPos().getElemx(), (int)getPos().getElemy()-1) != 0){
 
-				// END OF THIS MOVEPERIOD
+						// RIGHT CONDITIONS FOR JUMP
+						Random randomGenerator = new Random();
+						int randomjump = randomGenerator.nextInt((1) + 1);
 
+						if (randomjump == 1){
+							startJump();
+							resetStartTimeDir();
+							generateNewPeriodCurrentMove();
+						}
 
-				if (getAmountPeriodsAfterJump() >= 2 
-						&& getVelocity().getElemx() != 0 
-						&& getWorld().getGeologicalFeature((int)getPos().getElemx(), (int)getPos().getElemy()-1) != 0){
-
-					// RIGHT CONDITIONS FOR JUMP
-					Random randomGenerator = new Random();
-					int randomjump = randomGenerator.nextInt((1) + 1);
-
-					if (randomjump == 1){
-						startJump();
-						resetStartTimeDir();
-						generateNewPeriodCurrentMove();
+					} else if (isJumped()){
+						// HAS JUMPED FOR A PERIOD-> END ITs
+						endJump();
 					}
 
-				} else if (isJumped()){
-					// HAS JUMPED FOR A PERIOD-> END ITs
-					endJump();
-				}
+					if (!isJumped()){
 
-				if (!isJumped()){
-
-					// NOT JUMPED -> RANDOM MOVEMENT
-					setRandomMovement("N");
-					resetStartTimeDir();
-					generateNewPeriodCurrentMove();
-					addOneAmountPeriodsAfterJump();
-				}
-
-
+						// NOT JUMPED -> RANDOM MOVEMENT
+						setRandomMovement("N");
+						resetStartTimeDir();
+						generateNewPeriodCurrentMove();
+						addOneAmountPeriodsAfterJump();
+					}
+				}else{
+					// NOG IN MOVEPERIODE
+					addTimeDir(dt);
+				}	
+				
 			}else{
-				// NOG IN MOVEPERIODE
-				addTimeDir(dt);
+				this.getProgram().advanceTime(dt);
 			}
 
 
@@ -737,29 +743,31 @@ public class Shark extends GameObject {
 	}
 	private static final double SLOWDOWN = 2;
 
-
 	private int PeriodCurrentMove;
 
 
 	@Override
-	protected void advanceTimeWithoutProgram(double dt)
-			throws IllegalArgumentException {
+	public void startMoveProgram(boolean direction) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void advanceTimeWithProgram(double dt)
-			throws IllegalArgumentException {
+	public void stopMoveProgram() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void startDuckProgram() {} // sharks cannot duck
+	public void startDuckProgram() {
+		// Shark can't duck
+	}
 
 	@Override
-	public void stopDuckProgram() {} // sharks cannot duck
+	public void stopDuckProgram() {
+		// Shark can't duck
+		
+	}
 
 	@Override
 	public void startJumpProgram() {
@@ -773,17 +781,9 @@ public class Shark extends GameObject {
 		
 	}
 
-	@Override
-	public void startRunProgram(Direction dir) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void stopRunProgram(Direction dir) {
-		// TODO Auto-generated method stub
-		
-	}
+
+
 
 
 

@@ -3,6 +3,7 @@ package jumpingalien.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import program.Program;
 import be.kuleuven.cs.som.annotate.Basic;
 import be.kuleuven.cs.som.annotate.Immutable;
 import be.kuleuven.cs.som.annotate.Raw;
@@ -62,11 +63,9 @@ public class Mazub extends GameObject{
 	 * 
 	 */
 	public Mazub(int pixelLeftX, int pixelBottomY, Sprite[] sprites, double initvelocityx,
-			double maxvelocityx )
+			double maxvelocityx, Program program)
 					throws IllegalArgumentException, OutOfBoundsException{
-
-
-
+		super(program);
 		this.setPos(new Vector(pixelLeftX,pixelBottomY+1));
 
 		if ((initvelocityx >= 1.0) && (maxvelocityx >= initvelocityx)){
@@ -84,20 +83,13 @@ public class Mazub extends GameObject{
 		this.setAccCurr(new Vector(0.0,0.0));
 
 		this.setSize(new Vector(sprites[0].getWidth(),sprites[0].getHeight()));
-
-
-
-
 	}
 
 	public Mazub(int pixelLeftX, int pixelBottomY,Sprite[] sprites){
-		this(pixelLeftX, pixelBottomY, sprites, 1.0,3.0);
+		this(pixelLeftX, pixelBottomY, sprites, 1.0,3.0,null);
 	}
 
-
-
-
-
+	
 	// Methods
 
 	/**
@@ -395,7 +387,7 @@ public class Mazub extends GameObject{
 	 *
 	 */
 	@Override
-	public void advanceTimeWithoutProgram(double dt) throws IllegalArgumentException{
+	public void advanceTime(double dt) throws IllegalArgumentException{
 
 
 		if ((dt < 0.0) || (dt > 0.2)){
@@ -452,13 +444,6 @@ public class Mazub extends GameObject{
 		}
 	}
 	
-	@Override
-	protected void advanceTimeWithProgram(double dt)
-			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 	/**
 	 * @effect	Contact with plant and Mazub hasn't reached maxHP
@@ -688,7 +673,7 @@ public class Mazub extends GameObject{
 	 * 
 	 * @param time
 	 */
-	private void addToImmuneTimer(double time){
+	protected void addToImmuneTimer(double time){
 		if (time >= 0)
 			ImmuneTimer = ImmuneTimer + time;
 	}
@@ -1053,38 +1038,47 @@ public class Mazub extends GameObject{
 
 	@Override
 	protected void terminate() {
+		// We don't use terminate of mazub, when he's dead, game stops
+
+	}
+
+	@Override
+	public void startMoveProgram(boolean direction) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
-	public double getRightVelocity() {
-		return InitVelocityX;
+	public void stopMoveProgram() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public double getLeftVelocity() {
-		return -InitVelocityX;
+	public void startDuckProgram() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public double getJumpVelocity() {
-		return INITVELOCITYY;
+	public void stopDuckProgram() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public double getRightAcc() {
-		return AccXFwd;
+	public void startJumpProgram() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public double getLeftAcc() {
-		return AccXBkw;
+	public void stopJumpProgram() {
+		// TODO Auto-generated method stub
+		
 	}
-
-
-
-
+	
+	
 
 
 }

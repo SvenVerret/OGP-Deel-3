@@ -3,6 +3,7 @@ import java.util.Map;
 
 import jumpingalien.model.GameObject;
 import program.statement.Statement;
+import program.util.TimeIsUpException;
 
 public class Program {
 
@@ -19,7 +20,7 @@ public class Program {
 		this.globalVariables = globalVariables;
 	}
 	private Map<String, Object> globalVariables;
-	
+
 	public Map<String, Object> getInitialVariables() {
 		return globalInitialVariables;
 	}
@@ -45,21 +46,37 @@ public class Program {
 	}
 
 	public void advanceTime(double dt){
-		
-		getMainStatement().advanceTime(dt, this);
-		
-		if(getMainStatement().isExecutionComplete()){
-			setVariables(getInitialVariables());
-			getMainStatement().Reset();
+		try{
+
+			if(getRemainingTime() == 0.0){
+				if(dt <= defaultDT){
+					setRemainingTime(defaultDT);
+				}else{
+					setRemainingTime(dt);
+				}
+			}
+
+			getMainStatement().advanceTime(dt, this);
+
+			if(getMainStatement().isExecutionComplete()){
+				setVariables(getInitialVariables());
+				getMainStatement().Reset();
+			}
+
+		} catch(TimeIsUpException t){
+			//Get out of the mainstatement, wait for new advance time
 		}
 	}
 
 	public void decreaseRemainingTime(double time){
 		double newtime = RemainingTime - time;
-		if (newtime <= 0)
+		if (newtime <= 0){
 			RemainingTime = 0.0;
-		else
+			throw new TimeIsUpException();
+		}
+		else{
 			RemainingTime = newtime;
+		}
 	}
 
 	public void decreaseRemainingTime(){
