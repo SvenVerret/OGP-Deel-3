@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import program.Program;
 import program.expression.Expression;
 import program.expression.ValueExpression;
+import program.util.BreakException;
 import jumpingalien.model.GameObject;
 import jumpingalien.model.World;
 import jumpingalien.part3.programs.SourceLocation;
@@ -59,6 +60,8 @@ public class ForEachStatement extends Statement{
 
 	@Override
 	public void advanceTime(double dt, Program program) {
+		
+		// FIRST EXECUTION OF THIS STATEMENT
 		if(FirstExecution){
 			List<GameObject> Objects = ConstructAllVariablesWithKind(getVariableKind(), program);
 
@@ -73,29 +76,36 @@ public class ForEachStatement extends Statement{
 			setObjectsHandeled(ObjectsHandeled);
 			FirstExecution = false;
 		}
-		if(!isExecutionComplete()){
-			int index = 0;
-			boolean[] ObjectsHandeled = getObjectsHandeled();
+		
+		try{
 			
-			for(GameObject obj : getSelectedObjects()){
-				if(!ObjectsHandeled[index]){
-					program.getVariables().put(getVariableName(),obj);
-					getForBody().advanceTime(dt, program);
-					
-					if(getForBody().isExecutionComplete()){
-						ObjectsHandeled[index] = true;
+			if(!isExecutionComplete()){
+				int index = 0;
+				boolean[] ObjectsHandeled = getObjectsHandeled();
+				
+				for(GameObject obj : getSelectedObjects()){
+					if(!ObjectsHandeled[index]){
+						program.getVariables().put(getVariableName(),obj);
+						getForBody().advanceTime(dt, program);
+						
+						if(getForBody().isExecutionComplete()){
+							ObjectsHandeled[index] = true;
+							index ++;
+							getForBody().Reset();
+						}			
+					}else{
 						index ++;
-						getForBody().Reset();
-					}			
-				}else{
-					index ++;
+					}
 				}
+				
+				// CHECK IF ALL OBJECTS ARE CORRECTLY HANDELED -> FOR STATEMENT IS DONE
+				if(CheckExecutionDone(ObjectsHandeled))
+					ExecutionDone = true;
+
 			}
 			
-			// CHECK IF ALL OBJECTS ARE CORRECTLY HANDELED -> FOR STATEMENT IS DONE
-			if(CheckExecutionDone(ObjectsHandeled))
-				ExecutionDone = true;
-
+		} catch(BreakException b){
+			ExecutionDone = true;
 		}
 	}
 		
@@ -127,7 +137,7 @@ public class ForEachStatement extends Statement{
 		case PLANT: 
 			Objects.addAll(world.getAllPlants());
 			break;
-		case TERRAIN:  /*getter = world.getMazub();*/
+		case TERRAIN:  /*getter = world.getTiles();*/
 			break;
 		case ANY: 
 			Objects.addAll(world.getEachAndEveryObject());
@@ -180,6 +190,7 @@ public class ForEachStatement extends Statement{
 	@Override
 	public void Reset() {
 		ExecutionDone = false;
+		FirstExecution = true;
 		getForBody().Reset();
 	}
 

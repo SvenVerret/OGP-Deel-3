@@ -3,6 +3,7 @@ package program.statement;
 import java.util.List;
 
 import program.Program;
+import program.util.BreakException;
 import jumpingalien.part3.programs.SourceLocation;
 
 
@@ -24,6 +25,7 @@ public class SequenceStatement extends Statement{
 
 	@Override
 	public void advanceTime(double dt,Program program) {
+		try{
 		if(!isExecutionComplete()){
 
 			for (Statement statement: getLst()){
@@ -33,6 +35,11 @@ public class SequenceStatement extends Statement{
 			}
 			if(CheckExecutionDone())
 				ExecutionDone = true;	
+		}
+		} catch(BreakException b){
+			ExecutionDone = true;
+			// MAKE SURE THAT THE LOOP ABOVE IS ALSO STOPPED
+			throw new BreakException();
 		}
 	}
 

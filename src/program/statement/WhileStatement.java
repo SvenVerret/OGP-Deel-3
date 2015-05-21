@@ -4,6 +4,7 @@ import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 import program.expression.Expression;
 import program.expression.ValueExpression;
+import program.util.BreakException;
 
 public class WhileStatement extends Statement{
 
@@ -25,19 +26,26 @@ public class WhileStatement extends Statement{
 	private boolean ForceReset = false;
 	private boolean ExecutionDone = false;
 
-	// WORDT CONDITION GEUPDATED?
 	@Override
 	public void advanceTime(double dt, Program program) {
-		while(!isExecutionComplete() && (Boolean) UnevaluatedCondition.evaluate(program)){
-			WhileBody.advanceTime(dt, program);
-//			if(break is called in body){
-//				break;
-//			}
-		}
-		if(!ForceReset){
+		try{
+			while(!isExecutionComplete() && (Boolean) UnevaluatedCondition.evaluate(program)){
+				WhileBody.advanceTime(dt, program);
+				if(WhileBody.isExecutionComplete()){
+					WhileBody.Reset();
+				}
+
+			}
+
+			// Execution is done if the while condition isn't true anymore.
+			if(!(Boolean) UnevaluatedCondition.evaluate(program)){
+				ExecutionDone = true;
+			}
+
+		} catch(BreakException b) {
 			ExecutionDone = true;
 		}
-	}	
+	}
 
 	@Override
 	public boolean isExecutionComplete() {
