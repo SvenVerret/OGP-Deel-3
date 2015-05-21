@@ -36,18 +36,24 @@ public class Shark extends GameObject {
 	 * 			an IllegalArgumentException is thrown
 	 * 
 	 */
-	public Shark(int x, int y, Sprite[] sprites) 
+	public Shark(int x, int y, Sprite[] sprites, program.Program program) 
 			throws IllegalArgumentException{
+		super(program);
 		this.setPos(new Vector(x,y));
 		this.setVelocity(new Vector(-getInitVelocityX(),0));
 		this.setAccCurr(new Vector(getACCX(), 0.0));
-
+		
+		
 		if (sprites.length != 2|| sprites == null)
 			throw new IllegalArgumentException("Sprites");
 		else{
 			this.Sprites = sprites;
 			this.setSize(new Vector(sprites[0].getWidth(),sprites[0].getHeight()));
 		}
+	}
+	
+	Shark(int x, int y, Sprite[] sprites){
+		this(x,y,sprites,null);
 	}
 
 	/**
@@ -744,15 +750,131 @@ public class Shark extends GameObject {
 	@Override
 	protected void advanceTimeWithoutProgram(double dt)
 			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
-	}
+
+
+		if (!isDead()){
+			updateHPTile(dt);
+			UpdateAccY();
+
+
+			if (getStartTimeDir() > getPeriodCurrentMove()){
+
+				// END OF THIS MOVEPERIOD
+
+
+				if (getAmountPeriodsAfterJump() >= 2 
+						&& getVelocity().getElemx() != 0 
+						&& getWorld().getGeologicalFeature((int)getPos().getElemx(), (int)getPos().getElemy()-1) != 0){
+
+					// RIGHT CONDITIONS FOR JUMP
+					Random randomGenerator = new Random();
+					int randomjump = randomGenerator.nextInt((1) + 1);
+
+					if (randomjump == 1){
+						startJump();
+						resetStartTimeDir();
+						generateNewPeriodCurrentMove();
+					}
+
+				} else if (isJumped()){
+					// HAS JUMPED FOR A PERIOD-> END ITs
+					endJump();
+				}
+
+				if (!isJumped()){
+
+					// NOT JUMPED -> RANDOM MOVEMENT
+					setRandomMovement("N");
+					resetStartTimeDir();
+					generateNewPeriodCurrentMove();
+					addOneAmountPeriodsAfterJump();
+				}
+
+
+			}else{
+				// NOG IN MOVEPERIODE
+				addTimeDir(dt);
+			}
+
+
+			//COLLISION DETECTION
+
+			HashSet<String> hits  = collisionDetection(dt);
+
+			if ((hits != null) && (!hits.isEmpty())){
+
+				if (isJumped())
+					endJump();
+
+				if (hits.contains("X")){
+					setRandomMovement("X");
+					resetStartTimeDir();
+
+				}else if (hits.contains("Y")){
+					setRandomMovement("Y");
+					resetStartTimeDir();
+
+				}
+			}
+		}
+
+	}		
+
 
 	@Override
 	protected void advanceTimeWithProgram(double dt)
 			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
+
+
+		if (!isDead()){
+			updateHPTile(dt);
+			UpdateAccY();
+			HashSet<String> hits  = collisionDetection(dt); // new positions and velocities are here set
+
+			double velx = this.getVelocity().getElemx();
+			double vely = this.getVelocity().getElemy();
+			double ACCX = 1.5;
+			Random randomGenerator = new Random();
+			double ACCY =  (randomGenerator.nextInt((20) + 1))/100.0;
+			
+			if ((hits != null) && (!hits.isEmpty())){
+
+
+
+				if (hits.contains("X")){
+					if (velx >= 0.0){
+						this.setPos(new Vector(getPos().getElemx()-2,getPos().getElemy()));
+
+					}else{
+						this.setPos(new Vector(getPos().getElemx()+2,getPos().getElemy()));	
+					}
+					
+					this.setVelocity(new Vector(-velx,vely));
+					this.setAccCurr(new Vector(-ACCX, ACCY));
+
+				}else if (hits.contains("Y")){
+					if (vely >= 0.0){	
+						this.setPos(new Vector(getPos().getElemx(),getPos().getElemy()-2));
+
+					}else{
+						this.setPos(new Vector(getPos().getElemx(),getPos().getElemy()+2));	
+					}
+
+					this.setVelocity(new Vector(velx,-vely));
+					this.setAccCurr(new Vector(ACCX, -ACCY));
+					
+					//nog een derde mogelijke waarde voor X?
+					//TODO
+					
+
+				}
+
+			}else{
+				this.setVelocity(new Vector(velx,vely));
+				this.setAccCurr(new Vector(ACCX,ACCY));
+			}
+		}
+
 	}
 
 	@Override
@@ -764,25 +886,25 @@ public class Shark extends GameObject {
 	@Override
 	public void startJumpProgram() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void stopJumpProgram() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void startRunProgram(Direction dir) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void stopRunProgram(Direction dir) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 

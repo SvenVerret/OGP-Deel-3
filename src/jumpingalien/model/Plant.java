@@ -2,6 +2,7 @@ package jumpingalien.model;
 
 import java.util.HashSet;
 
+import program.ProgramFactory;
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
 import jumpingalien.part3.programs.IProgramFactory.Direction;
@@ -30,11 +31,13 @@ public class Plant extends GameObject {
 	 * 			If the amount of sprites is not correct, nor null
 	 * 			an exception is thrown
 	 */
-	public Plant(int x, int y, Sprite[] sprites)
+	public Plant(int x, int y, Sprite[] sprites, program.Program program)
 			throws IllegalArgumentException{
-
+		super(program);
+		
 		this.setPos(new Vector(x, y));
 		this.setVelocity(new Vector(RightVelocity,0));
+
 
 
 		if (sprites.length != 2|| sprites == null)
@@ -45,6 +48,9 @@ public class Plant extends GameObject {
 		}
 	}
 
+	public Plant(int x, int y, Sprite[] sprites){
+		this(x, y, sprites, null);
+	}
 
 	/**
 	 * This method terminates a plant from his world
@@ -311,6 +317,7 @@ public class Plant extends GameObject {
 //	}
 
 
+
 	@Override
 	public void startDuckProgram() {} // plants cannot duck
 
@@ -339,6 +346,9 @@ public class Plant extends GameObject {
 		default:
 			this.setVelocity(new Vector(0,0));
 		}
+		
+		
+		
 	}
 
 

@@ -1219,6 +1219,7 @@ public abstract class GameObject {
 //	}
 	
 	
+	
 	public abstract void startDuckProgram();
 	
 	public abstract void stopDuckProgram();

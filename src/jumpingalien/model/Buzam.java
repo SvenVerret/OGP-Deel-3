@@ -38,13 +38,17 @@ public class Buzam extends Mazub{
 	 *
 	 */
 	public Buzam(int pixelLeftX, int pixelBottomY, Sprite[] sprites,
-			double initvelocityx, double maxvelocityx)
+			double initvelocityx, double maxvelocityx, program.Program program)
 					throws IllegalArgumentException, OutOfBoundsException {
-		super(pixelLeftX, pixelBottomY, sprites, initvelocityx, maxvelocityx);	
+		super(pixelLeftX, pixelBottomY, sprites, initvelocityx, maxvelocityx, program);	
 	}
 
 	public Buzam(int pixelLeftX, int pixelBottomY,Sprite[] sprites){
-		super(pixelLeftX, pixelBottomY, sprites, 1.0,3.0);
+		super(pixelLeftX, pixelBottomY, sprites, 1.0,3.0, null);
+	}
+	
+	public Buzam(int pixelLeftX, int pixelBottomY,Sprite[] sprites, program.Program program){
+		super(pixelLeftX, pixelBottomY, sprites, program);
 	}
 
 

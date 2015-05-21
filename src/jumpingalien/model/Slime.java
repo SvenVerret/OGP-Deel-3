@@ -45,10 +45,10 @@ public class Slime extends GameObject {
 	 * 			If the sprites are nog 2 or null
 	 * 			an IllegalArgumentException is thrown
 	 */
-	public Slime(int x, int y, Sprite[] sprites, School school)
+	public Slime(int x, int y, Sprite[] sprites, School school, program.Program program)
 			throws IllegalArgumentException{
+		super(program);
 		this.setSchool(school);
-
 		if (sprites.length != 2|| sprites == null)
 			throw new IllegalArgumentException("Sprites");
 		else{
@@ -60,6 +60,10 @@ public class Slime extends GameObject {
 		setAccCurr(new Vector(0, 0));
 		generateNewPeriodCurrentMove();
 		setRandomMovement("N");
+	}
+	
+	public Slime(int x, int y, Sprite[] sprites, School school){
+		this(x,y,sprites,school,null);
 	}
 
 	/**
@@ -426,9 +430,9 @@ public class Slime extends GameObject {
 
 		if (overlapsWith(mazub)){
 			if (overlapsWithX(mazub)){
-				
+
 				hits.add("X");
-				
+
 				if (!this.isDying()){
 					this.slimeGetsHitFor(-50);
 					if (!mazub.isImmune()){
@@ -572,15 +576,142 @@ public class Slime extends GameObject {
 	@Override
 	protected void advanceTimeWithoutProgram(double dt)
 			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
+		if ((dt < 0.0) || (dt > 0.2)){
+			throw new IllegalArgumentException();
+		}
+		if (isJustSpawned()){
+			correctSpawnedInGround();
+			setJustSpawned(false);
+			UpdateAccY();	
+		}
+
+		if(!isDying()){
+			updateHPTile(dt);
+			UpdateAccY();
+
+			if (getStartTimeDir() > getPeriodCurrentMove()){
+				//RANDOM MOVEMENT
+				setRandomMovement("N");
+				resetStartTimeDir();
+				generateNewPeriodCurrentMove();
+			}else{
+				// NOG IN MOVEPERIODE
+				addTimeDir(dt);
+			}
+
+
+			HashSet<String> hits  = collisionDetection(dt);
+			if ((hits != null) && (!hits.isEmpty())){
+
+				if (hits.contains("X")){
+
+					if (getOrientation() == 'R'){
+
+						setPos(new Vector(getPos().getElemx()-1,getPos().getElemy()));
+						setVelocity(new Vector(0.0,getVelocity().getElemy()));
+						setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+
+						setRandomMovement("X+");
+
+					}else if(getOrientation() == 'L') {
+
+						setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
+						setVelocity(new Vector(0.0,getVelocity().getElemy()));
+						setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+
+						setRandomMovement("X-");
+					}
+
+				}else if (hits.contains("Y")){
+
+
+					if (getVelocity().getElemy() >= 0.0){
+						setPos(new Vector(getPos().getElemx(),getPos().getElemy()-1));
+						setVelocity(new Vector(getVelocity().getElemx(),0.0));
+
+					}else if (getVelocity().getElemy() < 0.0){
+
+						setPos(new Vector(getPos().getElemx(),getPos().getElemy()+1));
+						setVelocity(new Vector(getVelocity().getElemx(),0.0));
+						setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
+
+					}
+				}
+			}
+		}
+
+
 	}
 
+	
 	@Override
 	protected void advanceTimeWithProgram(double dt)
 			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
+		if ((dt < 0.0) || (dt > 0.2)){
+			throw new IllegalArgumentException();
+		}
+		if (isJustSpawned()){
+			correctSpawnedInGround();
+			setJustSpawned(false);
+			UpdateAccY();	
+		}
+
+		if(!isDying()){
+			updateHPTile(dt);
+			UpdateAccY();
+
+			if (getStartTimeDir() > getPeriodCurrentMove()){
+				//RANDOM MOVEMENT
+				setRandomMovement("N");
+				resetStartTimeDir();
+				generateNewPeriodCurrentMove();
+			}else{
+				// NOG IN MOVEPERIODE
+				addTimeDir(dt);
+			}
+
+
+			HashSet<String> hits  = collisionDetection(dt);
+			if ((hits != null) && (!hits.isEmpty())){
+
+				if (hits.contains("X")){
+
+					if (getOrientation() == 'R'){
+
+						setPos(new Vector(getPos().getElemx()-1,getPos().getElemy()));
+						setVelocity(new Vector(0.0,getVelocity().getElemy()));
+						setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+
+						setRandomMovement("X+");
+
+					}else if(getOrientation() == 'L') {
+
+						setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
+						setVelocity(new Vector(0.0,getVelocity().getElemy()));
+						setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+
+						setRandomMovement("X-");
+					}
+
+				}else if (hits.contains("Y")){
+
+
+					if (getVelocity().getElemy() >= 0.0){
+						setPos(new Vector(getPos().getElemx(),getPos().getElemy()-1));
+						setVelocity(new Vector(getVelocity().getElemx(),0.0));
+
+					}else if (getVelocity().getElemy() < 0.0){
+
+						setPos(new Vector(getPos().getElemx(),getPos().getElemy()+1));
+						setVelocity(new Vector(getVelocity().getElemx(),0.0));
+						setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
+
+					}
+				}
+			}
+		}
+
+
 	}
 
 	@Override
@@ -598,14 +729,14 @@ public class Slime extends GameObject {
 	@Override
 	public void startRunProgram(Direction dir) {
 		switch(dir){
-		
+
 		case LEFT:
 			this.setVelocity(new Vector(getVelocity().getElemx(),0.0));
 			this.setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
 		case RIGHT:
 			this.setVelocity(new Vector(getVelocity().getElemx(),0.0));
 			this.setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
-			
+
 		default:
 			this.setVelocity(new Vector(0,0));
 		}		
@@ -614,7 +745,7 @@ public class Slime extends GameObject {
 	@Override
 	public void stopRunProgram(Direction dir) {
 		this.setVelocity(new Vector(0,0));
-		
+
 	}
 
 }
