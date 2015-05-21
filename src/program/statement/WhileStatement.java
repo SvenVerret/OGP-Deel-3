@@ -3,7 +3,6 @@ package program.statement;
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 import program.expression.Expression;
-import program.expression.ValueExpression;
 import program.util.BreakException;
 
 public class WhileStatement extends Statement{
@@ -14,14 +13,14 @@ public class WhileStatement extends Statement{
 	 * @param body
 	 *  
 	 */
-	public WhileStatement(Expression<?> condition, Statement body, 
+	public WhileStatement(Expression<Boolean> condition, Statement body, 
 			SourceLocation sourceLocation){
 		super(sourceLocation);
 		WhileBody = body;
-		UnevaluatedCondition = ((ValueExpression<?>) condition);
+		UnevaluatedCondition = condition;
 	}
 
-	private ValueExpression<?> UnevaluatedCondition;
+	private Expression<Boolean> UnevaluatedCondition;
 	private Statement WhileBody;
 	private boolean ForceReset = false;
 	private boolean ExecutionDone = false;

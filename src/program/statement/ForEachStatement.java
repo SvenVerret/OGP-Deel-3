@@ -30,37 +30,23 @@ public class ForEachStatement extends Statement{
 	 * @param body
 	 *  
 	 */
-	@SuppressWarnings("unchecked")
-	public ForEachStatement(String variableName, Kind variableKind, Expression<?> where, 
-			Expression<?> sort, SortDirection sortDirection, Statement body, 
+	public ForEachStatement(String variableName, Kind variableKind, Expression<Boolean> where, 
+			Expression<Double> sort, SortDirection sortDirection, Statement body, 
 			SourceLocation sourceLocation) throws IllegalArgumentException{
 		super(sourceLocation);
-		if(variableName == null || variableKind == null || where == null){
-			throw new IllegalArgumentException("Null values");
-		}else{
-			setVariableName(variableName);
-			setVariableKind(variableKind);
-		}
 
-		if( !(((ValueExpression<?>) where).getValue() instanceof Boolean) ){
-			throw new IllegalArgumentException("Where");
-		}else{
-			setWhereExpression((ValueExpression<Boolean>) where);
-		}
-
-		if( !(((ValueExpression<?>) sort).getValue() instanceof Double) ){
-			throw new IllegalArgumentException("Sort");
-		}else{
-			setSortExpression((ValueExpression<Double>) sort);
-			setSortDirection(sortDirection);
-		}
+		setVariableName(variableName);
+		setVariableKind(variableKind);
+		setWhereExpression((ValueExpression<Boolean>) where);
+		setSortExpression((ValueExpression<Double>) sort);
+		setSortDirection(sortDirection);
 		setForBody(body);
 	}
 
 
 	@Override
 	public void advanceTime(double dt, Program program) {
-		
+
 		// FIRST EXECUTION OF THIS STATEMENT
 		if(FirstExecution){
 			List<GameObject> Objects = ConstructAllVariablesWithKind(getVariableKind(), program);
@@ -76,18 +62,18 @@ public class ForEachStatement extends Statement{
 			setObjectsHandeled(ObjectsHandeled);
 			FirstExecution = false;
 		}
-		
+
 		try{
-			
+
 			if(!isExecutionComplete()){
 				int index = 0;
 				boolean[] ObjectsHandeled = getObjectsHandeled();
-				
+
 				for(GameObject obj : getSelectedObjects()){
 					if(!ObjectsHandeled[index]){
 						program.getVariables().put(getVariableName(),obj);
 						getForBody().advanceTime(dt, program);
-						
+
 						if(getForBody().isExecutionComplete()){
 							ObjectsHandeled[index] = true;
 							index ++;
@@ -97,18 +83,18 @@ public class ForEachStatement extends Statement{
 						index ++;
 					}
 				}
-				
+
 				// CHECK IF ALL OBJECTS ARE CORRECTLY HANDELED -> FOR STATEMENT IS DONE
 				if(CheckExecutionDone(ObjectsHandeled))
 					ExecutionDone = true;
 
 			}
-			
+
 		} catch(BreakException b){
 			ExecutionDone = true;
 		}
 	}
-		
+
 	private boolean CheckExecutionDone(boolean[] objectsHandeled){
 		for(boolean b : ObjectsHandeled){
 			if(!b)
@@ -116,7 +102,7 @@ public class ForEachStatement extends Statement{
 		}
 		return true;
 	}
-		
+
 	private List<GameObject> ConstructAllVariablesWithKind(Kind VariableKind, Program program){
 		World world = program.getGameObject().getWorld();
 
