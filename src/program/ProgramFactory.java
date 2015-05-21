@@ -510,7 +510,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Statement createWait(Expression<?> duration,
 			SourceLocation sourceLocation) {
-		return new WaitStatement((Expression<Double>)duration,sourceLocation);
+		return new WaitStatement((ValueExpression<Double>)duration,sourceLocation);
 	}
 
 	@Override
