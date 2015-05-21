@@ -433,7 +433,7 @@ public abstract class GameObject {
 	 * 			| return (((int)(thisObjectY + thisObjectH) == (int)objectY+2) || 
 	 *			| ((int)(objectY + objectH) == (int)thisObjectY+2));
 	 */
-	protected boolean overlapsWithY(GameObject object){
+	public boolean overlapsWithY(GameObject object){
 		double thisObjectY = getCollisionPos().getElemy();
 		double thisObjectH = getSize().getElemy();
 		double objectY = object.getPos().getElemy();
@@ -453,7 +453,7 @@ public abstract class GameObject {
 	 * 			| return (((int)thisObjectX+2== (int)(objectX + objectW)) || 
 	 *			| (int)objectX+2== (int)(thisObjectX + thisObjectW));
 	 */
-	protected boolean overlapsWithX(GameObject object){
+	public boolean overlapsWithX(GameObject object){
 
 		double thisObjectX = getCollisionPos().getElemx();
 		double thisObjectW = getSize().getElemx();

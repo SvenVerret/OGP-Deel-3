@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import program.expression.Expression;
+import program.expression.SearchObjectExpression;
 import program.expression.ValueExpression;
 import program.expression.VariableValueExpression;
 import program.expression.operation.BinaryExpressionOperation;
@@ -299,10 +300,8 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	}
 
 	@Override
-	public Expression<?> createSearchObject(Expression<?> direction,
-			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+	public Expression<?> createSearchObject(Expression<?> direction, SourceLocation sourceLocation) {
+		return new SearchObjectExpression((ValueExpression<Direction>) direction, sourceLocation);
 	}
 
 	@Override
