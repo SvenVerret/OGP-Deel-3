@@ -4,6 +4,7 @@ import java.util.HashSet;
 
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
+import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -291,21 +292,60 @@ public class Plant extends GameObject {
 	}
 
 
+	
+//	@Override
+//	public double getRightVelocity() {
+//		return RightVelocity;
+//	}
+//
+//
+//	@Override
+//	public double getLeftVelocity() {
+//		return LeftVelocity;
+//	}
+//
+//
+//	@Override
+//	public double getJumpVelocity() {
+//		return 0.0;
+//	}
+
+
 	@Override
-	public double getRightVelocity() {
-		return RightVelocity;
+	public void startDuckProgram() {} // plants cannot duck
+
+
+	@Override
+	public void stopDuckProgram() {} // plants cannot duck
+
+
+	@Override
+	public void startJumpProgram() {} // plants cannot jump
+
+
+	@Override
+	public void stopJumpProgram() {} // plants cannot jump
+
+
+	@Override
+	public void startRunProgram(Direction dir) {
+		switch(dir){
+		
+		case LEFT:
+			this.setVelocity(new Vector(0,LeftVelocity));
+		case RIGHT:
+			this.setVelocity(new Vector(RightVelocity,0));
+			
+		default:
+			this.setVelocity(new Vector(0,0));
+		}
 	}
 
 
 	@Override
-	public double getLeftVelocity() {
-		return LeftVelocity;
-	}
-
-
-	@Override
-	public double getJumpVelocity() {
-		return 0.0;
+	public void stopRunProgram(Direction dir) {
+		this.setVelocity(new Vector(0,0));
+		
 	}
 
 }
