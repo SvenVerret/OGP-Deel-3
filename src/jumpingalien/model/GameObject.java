@@ -2,6 +2,7 @@ package jumpingalien.model;
 import java.util.HashSet;
 
 import program.Program;
+import program.expression.Expression;
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
 import jumpingalien.part3.programs.IProgramFactory.Direction;
@@ -1211,7 +1212,7 @@ public abstract class GameObject {
 	}
 	private final Program program;
 	
-	public abstract void startMoveProgram(boolean direction);
+	public abstract void startMoveProgram(Expression<?> direction);
 	public abstract void stopMoveProgram();
 	
 	

@@ -5,8 +5,11 @@ import java.util.Random;
 import java.util.Set;
 
 import program.Program;
+import program.expression.Expression;
+import program.expression.ValueExpression;
 import be.kuleuven.cs.som.annotate.Basic;
 import be.kuleuven.cs.som.annotate.Raw;
+import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -403,7 +406,7 @@ public class Slime extends GameObject {
 						setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
 						setVelocity(new Vector(0.0,getVelocity().getElemy()));
 						setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
-						
+
 						if(getProgram() == null){
 							setRandomMovement("X-");
 						}
@@ -411,9 +414,9 @@ public class Slime extends GameObject {
 					}
 
 				}else if (hits.contains("Y")){
-					
+
 					if (getVelocity().getElemy() >= 0.0){
-						
+
 						setPos(new Vector(getPos().getElemx(),getPos().getElemy()-1));
 						setVelocity(new Vector(getVelocity().getElemx(),0.0));
 
@@ -600,13 +603,28 @@ public class Slime extends GameObject {
 	public void stopJumpProgram() {} // slimes cannot jump
 
 	@Override
-	public void startMoveProgram(boolean direction) {
-		// TODO Auto-generated method stub
+	public void startMoveProgram(Expression<?> direction) {
+		ValueExpression<Direction> value = (ValueExpression<Direction>) direction;
+
+		switch(value.getValue()){
+
+		case LEFT:
+			this.setVelocity(new Vector(-0.5,0.0));
+			this.setAccCurr(new Vector(-ACCX,0.0));
+		case RIGHT:
+			this.setVelocity(new Vector(0.5,0.0));
+			this.setAccCurr(new Vector(ACCX,0.0));
+		default:
+			this.setVelocity(new Vector(0,0));
+		}
+
 	}
 
 	@Override
 	public void stopMoveProgram() {
-		// TODO Auto-generated method stub
+		this.setVelocity(new Vector(0.0,0.0));
+		this.setAccCurr(new Vector(0.0,0.0));	
+		
 	}
 
 

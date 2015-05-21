@@ -4,11 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import program.Program;
+import program.expression.Expression;
+import program.expression.ValueExpression;
 import be.kuleuven.cs.som.annotate.Basic;
 import be.kuleuven.cs.som.annotate.Immutable;
 import be.kuleuven.cs.som.annotate.Raw;
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
+import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -89,13 +92,13 @@ public class Mazub extends GameObject{
 	public Mazub(int pixelLeftX, int pixelBottomY,Sprite[] sprites, program.Program program){
 		this(pixelLeftX, pixelBottomY, sprites, 1.0,3.0, program);
 	}
-	
+
 	public Mazub(int pixelLeftX, int pixelBottomY,Sprite[] sprites){
 		this(pixelLeftX, pixelBottomY, sprites, 1.0,3.0,null);
 
 	}
 
-	
+
 	// Methods
 
 	/**
@@ -448,7 +451,7 @@ public class Mazub extends GameObject{
 			}
 		}
 	}
-	
+
 
 	/**
 	 * @effect	Contact with plant and Mazub hasn't reached maxHP
@@ -878,7 +881,7 @@ public class Mazub extends GameObject{
 	 * 			|  result == this.InitVelocityX
 	 */
 	@Basic @Immutable
-	private double getInitVelocityX() {
+	protected double getInitVelocityX() {
 		return InitVelocityX;
 	}
 	/**
@@ -1048,42 +1051,36 @@ public class Mazub extends GameObject{
 	}
 
 	@Override
-	public void startMoveProgram(boolean direction) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void startMoveProgram(Expression<?> direction) {}
 
 	@Override
-	public void stopMoveProgram() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void stopMoveProgram() {}
 
 	@Override
 	public void startDuckProgram() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void stopDuckProgram() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void startJumpProgram() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void stopJumpProgram() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
+
+
 
 
 }

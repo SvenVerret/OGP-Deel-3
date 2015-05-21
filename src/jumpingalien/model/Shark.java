@@ -5,9 +5,12 @@ import java.util.Random;
 import java.util.Set;
 
 import program.Program;
+import program.expression.Expression;
+import program.expression.ValueExpression;
 import be.kuleuven.cs.som.annotate.Basic;
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
+import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -323,7 +326,7 @@ public class Shark extends GameObject {
 					}
 
 				}else if (hits.contains("Y")){
-					
+
 					if(getProgram() == null){
 						setRandomMovement("Y");
 						resetStartTimeDir();
@@ -757,13 +760,27 @@ public class Shark extends GameObject {
 
 
 	@Override
-	public void startMoveProgram(boolean direction) {
-		// TODO Auto-generated method stub
+	public void startMoveProgram(Expression<?> direction) {
+		ValueExpression<Direction> value = (ValueExpression<Direction>) direction;
+
+		switch(value.getValue()){
+
+		case LEFT:
+			this.setVelocity(new Vector(-getInitVelocityX(),0.0));
+			this.setAccCurr(new Vector(-ACCX,0.0));
+		case RIGHT:
+			this.setVelocity(new Vector(getInitVelocityX(),0.0));
+			this.setAccCurr(new Vector(ACCX,0.0));
+		default:
+			this.setVelocity(new Vector(0,0));
+		}
+
 	}
 
 	@Override
 	public void stopMoveProgram() {
-		// TODO Auto-generated method stub
+		this.setVelocity(new Vector(0,0));	
+		this.setAccCurr(new Vector(0.0,0.0));
 	}
 
 	@Override
@@ -779,14 +796,12 @@ public class Shark extends GameObject {
 
 	@Override
 	public void startJumpProgram() {
-		// TODO Auto-generated method stub
-
+		startJump();
 	}
 
 	@Override
 	public void stopJumpProgram() {
-		// TODO Auto-generated method stub
-
+		endJump();
 	}
 
 }

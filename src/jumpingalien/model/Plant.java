@@ -1,9 +1,13 @@
 package jumpingalien.model;
 
 import java.util.HashSet;
+
 import program.Program;
+import program.expression.Expression;
+import program.expression.ValueExpression;
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
+import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -103,9 +107,9 @@ public class Plant extends GameObject {
 	@Override
 	protected void advanceTime(double dt) throws IllegalArgumentException {
 		if (!isDying()){
-			
+
 			if(getProgram() == null){
-				
+
 				if (getStartTimeDir() > 0.5){
 					if (getVelocity().getElemx() == RightVelocity)
 						this.setVelocity(new Vector(LeftVelocity, 0));
@@ -115,7 +119,7 @@ public class Plant extends GameObject {
 					resetStartTimeDir();
 				}else
 					addTimeDir(dt);
-				
+
 			}else{
 				getProgram().advanceTime(dt);
 			}
@@ -315,13 +319,24 @@ public class Plant extends GameObject {
 	public void stopJumpProgram() {} // plants cannot jump
 
 	@Override
-	public void startMoveProgram(boolean direction) {
-		// TODO Auto-generated method stub	
+	public void startMoveProgram(Expression<?> direction) {
+		
+		ValueExpression<Direction> value = (ValueExpression<Direction>) direction;
+		
+		switch(value.getValue()){
+		
+		case LEFT:
+			this.setVelocity(new Vector(LeftVelocity,0.0));
+		case RIGHT:
+			this.setVelocity(new Vector(RightVelocity,0.0));
+		default:
+			this.setVelocity(new Vector(0,0));;
+		}
 	}
-	
+
 	@Override
 	public void stopMoveProgram() {
-		// TODO Auto-generated method stub
+		this.setVelocity(new Vector(0,0));
 	}
 
 

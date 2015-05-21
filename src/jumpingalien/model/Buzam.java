@@ -3,8 +3,11 @@ package jumpingalien.model;
 import java.util.HashSet;
 
 import program.Program;
+import program.expression.Expression;
+import program.expression.ValueExpression;
 import be.kuleuven.cs.som.annotate.Raw;
 import jumpingalien.exception.OutOfBoundsException;
+import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -146,4 +149,53 @@ public class Buzam extends Mazub{
 	protected void initializeHP() {
 		this.setHP(500);
 	}
+	
+	
+	@Override
+	public void startMoveProgram(Expression<?> direction) {
+		
+		ValueExpression<Direction> value = (ValueExpression<Direction>) direction;
+		
+		switch(value.getValue()){
+
+		case LEFT:
+			this.setVelocity(new Vector(-getInitVelocityX(),0.0));
+			this.setAccCurr(new Vector(AccXBkw,0.0));
+		case RIGHT:
+			this.setVelocity(new Vector(getInitVelocityX(),0.0));
+			this.setAccCurr(new Vector(AccXFwd,0.0));
+		default:
+			this.setVelocity(new Vector(0,0));
+		}
+
+	}
+
+	@Override
+	public void stopMoveProgram() {
+		this.setVelocity(new Vector(0,0));
+		this.setAccCurr(new Vector(0.0,0.0));
+	}
+
+	@Override
+	public void startDuckProgram() {
+		startDuck();
+	}
+
+	@Override
+	public void stopDuckProgram() {
+		pressEndDuck();
+	}
+
+	@Override
+	public void startJumpProgram() {
+		startJump();
+	}
+
+	@Override
+	public void stopJumpProgram() {
+		endJump();
+	}
+
+	private final static double AccXFwd = 0.9;
+	private final static double AccXBkw = -0.9;
 }
