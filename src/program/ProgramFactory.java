@@ -20,6 +20,7 @@ import program.statement.AssignmentStatement;
 import program.statement.BreakStatement;
 import program.statement.ForEachStatement;
 import program.statement.IfStatement;
+import program.statement.MoveStatement;
 import program.statement.PrintStatement;
 import program.statement.SequenceStatement;
 import program.statement.Statement;
@@ -469,42 +470,41 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		return new PrintStatement(value,sourceLocation);
 	}
 
+	
+	public enum Movement{
+		STARTRUN,STARTJUMP,STARTDUCK,STOPRUN,STOPJUMP,STOPDUCK;
+	}
+	
 	@Override
 	public Statement createStartRun(Expression<?> direction,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new MoveStatement(Movement.STARTRUN,direction, sourceLocation);
 	}
 
 	@Override
 	public Statement createStopRun(Expression<?> direction,
 			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new MoveStatement(Movement.STOPRUN, direction, sourceLocation);
 	}
 
 	@Override
 	public Statement createStartJump(SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new MoveStatement(Movement.STARTJUMP, null, sourceLocation);
 	}
 
 	@Override
 	public Statement createStopJump(SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new MoveStatement(Movement.STOPJUMP, null, sourceLocation);
 	}
 
 	@Override
 	public Statement createStartDuck(SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new MoveStatement(Movement.STARTDUCK, null, sourceLocation);
 	}
 
 	@Override
 	public Statement createStopDuck(SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+		return new MoveStatement(Movement.STOPJUMP, null, sourceLocation);
 	}
 
 	@Override

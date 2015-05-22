@@ -29,7 +29,8 @@ public class AssignmentStatement extends Statement{
 	public void advanceTime(double dt,Program program) {
 		if(!isExecutionComplete()){
 			program.getVariables().put(VariableName,VariableValue.evaluate(program));
-			ExecutionDone = true;		
+			ExecutionDone = true;
+			program.decreaseRemainingTime();
 			}
 
 	}

@@ -21,12 +21,9 @@ public class WaitStatement extends Statement{
 		if(!isExecutionComplete()){
 			
 			while(this.getRemainingWaitTime() > 0){
-				program.decreaseRemainingTime();
 				this.decreaseRemainingWaitTime();
+				program.decreaseRemainingTime();
 				
-				if(program.getRemainingTime() == 0.0){
-					break;
-				}
 			}
 			if(this.getRemainingWaitTime() == 0.0){
 				ExecutionDone = true;

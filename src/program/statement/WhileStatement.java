@@ -29,11 +29,11 @@ public class WhileStatement extends Statement{
 	public void advanceTime(double dt, Program program) {
 		try{
 			while(!isExecutionComplete() && (Boolean) UnevaluatedCondition.evaluate(program)){
+				program.decreaseRemainingTime();
 				WhileBody.advanceTime(dt, program);
 				if(WhileBody.isExecutionComplete()){
 					WhileBody.Reset();
 				}
-
 			}
 
 			// Execution is done if the while condition isn't true anymore.
