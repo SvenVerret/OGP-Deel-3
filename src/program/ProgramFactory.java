@@ -6,6 +6,7 @@ import java.util.Map;
 
 import program.expression.Expression;
 import program.expression.SearchObjectExpression;
+import program.expression.SelfExpression;
 import program.expression.TileExpression;
 import program.expression.ValueExpression;
 import program.expression.VariableValueExpression;
@@ -69,7 +70,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 
 	@Override
 	public Expression<?> createSelf(SourceLocation sourceLocation) {
-		return new ValueExpression<Object>("self",sourceLocation);
+		return new SelfExpression(sourceLocation);
 	}
 
 	@Override

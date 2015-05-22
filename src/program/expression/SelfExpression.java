@@ -5,20 +5,16 @@ import jumpingalien.model.GameObject;
 import jumpingalien.part3.programs.SourceLocation;
 
 
-public class SelfExpression{
+public class SelfExpression extends Expression<SourceLocation>{
 
 	public SelfExpression(SourceLocation sourcelocation) {
-		SL = sourcelocation;
+		super(sourcelocation);
 	}
 	
-	public SourceLocation getSourceLocation() {
-		return SL;
-	}
-	private final SourceLocation SL;
 
-	public GameObject evaluate(Program program) throws IllegalStateException {
+	public Expression<GameObject> evaluate(Program program) throws IllegalStateException {
 		if(program != null && program.getGameObject() != null){
-			return program.getGameObject();
+			return new ValueExpression(program.getGameObject(), getSourceLocation());
 		} else{
 			throw new IllegalStateException("Self: no program or gameobject");
 		}
