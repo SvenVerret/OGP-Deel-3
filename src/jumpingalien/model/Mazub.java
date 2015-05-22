@@ -484,9 +484,21 @@ public class Mazub extends GameObject{
 	protected HashSet<String> collisionObject(){
 		HashSet<String> hits = new HashSet<String>();
 
+		Buzam buzam = this.getWorld().getBuzam();
 		Set<Shark> Sharks = this.getWorld().getAllSharks();
 		Set<Slime> Slimes = this.getWorld().getAllSlimes();
 		Set<Plant> Plants = this.getWorld().getAllPlants();
+
+		if (overlapsWith(buzam)){
+
+			if (overlapsWithX(buzam)){
+				hits.add("X");
+			}
+			if (overlapsWithY(buzam)){
+				//hits.add("Y");
+				this.setCollisionVel(new Vector(this.getCollisionVel().getElemx(), 3));
+			}
+		}
 
 		for (Plant object: Plants){
 			if (overlapsWith(object)){
@@ -1043,7 +1055,9 @@ public class Mazub extends GameObject{
 
 	@Override
 	protected void terminate() {
-		// We don't use terminate of mazub, when he's dead, game stops
+		this.isTerminated = true;
+		getWorld().setMazub(null);
+		this.setWorld(null);
 
 	}
 
@@ -1054,28 +1068,16 @@ public class Mazub extends GameObject{
 	public void stopMoveProgram() {}
 
 	@Override
-	public void startDuckProgram() {
-		// TODO Auto-generated method stub
-
-	}
+	public void startDuckProgram() {}
 
 	@Override
-	public void stopDuckProgram() {
-		// TODO Auto-generated method stub
-
-	}
+	public void stopDuckProgram() {}
 
 	@Override
-	public void startJumpProgram() {
-		// TODO Auto-generated method stub
-
-	}
+	public void startJumpProgram() {}
 
 	@Override
-	public void stopJumpProgram() {
-		// TODO Auto-generated method stub
-
-	}
+	public void stopJumpProgram() {}
 
 
 

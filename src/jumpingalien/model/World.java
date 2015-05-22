@@ -140,37 +140,39 @@ public class World {
 			throw new IllegalArgumentException();
 		}
 		startWorld();
-		
+
 		advanceTimeOfClock(dt);
 
 		Set<GameObject> OriginalObjects = getEachAndEveryObject();
 		Set<GameObject> CopyObjects = new HashSet<>(OriginalObjects);
 
-//		Mazub alien = getMazub();
-//		alien.advanceTime(dt);
-//		if ((alien.isOutOfBounds()) || (alien.getHP() == 0)){
-//			alien.dies();
-//		}
-//
-//		Buzam evilalien = getBuzam();
-//		if(evilalien != null){
-//			
-//			if ((evilalien.isOutOfBounds()) || (evilalien.getHP() == 0)){
-//				evilalien.terminate();
-//			}else{
-//				evilalien.advanceTime(dt);
-//			}
-//			
-//		}
+		//		Mazub alien = getMazub();
+		//		alien.advanceTime(dt);
+		//		if ((alien.isOutOfBounds()) || (alien.getHP() == 0)){
+		//			alien.dies();
+		//		}
+		//
+		//		Buzam evilalien = getBuzam();
+		//		if(evilalien != null){
+		//			
+		//			if ((evilalien.isOutOfBounds()) || (evilalien.getHP() == 0)){
+		//				evilalien.terminate();
+		//			}else{
+		//				evilalien.advanceTime(dt);
+		//			}
+		//			
+		//		}
 
-		
+
 		for (GameObject object: CopyObjects){
-			object.advanceTime(dt);
-			if ((object.isOutOfBounds()) || (object.getHP() == 0)){
-				object.dies();
+			if(object.getWorld() != null){
+				object.advanceTime(dt);
+				if ((object.isOutOfBounds()) || (object.getHP() == 0)){
+					object.dies();
+				}
 			}
 		}
-		
+
 		//TERMINATE
 
 		for (GameObject object: CopyObjects){
@@ -178,6 +180,7 @@ public class World {
 				object.terminate();
 			}
 		}
+
 		updateSchools();
 	}
 
@@ -408,6 +411,7 @@ public class World {
 		Set<Slime> Slimes = getAllSlimes();
 
 		Set<GameObject> Objects = new HashSet<GameObject>();
+
 		Objects.add(getMazub());
 		Objects.add(getBuzam());
 		Objects.addAll(Plants);

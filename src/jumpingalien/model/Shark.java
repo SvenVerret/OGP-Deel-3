@@ -421,6 +421,7 @@ public class Shark extends GameObject {
 		HashSet<String> hits = new HashSet<String>();
 
 		Mazub mazub = getWorld().getMazub();
+		Buzam buzam = getWorld().getBuzam();
 		Set<Shark> Sharks = this.getWorld().getAllSharks();
 		Set<Slime> Slimes = this.getWorld().getAllSlimes();
 
@@ -440,7 +441,23 @@ public class Shark extends GameObject {
 					mazub.setImmune(true);
 				}
 			}
+		}
+		
+		if (overlapsWith(buzam)){
+			if (overlapsWithX(buzam)){
+				hits.add("X");
+			}
+			if (overlapsWithY(buzam)){
+				hits.add("Y");
+			}
+			if (!this.isDying()){
 
+				this.addByHP(-50);
+				if (!buzam.isImmune()){
+					buzam.addByHP(-50);
+					buzam.setImmune(true);
+				}
+			}
 		}
 
 		for (Shark object: Sharks){

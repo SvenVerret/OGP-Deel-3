@@ -165,7 +165,7 @@ public class Facade implements IFacadePart3{
 
 	@Override
 	public boolean isGameOver(World world) {
-		return world.getMazub().getHP() == 0;
+		return (world.getMazub().getHP() == 0)||(world.getBuzam().getHP() == 0);
 	}
 
 	@Override
@@ -444,36 +444,70 @@ public class Facade implements IFacadePart3{
 
 	@Override
 	public int[] getLocation(Buzam alien) {
-		int[] i = {(int) alien.getPos().getElemx(),(int) alien.getPos().getElemy()};
-		return i;
+		if(alien.getWorld() != null){
+			int[] i = {(int) alien.getPos().getElemx(),(int) alien.getPos().getElemy()};
+			return i;
+		} else{
+			int[] i = {0,0};
+			return i;
+		}
 	}
 
 	@Override
 	public double[] getVelocity(Buzam alien) {
-		double[] i = {alien.getVelocity().getElemx(),alien.getVelocity().getElemy()};
-		return i;
+		if(alien.getWorld() != null){
+			double[] i = {alien.getVelocity().getElemx(),alien.getVelocity().getElemy()};
+			return i;
+		}else{
+			double[] i = {0,0};
+			return i;
+		}
+		
 	}
 
 	@Override
 	public double[] getAcceleration(Buzam alien) {
-		double[] i = {alien.getAccCurr().getElemx(),alien.getAccCurr().getElemy()};
-		return i;
+		if(alien.getWorld() != null){
+			double[] i = {alien.getAccCurr().getElemx(),alien.getAccCurr().getElemy()};
+			return i;
+		}else{
+			double[] i = {0,0};
+			return i;
+		}
+		
 	}
 
 	@Override
 	public int[] getSize(Buzam alien) {
-		int[] i = {(int) alien.getSize().getElemx(),(int) alien.getSize().getElemy()};
-		return i;
+		if(alien.getWorld() != null){
+			int[] i = {(int) alien.getSize().getElemx(),(int) alien.getSize().getElemy()};
+			return i;
+		}else{
+			int[] i = {0,0};
+			return i;
+		}
+
 	}
 
 	@Override
 	public Sprite getCurrentSprite(Buzam alien) {
-		return alien.getCurrentSprite();
+		if(alien.getWorld() != null){
+			return alien.getCurrentSprite();
+		}else{
+			return null;
+		}
+
 	}
 
 	@Override
 	public int getNbHitPoints(Buzam alien) {
-		return alien.getHP();
+		if(alien.getWorld() != null){
+			return alien.getHP();
+		} else{
+			return 0;
+		}
 	}
 
 }
+
+

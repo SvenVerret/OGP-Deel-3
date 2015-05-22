@@ -1,6 +1,7 @@
 package jumpingalien.model;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import program.Program;
 import be.kuleuven.cs.som.annotate.Raw;
@@ -59,7 +60,7 @@ public class Buzam extends Mazub{
 		}
 		if(!isDying()){
 			correctSpawnedInGround();
-			updateHPTile(dt);  
+			updateHPTile(dt); 
 			System.out.println(this.getHP());
 			UpdateAccY();
 
@@ -113,16 +114,106 @@ public class Buzam extends Mazub{
 		}
 	}
 
+	
+	/**
+	 * @effect	Contact with plant and Mazub hasn't reached maxHP
+	 * 			| this.addByHP(50);
+	 *			| object.dies();
+	 * 
+	 * @effect	Contact with shark
+	 * 			| if (overlapsWithX(object)){
+	 *			| 	hits.add("X");
+	 *			| }
+	 *			| if (overlapsWithY(object)){
+	 *			|	hits.add("Y");
+	 *			| }
+	 * 
+	 * @effect	Contact with slime
+	 * 			| if (overlapsWithX(object)){
+	 *			|	hits.add("X");
+	 *			|	}
+	 *			| if (overlapsWithY(object)){
+	 *			|	hits.add("Y")
+	 *			| 	if (!object.isDying()){
+	 *			|		object.slimeGetsHitFor(-50);
+	 *			|		if (!isImmune()){
+	 *			|			this.addByHP(-50);
+	 *			|			setImmune(true);
+	 *			|		}
+	 *			|	}
+	 *			| }
+	 * 			
+	 * 
+	 */
+	@Override
+	protected HashSet<String> collisionObject(){
+		HashSet<String> hits = new HashSet<String>();
+
+		Mazub mazub = this.getWorld().getMazub();
+		Set<Shark> Sharks = this.getWorld().getAllSharks();
+		Set<Slime> Slimes = this.getWorld().getAllSlimes();
+		Set<Plant> Plants = this.getWorld().getAllPlants();
+		
+		if(overlapsWith(mazub)){
+			if (overlapsWithX(mazub))
+				hits.add("X");
+			
+			if (overlapsWithY(mazub))
+				hits.add("Y");
+		}
+
+		for (Plant object: Plants){
+			if (overlapsWith(object)){
+				if (!object.isDying() && (getHP() < getMaxHP())){
+					this.addByHP(50);
+					object.addByHP(-1);
+					object.dies();
+				}
+			}
+		}
+
+		for (Shark object: Sharks){
+			if (overlapsWith(object)){
+
+				if (overlapsWithX(object)){
+					hits.add("X");
+				}
+				if (overlapsWithY(object)){
+					hits.add("Y");
+				}
+			}
+		}
+
+		for (Slime object: Slimes){
+			if (overlapsWith(object)){
+
+				if (overlapsWithX(object)){
+					hits.add("X");
+				}
+				if (overlapsWithY(object)){
+
+					hits.add("Y");
+
+					if (!object.isDying()){
+						object.slimeGetsHitFor(-50);
+						if (!isImmune()){
+							addByHP(-50);
+							setImmune(true);
+						}
+					}
+				}      
+			}
+
+		}
+		return hits;
+	}
 
 	/**
 	 * This method checks whether Mazub can have the given world as world
 	 * 
 	 * @return	boolean: 	true if the given world is not null
 	 * 						Mazub must have no world
-	 * 			| if (world == null){
-	 *			|	return false;
-	 *			| }
-	 *			| if (world.getMazub() == null){
+	 *			| if (world == null && world.getMazub() == null){
 	 *			|	return true;
 	 *			| }else{
 	 *			|	return false;
@@ -131,10 +222,7 @@ public class Buzam extends Mazub{
 	@Raw
 	@Override
 	public boolean canHaveAsWorld(World world) {
-		if (world == null){
-			return false;
-		}
-		if (world.getBuzam() == null){
+		if (world != null && world.getBuzam() == null){
 			return true;
 		}else{
 			return false;
@@ -148,7 +236,7 @@ public class Buzam extends Mazub{
 	 */
 	@Override
 	protected void initializeHP() {
-		this.setHP(50);
+		this.setHP(500);
 	}
 
 	/**
@@ -160,7 +248,7 @@ public class Buzam extends Mazub{
 	@Override
 	protected void terminate(){
 		this.isTerminated = true;
-
+		System.out.println(this.getWorld());
 		getWorld().removeBuzam(this);
 		setWorld(null);
 	}

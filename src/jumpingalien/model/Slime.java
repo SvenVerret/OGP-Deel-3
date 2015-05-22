@@ -438,6 +438,7 @@ public class Slime extends GameObject {
 		HashSet<String> hits = new HashSet<String>();
 
 		Mazub mazub = getWorld().getMazub();
+		Buzam buzam = getWorld().getBuzam();
 		Set<Shark> Sharks = this.getWorld().getAllSharks();
 		Set<Slime> Slimes = this.getWorld().getAllSlimes();
 
@@ -457,6 +458,22 @@ public class Slime extends GameObject {
 			if (overlapsWithY(mazub)){
 				//hits.add("Y");
 				mazub.setCollisionVel(new Vector(mazub.getCollisionVel().getElemx(), 3));
+			}
+		}
+		
+		if (overlapsWith(buzam)){
+			if (overlapsWithX(buzam)){
+				hits.add("X");
+				if (!this.isDying()){
+					this.slimeGetsHitFor(-50);
+					if (!buzam.isImmune()){
+						buzam.addByHP(-50);
+						buzam.setImmune(true);
+					}
+				}
+			}
+			if (overlapsWithY(buzam)){
+				hits.add("Y");
 			}
 		}
 

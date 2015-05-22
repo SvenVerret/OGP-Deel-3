@@ -143,8 +143,11 @@ public abstract class GameObject {
 	protected void setWorld(World world) {
 		if (canHaveAsWorld(world))
 			this.world = world;
-		else
+		else{
+			System.out.println("WOOOORLD");
 			this.world = null;
+		}
+			
 	}
 
 	private World world = null;
