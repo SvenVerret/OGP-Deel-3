@@ -55,12 +55,14 @@ public class Program {
 					setRemainingTime(dt);
 				}
 			}
+			while(this.getRemainingTime() > 0){
 
-			getMainStatement().advanceTime(dt, this);
+				getMainStatement().advanceTime(dt, this);
 
-			if(getMainStatement().isExecutionComplete()){
-				setVariables(getInitialVariables());
-				getMainStatement().Reset();
+				if(getMainStatement().isExecutionComplete()){
+					setVariables(getInitialVariables());
+					getMainStatement().Reset();
+				}
 			}
 
 		} catch(TimeIsUpException t){

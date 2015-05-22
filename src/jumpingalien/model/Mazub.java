@@ -566,7 +566,6 @@ public class Mazub extends GameObject{
 
 		if(isDucked()){
 			thisObjectH --;
-			thisObjectW = thisObjectW+2;
 		}
 
 		if (!isPassableTerrain(thisObjectX+1, thisObjectY)){
