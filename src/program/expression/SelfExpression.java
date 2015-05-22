@@ -14,7 +14,7 @@ public class SelfExpression extends Expression<SourceLocation>{
 
 	public Expression<GameObject> evaluate(Program program) throws IllegalStateException {
 		if(program != null && program.getGameObject() != null){
-			return new ValueExpression(program.getGameObject(), getSourceLocation());
+			return new ValueExpression<GameObject>(program.getGameObject(), getSourceLocation());
 		} else{
 			throw new IllegalStateException("Self: no program or gameobject");
 		}
