@@ -1,10 +1,23 @@
 package program.type;
 
-import jumpingalien.model.GameObject;
+public class GameObjectType{
 
-public class GameObjectType extends Type<GameObject>{
+	public GameObjectType(Object gameobject) {
+		GameObject = gameobject;
+	}
+	
+	public GameObjectType() {
+		this(null);
+	}
+	
 
-	public GameObjectType() {}
+	public Object getGameObject() {
+		return GameObject;
+	}
 
+	public void setGameObject(Object gameObject) {
+		GameObject = gameObject;
+	}
 
+	private Object GameObject;
 }

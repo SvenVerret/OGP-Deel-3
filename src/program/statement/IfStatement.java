@@ -20,10 +20,10 @@ public class IfStatement extends Statement{
 		IfBody = ifBody;
 		ElseBody = elseBody;
 		
-		UnevaluatedCondition = ((ValueExpression<Boolean>) condition);
+		UnevaluatedCondition = ((Expression<Boolean>) condition);
 	}
 	
-	private ValueExpression<Boolean> UnevaluatedCondition;
+	private Expression<Boolean> UnevaluatedCondition;
 	private Statement IfBody;
 	private Statement ElseBody;
 	private boolean ForceReset = false;
