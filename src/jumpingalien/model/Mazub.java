@@ -4,14 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import program.Program;
-import program.expression.Expression;
-import program.expression.ValueExpression;
 import be.kuleuven.cs.som.annotate.Basic;
 import be.kuleuven.cs.som.annotate.Immutable;
 import be.kuleuven.cs.som.annotate.Raw;
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
-import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -1051,7 +1048,7 @@ public class Mazub extends GameObject{
 	}
 
 	@Override
-	public void startMoveProgram(Expression<?> direction) {}
+	public void startMoveProgram(Boolean direction) {}
 
 	@Override
 	public void stopMoveProgram() {}
