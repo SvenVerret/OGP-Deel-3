@@ -26,14 +26,7 @@ public class PartialFacadeTest {
 //		ParseOutcome<?> outcome = facade.parse("skip;");
 //		assertTrue(outcome.isSuccess());
 //	}
-	
-	@Test
-	public void testParseSimplestProgram2() {
-		IFacadePart3 facade = new Facade();
-		String text = 
-		ParseOutcome<?> outcome = facade.parse(text);
-		assertTrue(outcome.isSuccess());
-	}
+
 	
 	
 //	@Test
@@ -98,18 +91,18 @@ public class PartialFacadeTest {
 //		program.advanceTime(0.1);
 //	}
 	
-//	@Test
-//	public void testParseSimplestProgramEquals() {
-//		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
-//		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
-//
-//		Optional<Program> parse_outcome = parser.parseString("double y; double x; double rslt;"
-//				+ "y := 2.0; x := 3.0; rslt := x + (x*y);");
-//		Program program = parse_outcome.get();
-//		
-//		program.advanceTime(0.1);
-//		System.out.println(program.getVariables());
-//	}
+	@Test
+	public void testParseSimplestProgramEquals() {
+		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+
+		Optional<Program> parse_outcome = parser.parseString("double y; double x; double rslt;"
+				+ "y := 3.0; x := 3.0; rslt := x == y;");
+		Program program = parse_outcome.get();
+		
+		program.advanceTime(0.1);
+		System.out.println(program.getVariables());
+	}
 	
 	
 	

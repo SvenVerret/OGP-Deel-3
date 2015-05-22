@@ -6,34 +6,45 @@ import program.Program;
 
 public class TileExpression extends Expression<SourceLocation>{
 	
-	public TileExpression(Expression<?> x, Expression<?> y,
+	public TileExpression(Expression<Double> x, Expression<Double> y,
 			SourceLocation sourceLocation){
 		super(sourceLocation);
-		this.x = (ValueExpression<Integer>)x;
-		this.y = (ValueExpression<Integer>)y;
-		
-
-
+		this.x = x;
+		this.y = y;
 	}
 
-	public Integer getXValue(){
-		return x.getValue();
-	}
-
-	public Integer getYValue(){
-		return y.getValue();
-	}
-	
 	@Override
-	public Object evaluate(Program program) {
+	public int[] evaluate(Program program) {
 		
-		int[] result = program.getGameObject().getWorld().convertXYtoXTYT(getXValue(),getYValue());
-		
-		return new ValueExpression<int[]>(result, getSourceLocation());
+		if(this.getReturnInPixel()){
+			int[] result = {((Double)getXValue().evaluate(program)).intValue(),((Double)getYValue().evaluate(program)).intValue()};
+			return result;
+			
+		}else{
+			int[] result = program.getGameObject().getWorld().
+					convertXYtoXTYT(((Double)getXValue().evaluate(program)).intValue(),((Double)getYValue().evaluate(program)).intValue());
+			return result;
+		}
 	}
 
-	private ValueExpression<Integer> x;
-	private ValueExpression<Integer> y;
-
-	//return ValueExpression
+	private Boolean getReturnInPixel(){
+		return ReturnInPixel;
+	}
+	public void setReturnToPixels(){
+		ReturnInPixel = true;
+	}
+	public void setReturnToTiles(){
+		ReturnInPixel = false;
+	}
+	private Boolean ReturnInPixel = false;
+	
+	private Expression<Double> x;
+	private Expression<Double> y;
+	
+	public Expression<Double> getXValue(){
+		return x;
+	}
+	public Expression<Double> getYValue(){
+		return y;
+	}
 }

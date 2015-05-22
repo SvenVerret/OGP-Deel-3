@@ -16,14 +16,12 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
          * @param direction
          *  
          */
-        public SearchObjectExpression(ValueExpression<Direction> direction, SourceLocation sourceLocation){
+        public SearchObjectExpression(Expression<Direction> direction, SourceLocation sourceLocation){
                 super(sourceLocation);
-                dir = direction.getValue(); // Direction is a ValueExpression, because it is created
-                							// by createDoubleConstant(....)
-               
+                dir = direction;
         }
  
-        public Direction getDirection(){
+        public Expression<Direction> getDirection(){
                 return dir;
         }
        
@@ -39,8 +37,10 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
                
                 final Comparator<GameObject> compY = (p1, p2) ->
                 Double.compare(p1.getPos().getElemy(),p2.getPos().getElemy());
+                
+                Direction direction = (Direction) getDirection().evaluate(program);
  
-                switch(getDirection()){
+                switch(direction){
                
                 case DOWN:
                         GameObject result1 = GameObjectsWorld.stream().
@@ -69,6 +69,6 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
  
         }
         
-        private Direction dir;
+        private Expression<Direction> dir;
        
 }

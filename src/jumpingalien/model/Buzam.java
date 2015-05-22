@@ -3,7 +3,6 @@ package jumpingalien.model;
 import java.util.HashSet;
 
 import program.Program;
-
 import be.kuleuven.cs.som.annotate.Raw;
 import jumpingalien.exception.OutOfBoundsException;
 import jumpingalien.util.Sprite;
@@ -58,53 +57,57 @@ public class Buzam extends Mazub{
 		if ((dt < 0.0) || (dt > 0.2)){
 			throw new IllegalArgumentException();
 		}
-		updateHPTile(dt);              
-		UpdateAccY();
+		if(!isDying()){
+			correctSpawnedInGround();
+			updateHPTile(dt);  
+			System.out.println(this.getHP());
+			UpdateAccY();
 
-		//		if(isEndDuckPressed())
-		//			endDuck();
+			if(isEndDuckPressed())
+				endDuck();
 
-		if (isImmune()){
-			addToImmuneTimer(dt);
-			setImmune(false);
-		}
+			if (isImmune()){
+				addToImmuneTimer(dt);
+				setImmune(false);
+			}
+			if(getProgram() != null){
+				getProgram().advanceTime(dt);
+			}
+			
+			HashSet<String> hits  = collisionDetection(dt);
 
-		getProgram().advanceTime(dt);
+			if ((hits != null) && (!hits.isEmpty())){
 
-		correctSpawnedInGround();
-		HashSet<String> hits  = collisionDetection(dt);
+				if (hits.contains("X")){
 
-		if ((hits != null) && (!hits.isEmpty())){
+					if (getVelocity().getElemx() >= 0.0){
 
-			if (hits.contains("X")){
+						setPos(new Vector(getPos().getElemx()-1,getPos().getElemy()));
+						setVelocity(new Vector(0.0,getVelocity().getElemy()));
+						setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
 
-				if (getVelocity().getElemx() >= 0.0){
+					}else if(getVelocity().getElemx() < 0.0) {
 
-					setPos(new Vector(getPos().getElemx()-1,getPos().getElemy()));
-					setVelocity(new Vector(0.0,getVelocity().getElemy()));
-					setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+						setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
+						setVelocity(new Vector(0.0,getVelocity().getElemy()));
+						setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+					}
 
-				}else if(getVelocity().getElemx() < 0.0) {
+				}else if (hits.contains("Y")){
 
-					setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
-					setVelocity(new Vector(0.0,getVelocity().getElemy()));
-					setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
-				}
+					if (isOnGround() && isJumped()){
+						setOnGround(false);
 
-			}else if (hits.contains("Y")){
+					}else if (getVelocity().getElemy() >= 0.0){
+						setPos(new Vector(getPos().getElemx(),getPos().getElemy()-1));
+						setVelocity(new Vector(getVelocity().getElemx(),0.0));
 
-				if (isOnGround() && isJumped()){
-					setOnGround(false);
+					}else if (getVelocity().getElemy() < 0.0){
 
-				}else if (getVelocity().getElemy() >= 0.0){
-					setPos(new Vector(getPos().getElemx(),getPos().getElemy()-1));
-					setVelocity(new Vector(getVelocity().getElemx(),0.0));
-
-				}else if (getVelocity().getElemy() < 0.0){
-
-					setPos(new Vector(getPos().getElemx(),getPos().getElemy()+1));
-					setVelocity(new Vector(getVelocity().getElemx(),0.0));
-					setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
+						setPos(new Vector(getPos().getElemx(),getPos().getElemy()+1));
+						setVelocity(new Vector(getVelocity().getElemx(),0.0));
+						setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
+					}
 				}
 			}
 		}
@@ -145,14 +148,26 @@ public class Buzam extends Mazub{
 	 */
 	@Override
 	protected void initializeHP() {
-		this.setHP(500);
+		this.setHP(50);
 	}
-	
-	
+
+	/**
+	 * 
+	 * @effect
+	 *			| getWorld().removeBuzam(this);
+	 *			| setWorld(null);
+	 */
+	@Override
+	protected void terminate(){
+		this.isTerminated = true;
+
+		getWorld().removeBuzam(this);
+		setWorld(null);
+	}
+
+
 	@Override
 	public void startMoveProgram(Boolean direction) {
-		
-		
 
 		if (!direction){
 			this.setVelocity(new Vector(-getInitVelocityX(),0.0));
@@ -162,7 +177,7 @@ public class Buzam extends Mazub{
 			this.setAccCurr(new Vector(AccXFwd,0.0));
 		}else
 			this.setVelocity(new Vector(0,0));
-		}
+	}
 
 
 	@Override

@@ -3,7 +3,6 @@ package program.statement;
 import program.Program;
 import program.ProgramFactory.Movement;
 import program.expression.Expression;
-import program.expression.ValueExpression;
 import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.part3.programs.SourceLocation;
 
@@ -27,13 +26,14 @@ public class MoveStatement extends Statement{
 	public void advanceTime(double dt, Program program) {
 		if(!this.isExecutionComplete()){
 			
-			Direction value = (Direction) ExprDirection.evaluate(program);
+			if(ExprDirection != null){
+				Direction value = (Direction) ExprDirection.evaluate(program);
+				if(value == Direction.LEFT)
+					this.direction = false;
+				else if(value== Direction.RIGHT) 
+					this.direction = true;
+			}
 			
-			if(value == Direction.LEFT)
-				this.direction = false;
-			else if(value== Direction.RIGHT) 
-				this.direction = true;
-
 			switch(getMovement()){
 			case STARTRUN:  
 				program.getGameObject().startMoveProgram(getDirection());

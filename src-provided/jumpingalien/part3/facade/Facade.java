@@ -365,7 +365,9 @@ public class Facade implements IFacadePart3{
 	public Buzam createBuzamWithProgram(int pixelLeftX, int pixelBottomY,
 			Sprite[] sprites, Program program) {
 		try{
-			return new Buzam(pixelLeftX, pixelBottomY, sprites, program);
+			Buzam buzam = new Buzam(pixelLeftX, pixelBottomY, sprites, program);
+			program.setGameObject(buzam);
+			return buzam;
 		} catch (IllegalArgumentException e){
 			throw new ModelException(e.getMessage());
 		}
@@ -375,29 +377,35 @@ public class Facade implements IFacadePart3{
 	public Plant createPlantWithProgram(int x, int y, Sprite[] sprites,
 			Program program) {
 		try{
-			return new Plant(y, y, sprites, program);
+			Plant plant = new Plant(y, y, sprites, program);
+			program.setGameObject(plant);
+			return plant;
 		}catch(IllegalArgumentException e){
 			throw new ModelException("Illegal Plant Sprites");
 		}
-		
+
 	}
 
 	@Override
 	public Shark createSharkWithProgram(int x, int y, Sprite[] sprites,
 			Program program) {
 		try{
-			return new Shark(y, y, sprites, program);
+			Shark shark = new Shark(y, y, sprites, program);
+			program.setGameObject(shark);
+			return shark;
 		}catch(IllegalArgumentException e){
 			throw new ModelException("Illegal Shark Sprites");
 		}
-		
+
 	}
 
 	@Override
 	public Slime createSlimeWithProgram(int x, int y, Sprite[] sprites,
 			School school, Program program) {
 		try{
-			return new Slime(x,y,sprites,school);
+			Slime slime = new Slime(x,y,sprites,school);
+			program.setGameObject(slime);
+			return slime;
 		}catch(IllegalArgumentException e){
 			throw new ModelException("Illegal Slime Sprites");
 		}

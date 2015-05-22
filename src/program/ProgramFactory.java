@@ -11,9 +11,9 @@ import program.expression.TileExpression;
 import program.expression.ValueExpression;
 import program.expression.VariableValueExpression;
 import program.expression.inspector.IsAirExpression;
+import program.expression.inspector.IsInpassableExpression;
 import program.expression.inspector.IsMagmaExpression;
 import program.expression.inspector.IsPassableExpression;
-import program.expression.inspector.IsTerrainExpression;
 import program.expression.inspector.IsWaterExpression;
 import program.expression.operation.BinaryExpressionOperation;
 import program.expression.operation.SingleExpressionOperation;
@@ -27,7 +27,6 @@ import program.statement.SequenceStatement;
 import program.statement.Statement;
 import program.statement.WaitStatement;
 import program.statement.WhileStatement;
-import program.type.GameObjectType;
 import jumpingalien.model.GameObject;
 import jumpingalien.model.Mazub;
 import jumpingalien.model.Plant;
@@ -229,7 +228,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		BinaryExpressionOperation<Boolean, Object, Object> result =
 				new BinaryExpressionOperation<Boolean, Object, Object>(
 						(Expression<Object>) left, (Expression<Object>) right,
-						(a,b) -> (a.equals(b)), sourceLocation);
+						(a,b) -> (a == b), sourceLocation);
 
 		return result;
 	}
@@ -240,7 +239,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		BinaryExpressionOperation<Boolean, Object, Object> result =
 				new BinaryExpressionOperation<Boolean, Object, Object>(
 						(Expression<Object>) left, (Expression<Object>) right,
-						(a,b) -> (!a.equals(b)), sourceLocation);
+						(a,b) -> (a != b), sourceLocation);
 
 		return result;
 	}
@@ -250,7 +249,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			SourceLocation sourceLocation) {
 		SingleExpressionOperation<Double, GameObject> result =
 				new SingleExpressionOperation<Double, GameObject>(
-						(ValueExpression<GameObject>)expr, 
+						(Expression<GameObject>)expr, 
 						e -> ((GameObject) e).getPos().getElemx(), sourceLocation);
 
 		return result;
@@ -261,7 +260,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			SourceLocation sourceLocation) {
 		SingleExpressionOperation<Double, GameObject> result =
 				new SingleExpressionOperation<Double, GameObject>(
-						(ValueExpression<GameObject>)expr, 
+						(Expression<GameObject>)expr, 
 						e -> ((GameObject) e).getPos().getElemy(), sourceLocation);
 
 		return result;
@@ -272,7 +271,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			SourceLocation sourceLocation) {
 		SingleExpressionOperation<Double, GameObject> result =
 				new SingleExpressionOperation<Double, GameObject>(
-						(ValueExpression<GameObject>)expr, 
+						(Expression<GameObject>)expr, 
 						e -> ((GameObject) e).getSize().getElemx(), sourceLocation);
 
 		return result;
@@ -283,7 +282,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			SourceLocation sourceLocation) {
 		SingleExpressionOperation<Double, GameObject> result =
 				new SingleExpressionOperation<Double, GameObject>(
-						(ValueExpression<GameObject>)expr, 
+						(Expression<GameObject>)expr, 
 						e -> ((GameObject) e).getSize().getElemy(), sourceLocation);
 
 		return result;
@@ -294,7 +293,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			SourceLocation sourceLocation) {
 		SingleExpressionOperation<Integer, GameObject> result =
 				new SingleExpressionOperation<Integer, GameObject>(
-						(ValueExpression<GameObject>)expr, 
+						(Expression<GameObject>)expr, 
 						e -> ((GameObject) e).getHP(), sourceLocation);
 
 		return result;
@@ -303,12 +302,12 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createGetTile(Expression<?> x, Expression<?> y,
 			SourceLocation sourceLocation) {
-		return new TileExpression(x, y, sourceLocation);
+		return new TileExpression((Expression<Double>)x, (Expression<Double>)y, sourceLocation);
 	}
 
 	@Override
 	public Expression<?> createSearchObject(Expression<?> direction, SourceLocation sourceLocation) {
-		return new SearchObjectExpression((ValueExpression<Direction>) direction, sourceLocation);
+		return new SearchObjectExpression((Expression<Direction>) direction, sourceLocation);
 	}
 
 	@Override
@@ -369,7 +368,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createIsTerrain(Expression<?> expr,
 			SourceLocation sourceLocation) {
-		return new IsTerrainExpression(expr, sourceLocation);
+		return new IsInpassableExpression(expr, sourceLocation);
 	}
 
 	@Override
@@ -401,7 +400,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			Expression<?> direction, SourceLocation sourceLocation) {
 		SingleExpressionOperation<Boolean, GameObject> result =
 				new SingleExpressionOperation<Boolean, GameObject>(
-						(ValueExpression<GameObject>)expr, 
+						(Expression<GameObject>)expr, 
 						e -> ((GameObject) e).getVelocity().normOfVector() != 0.0, sourceLocation);
 
 		return result;
@@ -412,7 +411,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			SourceLocation sourceLocation) {
 		SingleExpressionOperation<Boolean, Mazub> result =
 				new SingleExpressionOperation<Boolean, Mazub>(
-						(ValueExpression<Mazub>)expr, 
+						(Expression<Mazub>)expr, 
 						e -> ((Mazub) e).isDucked(), sourceLocation);
 
 		return result;
@@ -423,7 +422,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 			SourceLocation sourceLocation) {
 		SingleExpressionOperation<Boolean, GameObject> result =
 				new SingleExpressionOperation<Boolean, GameObject>(
-						(ValueExpression<GameObject>)expr, 
+						(Expression<GameObject>)expr, 
 						e -> (!((GameObject) e).isOnGround()), sourceLocation);
 
 		return result;
@@ -511,7 +510,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Statement createWait(Expression<?> duration,
 			SourceLocation sourceLocation) {
-		return new WaitStatement((ValueExpression<Double>)duration,sourceLocation);
+		return new WaitStatement((Expression<Double>)duration,sourceLocation);
 	}
 
 	@Override

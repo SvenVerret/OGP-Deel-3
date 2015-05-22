@@ -2,11 +2,12 @@ package program.statement;
 
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
+import program.expression.Expression;
 import program.expression.ValueExpression;
 
 public class WaitStatement extends Statement{
 
-	public WaitStatement(ValueExpression<Double> time, SourceLocation sourceLocation){
+	public WaitStatement(Expression<Double> time, SourceLocation sourceLocation){
 		super(sourceLocation);
 		WaitDuration = time;
 		
@@ -66,7 +67,7 @@ public class WaitStatement extends Statement{
 		decreaseRemainingWaitTime(Program.defaultDT);
 	}
 	
-	private final ValueExpression<Double> WaitDuration;
+	private final Expression<Double> WaitDuration;
 	private double RemainingWaitTime = 0.0;
 	
 	private boolean ForceReset = false;

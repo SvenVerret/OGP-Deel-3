@@ -300,7 +300,7 @@ public class Mazub extends GameObject{
 	 * 			An exception is thrown when endDuck is called if Mazub isn't ducking.
 	 * 			| !(isDucked())
 	 */
-	private void endDuck() throws IllegalStateException{
+	protected void endDuck() throws IllegalStateException{
 		if (isEndDuckPressed()){
 			int thisObjectX = (int) getPos().getElemx();
 			int thisObjectY = (int) getPos().getElemy();

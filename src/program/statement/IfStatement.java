@@ -42,11 +42,11 @@ public class IfStatement extends Statement{
 			program.decreaseRemainingTime();
 			
 			
-			if(IfBodyCalled){
+			if(IfBodyCalled && IfBody != null){
 				IfBody.advanceTime(dt, program);
 				if(IfBody.isExecutionComplete())
 					ExecutionDone = true;
-			}else{
+			}else if(!IfBodyCalled && ElseBody != null){
 				ElseBody.advanceTime(dt, program);
 				if(ElseBody.isExecutionComplete())
 					ExecutionDone = true;

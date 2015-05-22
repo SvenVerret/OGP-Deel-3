@@ -140,29 +140,39 @@ public class World {
 			throw new IllegalArgumentException();
 		}
 		startWorld();
-
-
+		
 		advanceTimeOfClock(dt);
 
-		Set<GameObject> OriginalObjects = getAllGameObjects();
+		Set<GameObject> OriginalObjects = getEachAndEveryObject();
 		Set<GameObject> CopyObjects = new HashSet<>(OriginalObjects);
 
-		Mazub alien = getMazub();
+//		Mazub alien = getMazub();
+//		alien.advanceTime(dt);
+//		if ((alien.isOutOfBounds()) || (alien.getHP() == 0)){
+//			alien.dies();
+//		}
+//
+//		Buzam evilalien = getBuzam();
+//		if(evilalien != null){
+//			
+//			if ((evilalien.isOutOfBounds()) || (evilalien.getHP() == 0)){
+//				evilalien.terminate();
+//			}else{
+//				evilalien.advanceTime(dt);
+//			}
+//			
+//		}
 
-		alien.advanceTime(dt);
-		if ((alien.isOutOfBounds()) || (alien.getHP() == 0)){
-			alien.dies();
-		}
-
+		
 		for (GameObject object: CopyObjects){
 			object.advanceTime(dt);
 			if ((object.isOutOfBounds()) || (object.getHP() == 0)){
-
-
 				object.dies();
-
 			}
 		}
+		
+		//TERMINATE
+
 		for (GameObject object: CopyObjects){
 			if (object.isDead()){
 				object.terminate();
@@ -280,7 +290,6 @@ public class World {
 		if (canHaveAsBuzam(buzam)){
 			buzam.setWorld(this);
 			this.buzam=buzam;
-
 		}
 	}
 
@@ -350,6 +359,12 @@ public class World {
 			return true;
 	}
 
+	public void removeBuzam(Buzam buzam){
+		if (buzam != null && this.buzam == buzam){
+			buzam = null;
+		} 
+	}
+
 	private Buzam buzam = null;
 
 
@@ -377,7 +392,7 @@ public class World {
 		Objects.addAll(Slimes);
 		return Collections.unmodifiableSet(Objects);      
 	}
-	
+
 	/**
 	 * This method returns all objects, including Mazub and Buzam
 	 * 
@@ -387,7 +402,7 @@ public class World {
 	 * 
 	 */
 	public Set<GameObject> getEachAndEveryObject(){
-		
+
 		Set<Plant> Plants = getAllPlants();
 		Set<Shark> Sharks = getAllSharks();
 		Set<Slime> Slimes = getAllSlimes();
@@ -399,7 +414,7 @@ public class World {
 		Objects.addAll(Sharks);
 		Objects.addAll(Slimes);
 		return Collections.unmodifiableSet(Objects); 
-		
+
 	}
 
 

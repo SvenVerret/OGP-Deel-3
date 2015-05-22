@@ -21,12 +21,10 @@ public class IsPassableExpression extends Inspector<TileExpression>{
 	public Boolean evaluate(Program program) {
 		
 		TileExpression value = getExpression();
-		
-		int posx = value.getXValue();
-		int posy = value.getYValue();
-		
-		
-		return  program.getGameObject().getWorld().isPassableTerrain(posx, posy);
+		value.setReturnToPixels();
+		int[] pos = value.evaluate(program); 	
+
+		return  program.getGameObject().getWorld().isPassableTerrain(pos[0], pos[1]);
 		
 	}
 }

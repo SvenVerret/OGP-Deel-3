@@ -611,15 +611,15 @@ public class Slime extends GameObject {
 			this.setAccCurr(new Vector(ACCX,0.0));
 		}else
 			this.setVelocity(new Vector(0,0));
-		}
+	}
 
-	
+
 
 	@Override
 	public void stopMoveProgram() {
 		this.setVelocity(new Vector(0.0,0.0));
 		this.setAccCurr(new Vector(0.0,0.0));	
-		
+
 	}
 
 

@@ -37,8 +37,8 @@ public class ForEachStatement extends Statement{
 
 		setVariableName(variableName);
 		setVariableKind(variableKind);
-		setWhereExpression((ValueExpression<Boolean>) where);
-		setSortExpression((ValueExpression<Double>) sort);
+		setWhereExpression(where);
+		setSortExpression(sort);
 		setSortDirection(sortDirection);
 		setForBody(body);
 	}
@@ -141,7 +141,7 @@ public class ForEachStatement extends Statement{
 
 	private Boolean CommitObjectAndCheckWhere(GameObject object, Program program){
 		program.getVariables().put(getVariableName(),object);
-		return getWhereExpression().evaluate(program);
+		return (Boolean) getWhereExpression().evaluate(program);
 	}
 
 
@@ -150,7 +150,7 @@ public class ForEachStatement extends Statement{
 		HashMap<GameObject,Double> map = new HashMap<>();
 		for(GameObject obj: Objects){
 			program.getVariables().put(getVariableName(),obj);
-			map.put(obj,getSortExpression().evaluate(program));
+			map.put(obj,(Double) getSortExpression().evaluate(program));
 		}
 		program.getVariables().put(getVariableName(),null);
 
@@ -182,8 +182,8 @@ public class ForEachStatement extends Statement{
 
 	private String VariableName;
 	private Kind VariableKind;
-	private ValueExpression<Boolean> WhereExpression;
-	private ValueExpression<Double> SortExpression;
+	private Expression<Boolean> WhereExpression;
+	private Expression<Double> SortExpression;
 	private SortDirection SortDirection;
 	private Statement ForBody;
 
@@ -209,22 +209,22 @@ public class ForEachStatement extends Statement{
 		VariableKind = variableKind;
 	}
 
-	private ValueExpression<Boolean> getWhereExpression() {
+	private Expression<Boolean> getWhereExpression() {
 		return WhereExpression;
 	}
 
 
-	private void setWhereExpression(ValueExpression<Boolean> whereExpression) {
+	private void setWhereExpression(Expression<Boolean> whereExpression) {
 		WhereExpression = whereExpression;
 	}
 
 
-	private ValueExpression<Double> getSortExpression() {
+	private Expression<Double> getSortExpression() {
 		return SortExpression;
 	}
 
 
-	private void setSortExpression(ValueExpression<Double> sortExpression) {
+	private void setSortExpression(Expression<Double> sortExpression) {
 		SortExpression = sortExpression;
 	}
 

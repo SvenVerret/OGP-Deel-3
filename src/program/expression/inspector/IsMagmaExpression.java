@@ -21,12 +21,10 @@ public class IsMagmaExpression extends Inspector<TileExpression>{
 	public Boolean evaluate(Program program) {
 		
 		TileExpression value = getExpression();
+		value.setReturnToPixels();
+		int[] pos = value.evaluate(program); 
 		
-		int posx = value.getXValue();
-		int posy = value.getYValue();
-		
-		
-		int feature = program.getGameObject().getWorld().getGeologicalFeature(posx, posy);
+		int feature = program.getGameObject().getWorld().getGeologicalFeature(pos[0], pos[1]);
 		
 		if (feature == 3)
 			return true;

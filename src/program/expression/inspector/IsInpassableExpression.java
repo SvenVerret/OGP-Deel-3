@@ -6,14 +6,14 @@ import program.Program;
 import program.expression.Expression;
 import program.expression.TileExpression;
 
-public class IsTerrainExpression extends Inspector<TileExpression>{
+public class IsInpassableExpression extends Inspector<TileExpression>{
 
 	/**
 	 * 
 	 * @param expr
 	 *  
 	 */
-	public IsTerrainExpression(Expression<?> expr, SourceLocation sourceLocation){
+	public IsInpassableExpression(Expression<?> expr, SourceLocation sourceLocation){
 		super(expr, sourceLocation);
 	}
 
@@ -21,12 +21,10 @@ public class IsTerrainExpression extends Inspector<TileExpression>{
 	public Boolean evaluate(Program program) {
 		
 		TileExpression value = getExpression();
-		
-		int posx = value.getXValue();
-		int posy = value.getYValue();
-		
-		
-		return  !program.getGameObject().getWorld().isPassableTerrain(posx, posy);
+		value.setReturnToPixels();
+		int[] pos = value.evaluate(program); 
+	
+		return  !program.getGameObject().getWorld().isPassableTerrain(pos[0], pos[1]);
 		
 	}
 }
