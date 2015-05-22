@@ -14,21 +14,25 @@ public class MoveStatement extends Statement{
 	 * 
 	 *  
 	 */
-	public MoveStatement(Movement movement, Expression<?> direction,SourceLocation sourceLocation){
+	public MoveStatement(Movement movement, Expression<Direction> direction,SourceLocation sourceLocation){
 		super(sourceLocation);
 		this.movement = movement;
 		
-		Direction value = ((ValueExpression<Direction>) direction).getValue();
+		this.ExprDirection = direction;
 		
-		if(value == Direction.LEFT)
-			this.direction = false;
-		else if(value== Direction.RIGHT) 
-			this.direction = true;
+
 	}
 
 	@Override
 	public void advanceTime(double dt, Program program) {
 		if(!this.isExecutionComplete()){
+			
+			Direction value = (Direction) ExprDirection.evaluate(program);
+			
+			if(value == Direction.LEFT)
+				this.direction = false;
+			else if(value== Direction.RIGHT) 
+				this.direction = true;
 
 			switch(getMovement()){
 			case STARTRUN:  
@@ -57,6 +61,7 @@ public class MoveStatement extends Statement{
 
 	}
 	private final Movement movement;
+	private Expression<Direction> ExprDirection;
 	private Boolean direction;
 
 	private boolean ForceReset = false;
@@ -81,7 +86,7 @@ public class MoveStatement extends Statement{
 		return movement;
 	}
 
-	public Boolean getDirection() {
+	public final Boolean getDirection() {
 		return direction;
 	}
 }

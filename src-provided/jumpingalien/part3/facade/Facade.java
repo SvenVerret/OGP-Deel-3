@@ -118,7 +118,7 @@ public class Facade implements IFacadePart3{
 	@Override
 	public void advanceTime(Mazub alien, double dt) {
 		try{
-			alien.advanceTimeWithoutProgram(dt);
+			alien.advanceTime(dt);
 		}catch(IllegalArgumentException e){
 			throw new ModelException("Wrong dT");
 		}
@@ -354,35 +354,53 @@ public class Facade implements IFacadePart3{
 
 	@Override
 	public Buzam createBuzam(int pixelLeftX, int pixelBottomY, Sprite[] sprites) {
-		return new Buzam(pixelLeftX, pixelBottomY, sprites);
+		try{
+			return new Buzam(pixelLeftX, pixelBottomY, sprites, null);
+		} catch (IllegalArgumentException e){
+			throw new ModelException(e.getMessage());
+		}
 	}
 
 	@Override
 	public Buzam createBuzamWithProgram(int pixelLeftX, int pixelBottomY,
 			Sprite[] sprites, Program program) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			return new Buzam(pixelLeftX, pixelBottomY, sprites, program);
+		} catch (IllegalArgumentException e){
+			throw new ModelException(e.getMessage());
+		}
 	}
 
 	@Override
 	public Plant createPlantWithProgram(int x, int y, Sprite[] sprites,
 			Program program) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			return new Plant(y, y, sprites, program);
+		}catch(IllegalArgumentException e){
+			throw new ModelException("Illegal Plant Sprites");
+		}
+		
 	}
 
 	@Override
 	public Shark createSharkWithProgram(int x, int y, Sprite[] sprites,
 			Program program) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			return new Shark(y, y, sprites, program);
+		}catch(IllegalArgumentException e){
+			throw new ModelException("Illegal Shark Sprites");
+		}
+		
 	}
 
 	@Override
 	public Slime createSlimeWithProgram(int x, int y, Sprite[] sprites,
 			School school, Program program) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			return new Slime(x,y,sprites,school);
+		}catch(IllegalArgumentException e){
+			throw new ModelException("Illegal Slime Sprites");
+		}
 	}
 
 	@Override
@@ -442,8 +460,7 @@ public class Facade implements IFacadePart3{
 
 	@Override
 	public Sprite getCurrentSprite(Buzam alien) {
-		Sprite sprite = alien.getCurrentSprite();
-		return sprite;
+		return alien.getCurrentSprite();
 	}
 
 	@Override

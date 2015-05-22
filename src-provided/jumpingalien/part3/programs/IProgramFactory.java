@@ -31,7 +31,7 @@ public interface IProgramFactory<E, S, T, P> {
 
 	/** Direction enum */
 	public enum Direction {
-		NONE,LEFT, RIGHT, UP, DOWN
+		LEFT, RIGHT, UP, DOWN
 	}
 
 	/** Kind enum */

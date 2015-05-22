@@ -27,6 +27,7 @@ import program.statement.SequenceStatement;
 import program.statement.Statement;
 import program.statement.WaitStatement;
 import program.statement.WhileStatement;
+import program.type.GameObjectType;
 import jumpingalien.model.GameObject;
 import jumpingalien.model.Mazub;
 import jumpingalien.model.Plant;
@@ -55,7 +56,6 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<Boolean> createTrue(SourceLocation sourceLocation) {
 		return new ValueExpression<Boolean>(true, sourceLocation);
-
 	}
 
 	@Override
@@ -479,13 +479,13 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Statement createStartRun(Expression<?> direction,
 			SourceLocation sourceLocation) {
-		return new MoveStatement(Movement.STARTRUN,direction, sourceLocation);
+		return new MoveStatement(Movement.STARTRUN,(Expression<jumpingalien.part3.programs.IProgramFactory.Direction>) direction, sourceLocation);
 	}
 
 	@Override
 	public Statement createStopRun(Expression<?> direction,
 			SourceLocation sourceLocation) {
-		return new MoveStatement(Movement.STOPRUN, direction, sourceLocation);
+		return new MoveStatement(Movement.STOPRUN, (Expression<jumpingalien.part3.programs.IProgramFactory.Direction>) direction, sourceLocation);
 	}
 
 	@Override
@@ -541,12 +541,13 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 
 	@Override
 	public Object getGameObjectType() {
+		System.out.println("GameObject");
 		return null;
 	}
 
 	@Override
 	public Object getDirectionType() {
-		return Direction.UP;
+		return Direction.DOWN;
 	}
 
 	@Override

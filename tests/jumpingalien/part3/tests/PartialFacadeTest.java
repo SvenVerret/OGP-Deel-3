@@ -27,12 +27,31 @@ public class PartialFacadeTest {
 //		assertTrue(outcome.isSuccess());
 //	}
 	
+	@Test
+	public void testParseSimplestProgram2() {
+		IFacadePart3 facade = new Facade();
+		String text = 
+		ParseOutcome<?> outcome = facade.parse(text);
+		assertTrue(outcome.isSuccess());
+	}
+	
+	
 //	@Test
 //	public void testParseSimplestProgram2() {
+//		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+//		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+//
+//		Optional<Program> parse_outcome = parser.parseString("double y; object o; o := self;");
+//		Program program = parse_outcome.get();
+//		
 //		IFacadePart3 facade = new Facade();
-//		ParseOutcome<?> outcome = facade.parse("wait(10);");
-//		assertTrue(outcome.isSuccess());
+//		facade.createPlantWithProgram(10, 10, sprites, program);
 //	}
+	
+	
+	
+	
+	// OPERATIONS
 	
 //	@Test
 //	public void testParseSimplestProgramAdd() {
@@ -91,7 +110,7 @@ public class PartialFacadeTest {
 //		program.advanceTime(0.1);
 //		System.out.println(program.getVariables());
 //	}
-//	
+	
 	
 	
 //	@Test
@@ -108,13 +127,13 @@ public class PartialFacadeTest {
 
 	
 	
-	@Test
-	public void testParseFails() {
-		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
-		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
-		Optional<Program> parse_outcome = parser.parseString("print self + 1.45;");
-		System.out.println(parse_outcome);
-	}
+//	@Test
+//	public void testParseFails() {
+//		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+//		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+//		Optional<Program> parse_outcome = parser.parseString("print self + 1.45;");
+//		System.out.println(parse_outcome);
+//	}
 	
 //
 //	@Test
@@ -125,11 +144,12 @@ public class PartialFacadeTest {
 //		assertFalse(facade.isWellFormed((Program) outcome.getResult()));
 //	}
 //	
+	
 //	@Test
 //	public void testWellformed() {
 //		IFacadePart3 facade = new Facade();
 //		ParseOutcome<?> outcome = facade.parse("double d := 1.0; while d < 3 do if random 2 <= 1 then break; fi done");
-//		assumeTrue(outcome.isSuccess());
-//		assertTrue(facade.isWellFormed((Program) outcome.getResult()));
+//		assertTrue(outcome.isSuccess());
+//		//assertTrue(facade.isWellFormed((Program) outcome.getResult()));
 //	}
 }

@@ -3,6 +3,7 @@ package program.statement;
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 import program.expression.Expression;
+import program.type.GameObjectType;
 
 public class AssignmentStatement extends Statement{
 	/**
@@ -16,6 +17,10 @@ public class AssignmentStatement extends Statement{
 			SourceLocation sourceLocation){
 		super(sourceLocation);
 		VariableName = variableName;
+		System.out.println("assignment");
+		if(variableType instanceof GameObjectType){
+			System.out.println("GameObject");
+		}
 		VariableValue = value;
 	}
 
@@ -28,6 +33,7 @@ public class AssignmentStatement extends Statement{
 	@Override
 	public void advanceTime(double dt,Program program) {
 		if(!isExecutionComplete()){
+			
 			program.getVariables().put(VariableName,VariableValue.evaluate(program));
 			ExecutionDone = true;
 			program.decreaseRemainingTime();
