@@ -3,11 +3,9 @@ package jumpingalien.model;
 import java.util.HashSet;
 
 import program.Program;
-import program.expression.Expression;
-import program.expression.ValueExpression;
+
 import be.kuleuven.cs.som.annotate.Raw;
 import jumpingalien.exception.OutOfBoundsException;
-import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -152,23 +150,20 @@ public class Buzam extends Mazub{
 	
 	
 	@Override
-	public void startMoveProgram(Expression<?> direction) {
+	public void startMoveProgram(Boolean direction) {
 		
-		ValueExpression<Direction> value = (ValueExpression<Direction>) direction;
 		
-		switch(value.getValue()){
 
-		case LEFT:
+		if (!direction){
 			this.setVelocity(new Vector(-getInitVelocityX(),0.0));
 			this.setAccCurr(new Vector(AccXBkw,0.0));
-		case RIGHT:
+		}else if (direction){
 			this.setVelocity(new Vector(getInitVelocityX(),0.0));
 			this.setAccCurr(new Vector(AccXFwd,0.0));
-		default:
+		}else
 			this.setVelocity(new Vector(0,0));
 		}
 
-	}
 
 	@Override
 	public void stopMoveProgram() {

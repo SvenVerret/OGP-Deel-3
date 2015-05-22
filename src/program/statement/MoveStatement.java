@@ -2,6 +2,8 @@ package program.statement;
 
 import program.Program;
 import program.ProgramFactory.Movement;
+import program.expression.Expression;
+import program.expression.ValueExpression;
 import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.part3.programs.SourceLocation;
 
@@ -12,13 +14,15 @@ public class MoveStatement extends Statement{
 	 * 
 	 *  
 	 */
-	public MoveStatement(Movement movement, Direction direction,SourceLocation sourceLocation){
+	public MoveStatement(Movement movement, Expression<?> direction,SourceLocation sourceLocation){
 		super(sourceLocation);
 		this.movement = movement;
 		
-		if(direction == Direction.LEFT)
+		Direction value = ((ValueExpression<Direction>) direction).getValue();
+		
+		if(value == Direction.LEFT)
 			this.direction = false;
-		else if(direction == Direction.RIGHT) 
+		else if(value== Direction.RIGHT) 
 			this.direction = true;
 	}
 

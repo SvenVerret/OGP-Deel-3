@@ -5,11 +5,8 @@ import java.util.Random;
 import java.util.Set;
 
 import program.Program;
-import program.expression.Expression;
-import program.expression.ValueExpression;
 import be.kuleuven.cs.som.annotate.Basic;
 import be.kuleuven.cs.som.annotate.Raw;
-import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -603,22 +600,20 @@ public class Slime extends GameObject {
 	public void stopJumpProgram() {} // slimes cannot jump
 
 	@Override
-	public void startMoveProgram(Expression<?> direction) {
-		ValueExpression<Direction> value = (ValueExpression<Direction>) direction;
+	public void startMoveProgram(Boolean direction) {
 
-		switch(value.getValue()){
 
-		case LEFT:
+		if (!direction){
 			this.setVelocity(new Vector(-0.5,0.0));
 			this.setAccCurr(new Vector(-ACCX,0.0));
-		case RIGHT:
+		}else if (direction){
 			this.setVelocity(new Vector(0.5,0.0));
 			this.setAccCurr(new Vector(ACCX,0.0));
-		default:
+		}else
 			this.setVelocity(new Vector(0,0));
 		}
 
-	}
+	
 
 	@Override
 	public void stopMoveProgram() {

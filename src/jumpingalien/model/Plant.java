@@ -3,11 +3,9 @@ package jumpingalien.model;
 import java.util.HashSet;
 
 import program.Program;
-import program.expression.Expression;
-import program.expression.ValueExpression;
+
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
-import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -319,20 +317,18 @@ public class Plant extends GameObject {
 	public void stopJumpProgram() {} // plants cannot jump
 
 	@Override
-	public void startMoveProgram(Expression<?> direction) {
+	public void startMoveProgram(Boolean direction) {
 		
-		ValueExpression<Direction> value = (ValueExpression<Direction>) direction;
 		
-		switch(value.getValue()){
 		
-		case LEFT:
+		if (!direction){
 			this.setVelocity(new Vector(LeftVelocity,0.0));
-		case RIGHT:
+		}else if(direction){
 			this.setVelocity(new Vector(RightVelocity,0.0));
-		default:
+		}else
 			this.setVelocity(new Vector(0,0));;
 		}
-	}
+	
 
 	@Override
 	public void stopMoveProgram() {

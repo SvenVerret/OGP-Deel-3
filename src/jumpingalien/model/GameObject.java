@@ -1212,7 +1212,7 @@ public abstract class GameObject {
 	}
 	private final Program program;
 	
-	public abstract void startMoveProgram(Expression<?> direction);
+	public abstract void startMoveProgram(Boolean direction);
 	public abstract void stopMoveProgram();
 	
 	
