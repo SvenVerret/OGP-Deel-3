@@ -1,5 +1,7 @@
 package program.statement;
 
+import java.util.HashSet;
+
 import program.Program;
 import program.util.BreakException;
 import jumpingalien.part3.programs.SourceLocation;
@@ -36,4 +38,14 @@ public class BreakStatement extends Statement{
 	public void Reset() {
 		ExecutionDone = false;	
 	}
+
+	@Override
+	public boolean isWellFormed(HashSet<String> parentStatements) {
+		if (parentStatements.contains("For") || parentStatements.contains("While")){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 }

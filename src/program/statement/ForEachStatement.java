@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 import program.Program;
 import program.expression.Expression;
-import program.expression.ValueExpression;
 import program.util.BreakException;
 import jumpingalien.model.GameObject;
 import jumpingalien.model.World;
@@ -60,7 +59,9 @@ public class ForEachStatement extends Statement{
 			setSelectedObjects(Objects);
 			boolean[] ObjectsHandeled = new boolean[Objects.size()];
 			setObjectsHandeled(ObjectsHandeled);
+			
 			FirstExecution = false;
+			program.decreaseRemainingTime();
 		}
 
 		try{
@@ -267,4 +268,12 @@ public class ForEachStatement extends Statement{
 	private void setSelectedObjects(List<GameObject> selectedObjects) {
 		SelectedObjects = selectedObjects;
 	}
+
+
+	@Override
+	public boolean isWellFormed(HashSet<String> parentStatements) {
+		parentStatements.add("For");
+		return getForBody().isWellFormed(parentStatements);
+	}
+
 }

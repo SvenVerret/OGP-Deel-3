@@ -1,5 +1,7 @@
 package program.statement;
 
+import java.util.HashSet;
+
 import jumpingalien.model.Buzam;
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
@@ -82,5 +84,11 @@ public class WhileStatement extends Statement{
 		ExecutionDone = false;
 		JumpInLoop = false;
 		WhileBody.Reset();
+	}
+
+	@Override
+	public boolean isWellFormed(HashSet<String> parentStatements) {
+		parentStatements.add("While");
+		return WhileBody.isWellFormed(parentStatements);
 	}
 }

@@ -1,4 +1,5 @@
 package program;
+import java.util.HashSet;
 import java.util.Map;
 
 import jumpingalien.model.Buzam;
@@ -117,7 +118,8 @@ public class Program {
 	private double RemainingTime = 0.0;
 	public static double defaultDT = 0.001;
 	
-//	public boolean isWellFormed(){
-//		return getMainStatement()..isWellFormed();
-//	}
+	public boolean isWellFormed(){
+		HashSet<String> parentStatements = new HashSet<String>();
+		return getMainStatement().isWellFormed(parentStatements);
+	}
 }

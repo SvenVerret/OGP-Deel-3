@@ -1,5 +1,7 @@
 package program.statement;
 
+import java.util.HashSet;
+
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 import program.expression.Expression;
@@ -73,10 +75,11 @@ public class WaitStatement extends Statement{
 	private boolean ForceReset = false;
 	private boolean ExecutionDone = false;	
 	private boolean FirstExecution = true;
-//	@Override
-//	public boolean isWellFormed() {
-//		return true;
-//	}
+	@Override
+	public boolean isWellFormed(HashSet<String> parentStatements) {
+		return true;
+	}
+
 
 
 }

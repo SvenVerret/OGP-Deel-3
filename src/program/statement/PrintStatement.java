@@ -1,5 +1,7 @@
 package program.statement;
 
+import java.util.HashSet;
+
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 import program.expression.Expression;
@@ -48,12 +50,9 @@ public class PrintStatement extends Statement{
 		}
 	}
 
-//	@Override
-//	public boolean isWellFormed() {
-//		return true;
-//	}
-
-
-
+	@Override
+	public boolean isWellFormed(HashSet<String> parentStatements) {
+		return true;
+	}
 
 }

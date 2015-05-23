@@ -91,18 +91,18 @@ public class PartialFacadeTest {
 //		program.advanceTime(0.1);
 //	}
 	
-	@Test
-	public void testParseSimplestProgramEquals() {
-		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
-		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
-
-		Optional<Program> parse_outcome = parser.parseString("double y; double x; double rslt;"
-				+ "y := 3.0; x := 3.0; rslt := x == y;");
-		Program program = parse_outcome.get();
-		
-		program.advanceTime(0.1);
-		System.out.println(program.getVariables());
-	}
+//	@Test
+//	public void testParseSimplestProgramEquals() {
+//		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+//		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+//
+//		Optional<Program> parse_outcome = parser.parseString("double y; double x; double rslt;"
+//				+ "y := 3.0; x := 3.0; rslt := x == y;");
+//		Program program = parse_outcome.get();
+//		
+//		program.advanceTime(0.1);
+//		System.out.println(program.getVariables());
+//	}
 	
 	
 	
@@ -129,20 +129,19 @@ public class PartialFacadeTest {
 //	}
 	
 //
-//	@Test
-//	public void testBreakNotWellformed() {
-//		IFacadePart3 facade = new Facade();
-//		ParseOutcome<?> outcome = facade.parse("double d := 1.0; break;");
-//		assumeTrue(outcome.isSuccess());
-//		assertFalse(facade.isWellFormed((Program) outcome.getResult()));
-//	}
+	@Test
+	public void testBreakNotWellformed() {
+		IFacadePart3 facade = new Facade();
+		ParseOutcome<?> outcome = facade.parse("double d := 1.0; break;");
+		assertFalse(facade.isWellFormed((Program) outcome.getResult()));
+	}
 //	
 	
-//	@Test
-//	public void testWellformed() {
-//		IFacadePart3 facade = new Facade();
-//		ParseOutcome<?> outcome = facade.parse("double d := 1.0; while d < 3 do if random 2 <= 1 then break; fi done");
-//		assertTrue(outcome.isSuccess());
-//		//assertTrue(facade.isWellFormed((Program) outcome.getResult()));
-//	}
+	@Test
+	public void testWellformed() {
+		IFacadePart3 facade = new Facade();
+		ParseOutcome<?> outcome = facade.parse("double d := 1.0; while d < 3 do if random 2 <= 1 then break; fi done");
+		assertTrue(outcome.isSuccess());
+		assertTrue(facade.isWellFormed((Program) outcome.getResult()));
+	}
 }

@@ -1,5 +1,7 @@
 package program.statement;
 
+import java.util.HashSet;
+
 import program.Program;
 import program.ProgramFactory.Movement;
 import program.expression.Expression;
@@ -88,5 +90,10 @@ public class MoveStatement extends Statement{
 
 	public final Boolean getDirection() {
 		return direction;
+	}
+
+	@Override
+	public boolean isWellFormed(HashSet<String> parentStatements) {
+		return (!parentStatements.contains("For"));
 	}
 }

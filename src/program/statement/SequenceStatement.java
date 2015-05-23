@@ -1,5 +1,6 @@
 package program.statement;
 
+import java.util.HashSet;
 import java.util.List;
 
 import program.Program;
@@ -26,16 +27,16 @@ public class SequenceStatement extends Statement{
 	@Override
 	public void advanceTime(double dt,Program program) {
 		try{
-		if(!isExecutionComplete()){
+			if(!isExecutionComplete()){
 
-			for (Statement statement: getLst()){
-				if(statement != null && !statement.isExecutionComplete()){
-					statement.advanceTime(dt, program);
+				for (Statement statement: getLst()){
+					if(statement != null && !statement.isExecutionComplete()){
+						statement.advanceTime(dt, program);
+					}
 				}
+				if(CheckExecutionDone())
+					ExecutionDone = true;	
 			}
-			if(CheckExecutionDone())
-				ExecutionDone = true;	
-		}
 		} catch(BreakException b){
 			ExecutionDone = true;
 			// MAKE SURE THAT THE LOOP ABOVE IS ALSO STOPPED
@@ -71,5 +72,15 @@ public class SequenceStatement extends Statement{
 		for (Statement statement: getLst()){
 			statement.Reset();
 		}
+	}
+
+	@Override
+	public boolean isWellFormed(HashSet<String> parentStatements) {
+		for(Statement statement: getLst()){
+			if(!statement.isWellFormed(parentStatements))
+				return false;
+		}
+		return true;
+
 	}
 }

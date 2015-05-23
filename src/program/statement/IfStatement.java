@@ -1,5 +1,7 @@
 package program.statement;
 
+import java.util.HashSet;
+
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 import program.expression.Expression;
@@ -73,5 +75,10 @@ public class IfStatement extends Statement{
 		else
 			ElseBody.Reset();
 		IfBodyCalled = null;
+	}
+
+	@Override
+	public boolean isWellFormed(HashSet<String> parentStatements) {
+		return (IfBody == null || IfBody.isWellFormed(parentStatements)) && (ElseBody == null || ElseBody.isWellFormed(parentStatements));
 	}
 }

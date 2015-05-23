@@ -1,5 +1,7 @@
 package program.statement;
 
+import java.util.HashSet;
+
 import program.Program;
 import jumpingalien.part3.programs.SourceLocation;
 
@@ -31,7 +33,7 @@ public abstract class Statement{
 	// CASCADING RESET -> herstarten van programma als gedaan is
 	public abstract void Reset();
 
-	//public abstract boolean isWellFormed();
+	public abstract boolean isWellFormed(HashSet<String> parentStatements);
 	
 	
 	
