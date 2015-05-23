@@ -1061,8 +1061,8 @@ public class Mazub extends GameObject{
 	@Override
 	protected void terminate() {
 		this.isTerminated = true;
-		getWorld().setMazub(null);
-		this.setWorld(null);
+		//getWorld().setMazub(null);
+		//this.setWorld(null);
 
 	}
 
