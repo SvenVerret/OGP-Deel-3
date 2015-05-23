@@ -364,7 +364,7 @@ public class World {
 
 	public void removeBuzam(Buzam buzam){
 		if (buzam != null && this.buzam == buzam){
-			buzam = null;
+			this.buzam = null;
 		} 
 	}
 
@@ -412,8 +412,10 @@ public class World {
 
 		Set<GameObject> Objects = new HashSet<GameObject>();
 
-		Objects.add(getMazub());
-		Objects.add(getBuzam());
+		if(getMazub() != null)
+			Objects.add(getMazub());
+		if(getBuzam() != null)
+			Objects.add(getBuzam());
 		Objects.addAll(Plants);
 		Objects.addAll(Sharks);
 		Objects.addAll(Slimes);

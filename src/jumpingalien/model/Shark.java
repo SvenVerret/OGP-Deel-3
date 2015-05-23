@@ -420,42 +420,47 @@ public class Shark extends GameObject {
 	protected HashSet<String> collisionObject(){
 		HashSet<String> hits = new HashSet<String>();
 
-		Mazub mazub = getWorld().getMazub();
-		Buzam buzam = getWorld().getBuzam();
 		Set<Shark> Sharks = this.getWorld().getAllSharks();
 		Set<Slime> Slimes = this.getWorld().getAllSlimes();
 
-		if (overlapsWith(mazub)){
-			if (overlapsWithX(mazub)){
-				hits.add("X");
-			}
-			if (overlapsWithY(mazub)){
-				//hits.add("Y");
-				mazub.setCollisionVel(new Vector(mazub.getCollisionVel().getElemx(), 3));
-			}
-			if (!this.isDying()){
+		if(getWorld().getMazub() != null){
+			Mazub mazub = getWorld().getMazub();
 
-				this.addByHP(-50);
-				if (!mazub.isImmune()){
-					mazub.addByHP(-50);
-					mazub.setImmune(true);
+			if (overlapsWith(mazub)){
+				if (overlapsWithX(mazub)){
+					hits.add("X");
+				}
+				if (overlapsWithY(mazub)){
+					//hits.add("Y");
+					mazub.setCollisionVel(new Vector(mazub.getCollisionVel().getElemx(), 3));
+				}
+				if (!this.isDying()){
+
+					this.addByHP(-50);
+					if (!mazub.isImmune()){
+						mazub.addByHP(-50);
+						mazub.setImmune(true);
+					}
 				}
 			}
 		}
-		
-		if (overlapsWith(buzam)){
-			if (overlapsWithX(buzam)){
-				hits.add("X");
-			}
-			if (overlapsWithY(buzam)){
-				hits.add("Y");
-			}
-			if (!this.isDying()){
+		if(getWorld().getBuzam() != null){
+			Buzam buzam = getWorld().getBuzam();
 
-				this.addByHP(-50);
-				if (!buzam.isImmune()){
-					buzam.addByHP(-50);
-					buzam.setImmune(true);
+			if (overlapsWith(buzam)){
+				if (overlapsWithX(buzam)){
+					hits.add("X");
+				}
+				if (overlapsWithY(buzam)){
+					hits.add("Y");
+				}
+				if (!this.isDying()){
+
+					this.addByHP(-50);
+					if (!buzam.isImmune()){
+						buzam.addByHP(-50);
+						buzam.setImmune(true);
+					}
 				}
 			}
 		}
@@ -785,9 +790,9 @@ public class Shark extends GameObject {
 			this.setAccCurr(new Vector(ACCX,0.0));
 		}else
 			this.setVelocity(new Vector(0,0));
-		}
+	}
 
-	
+
 
 	@Override
 	public void stopMoveProgram() {

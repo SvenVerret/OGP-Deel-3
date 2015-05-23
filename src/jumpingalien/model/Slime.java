@@ -436,46 +436,50 @@ public class Slime extends GameObject {
 	@Override
 	protected HashSet<String> collisionObject(){
 		HashSet<String> hits = new HashSet<String>();
+		
+		if(getWorld().getMazub() != null){
+			Mazub mazub = getWorld().getMazub();
+			if (overlapsWith(mazub)){
+				if (overlapsWithX(mazub)){
 
-		Mazub mazub = getWorld().getMazub();
-		Buzam buzam = getWorld().getBuzam();
+					hits.add("X");
+
+					if (!this.isDying()){
+						this.slimeGetsHitFor(-50);
+						if (!mazub.isImmune()){
+							mazub.addByHP(-50);
+							mazub.setImmune(true);
+						}
+					}
+				}
+				if (overlapsWithY(mazub)){
+					//hits.add("Y");
+					mazub.setCollisionVel(new Vector(mazub.getCollisionVel().getElemx(), 3));
+				}
+			}
+
+		}
+		if(getWorld().getBuzam() != null){
+			Buzam buzam = getWorld().getBuzam();
+			if (overlapsWith(buzam)){
+				if (overlapsWithX(buzam)){
+					hits.add("X");
+					if (!this.isDying()){
+						this.slimeGetsHitFor(-50);
+						if (!buzam.isImmune()){
+							buzam.addByHP(-50);
+							buzam.setImmune(true);
+						}
+					}
+				}
+				if (overlapsWithY(buzam)){
+					hits.add("Y");
+				}
+			}
+
+		}
 		Set<Shark> Sharks = this.getWorld().getAllSharks();
 		Set<Slime> Slimes = this.getWorld().getAllSlimes();
-
-		if (overlapsWith(mazub)){
-			if (overlapsWithX(mazub)){
-
-				hits.add("X");
-
-				if (!this.isDying()){
-					this.slimeGetsHitFor(-50);
-					if (!mazub.isImmune()){
-						mazub.addByHP(-50);
-						mazub.setImmune(true);
-					}
-				}
-			}
-			if (overlapsWithY(mazub)){
-				//hits.add("Y");
-				mazub.setCollisionVel(new Vector(mazub.getCollisionVel().getElemx(), 3));
-			}
-		}
-		
-		if (overlapsWith(buzam)){
-			if (overlapsWithX(buzam)){
-				hits.add("X");
-				if (!this.isDying()){
-					this.slimeGetsHitFor(-50);
-					if (!buzam.isImmune()){
-						buzam.addByHP(-50);
-						buzam.setImmune(true);
-					}
-				}
-			}
-			if (overlapsWithY(buzam)){
-				hits.add("Y");
-			}
-		}
 
 		for (Shark object: Sharks){
 			if (overlapsWith(object)){

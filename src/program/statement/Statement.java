@@ -30,6 +30,8 @@ public abstract class Statement{
 	// reset -> global variables re-initialised en begin programma aangeduid voor te beginnen
 	// CASCADING RESET -> herstarten van programma als gedaan is
 	public abstract void Reset();
+
+	//public abstract boolean isWellFormed();
 	
 	
 	

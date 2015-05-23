@@ -484,19 +484,25 @@ public class Mazub extends GameObject{
 	protected HashSet<String> collisionObject(){
 		HashSet<String> hits = new HashSet<String>();
 
-		Buzam buzam = this.getWorld().getBuzam();
 		Set<Shark> Sharks = this.getWorld().getAllSharks();
 		Set<Slime> Slimes = this.getWorld().getAllSlimes();
 		Set<Plant> Plants = this.getWorld().getAllPlants();
+		
+		if(getWorld().getBuzam() != null){
+			
+			Buzam buzam = this.getWorld().getBuzam();
 
-		if (overlapsWith(buzam)){
-
-			if (overlapsWithX(buzam)){
-				hits.add("X");
-			}
-			if (overlapsWithY(buzam)){
-				//hits.add("Y");
-				this.setCollisionVel(new Vector(this.getCollisionVel().getElemx(), 3));
+			if (overlapsWith(buzam)){
+				
+				if (overlapsWithX(buzam)){
+					hits.add("X");
+				}
+				if (overlapsWithY(buzam)){
+					//hits.add("Y");
+					this.setCollisionVel(new Vector(this.getCollisionVel().getElemx(), 3));
+				}
+				this.addByHP(-50);
+				buzam.addByHP(-50);
 			}
 		}
 

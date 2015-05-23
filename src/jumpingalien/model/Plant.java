@@ -3,7 +3,6 @@ package jumpingalien.model;
 import java.util.HashSet;
 
 import program.Program;
-
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
 import jumpingalien.util.Sprite;
@@ -254,6 +253,12 @@ public class Plant extends GameObject {
 
 
 	@Override
+	protected HashSet<String> collisionObject() {
+		HashSet<String> emptyset = new HashSet<String>();
+		return emptyset;
+	}
+
+	@Override
 	public Sprite getCurrentSprite() {
 		if (getVelocity().getElemx() == LeftVelocity){
 			this.setSize(new Vector(Sprites[0].getWidth(),Sprites[0].getHeight()));
@@ -274,11 +279,7 @@ public class Plant extends GameObject {
 		return RightVelocity;
 	}
 
-	@Override
-	protected HashSet<String> collisionObject() {
-		HashSet<String> emptyset = new HashSet<String>();
-		return emptyset;
-	}
+	
 
 
 

@@ -48,6 +48,11 @@ public class PrintStatement extends Statement{
 		}
 	}
 
+//	@Override
+//	public boolean isWellFormed() {
+//		return true;
+//	}
+
 
 
 

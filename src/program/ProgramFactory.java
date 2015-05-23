@@ -41,14 +41,12 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createReadVariable(String variableName,
 			Object variableType, SourceLocation sourceLocation) {
-		System.out.println("ReadVariables");
 		return new VariableValueExpression<Object>(variableName,variableType,sourceLocation);
 	}
 
 	@Override
 	public Expression<Double> createDoubleConstant(double value,
 			SourceLocation sourceLocation) {
-		System.out.println("DoubleConstant");
 		return new ValueExpression<Double>(new Double(value), sourceLocation);
 	}
 
@@ -431,7 +429,6 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Statement createAssignment(String variableName, Object variableType,
 			Expression<?> value, SourceLocation sourceLocation) {
-		System.out.println("Assignment");
 		return new AssignmentStatement(variableName, variableType,
 				value, sourceLocation);
 	}
@@ -515,7 +512,6 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 
 	@Override
 	public Statement createSkip(SourceLocation sourceLocation) {
-		System.out.println("Skip");
 		ValueExpression<Double> time = new ValueExpression<Double>((double) 1,sourceLocation);
 		return new WaitStatement(time,sourceLocation);
 	}
@@ -523,13 +519,11 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Statement createSequence(List<Statement> statements,
 			SourceLocation sourceLocation) {
-		System.out.println("Sequence is called");
 		return new SequenceStatement(statements,sourceLocation);
 	}
 
 	@Override
 	public Object getDoubleType() {
-		System.out.println("Getdoubletypes");
 		return new Double(0.0);
 	}
 
@@ -552,14 +546,6 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Program createProgram(Statement mainStatement,
 			Map<String, Object> globalVariables) {
-		System.out.println(" ");
-		System.out.println("Parsetime outcome : ");
-		System.out.println(" ");
-		System.out.println(mainStatement);
-		System.out.println(globalVariables);
-		System.out.println(" ");
-		System.out.println("--------------------");
-		System.out.println(" ");
 		return new Program(mainStatement, globalVariables);
 	}
 }

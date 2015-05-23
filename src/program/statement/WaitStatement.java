@@ -73,6 +73,10 @@ public class WaitStatement extends Statement{
 	private boolean ForceReset = false;
 	private boolean ExecutionDone = false;	
 	private boolean FirstExecution = true;
+//	@Override
+//	public boolean isWellFormed() {
+//		return true;
+//	}
 
 
 }

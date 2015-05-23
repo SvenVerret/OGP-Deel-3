@@ -61,7 +61,6 @@ public class Buzam extends Mazub{
 		if(!isDying()){
 			correctSpawnedInGround();
 			updateHPTile(dt); 
-			System.out.println(this.getHP());
 			UpdateAccY();
 
 			if(isEndDuckPressed())
@@ -74,7 +73,7 @@ public class Buzam extends Mazub{
 			if(getProgram() != null){
 				getProgram().advanceTime(dt);
 			}
-			
+
 			HashSet<String> hits  = collisionDetection(dt);
 
 			if ((hits != null) && (!hits.isEmpty())){
@@ -114,7 +113,7 @@ public class Buzam extends Mazub{
 		}
 	}
 
-	
+
 	/**
 	 * @effect	Contact with plant and Mazub hasn't reached maxHP
 	 * 			| this.addByHP(50);
@@ -153,13 +152,16 @@ public class Buzam extends Mazub{
 		Set<Shark> Sharks = this.getWorld().getAllSharks();
 		Set<Slime> Slimes = this.getWorld().getAllSlimes();
 		Set<Plant> Plants = this.getWorld().getAllPlants();
-		
-		if(overlapsWith(mazub)){
-			if (overlapsWithX(mazub))
-				hits.add("X");
-			
-			if (overlapsWithY(mazub))
-				hits.add("Y");
+
+		if(getWorld().getMazub() != null){
+
+			if(overlapsWith(mazub)){
+				if (overlapsWithX(mazub))
+					hits.add("X");
+
+				if (overlapsWithY(mazub))
+					hits.add("Y");
+			}
 		}
 
 		for (Plant object: Plants){
@@ -222,11 +224,12 @@ public class Buzam extends Mazub{
 	@Raw
 	@Override
 	public boolean canHaveAsWorld(World world) {
-		if (world != null && world.getBuzam() == null){
-			return true;
-		}else{
-			return false;
-		}
+		//		if (world != null && world.getBuzam() == null){
+		//			return true;
+		//		}else{
+		//			return false;
+		//		}
+		return true;
 	}
 
 
@@ -236,7 +239,7 @@ public class Buzam extends Mazub{
 	 */
 	@Override
 	protected void initializeHP() {
-		this.setHP(500);
+		this.setHP(50);
 	}
 
 	/**
