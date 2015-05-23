@@ -3,6 +3,7 @@ package program.expression;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import program.Program;
@@ -29,7 +30,6 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 
 	@Override
 	public Object evaluate(Program program) {
-
 		GameObject gameObject = program.getGameObject();
 		double pixelLeft = gameObject.getPos().getElemx();
 		double pixelBottom = gameObject.getPos().getElemy();
@@ -42,7 +42,7 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 
 		final Comparator<GameObject> compY = (p1, p2) ->
 		Double.compare(p1.getPos().getElemy(),p2.getPos().getElemy());
-		
+
 		final Comparator<int[]> compIntX = (p1,p2)->Integer.compare(p1[0],p2[0]);
 		final Comparator<int[]> compIntY = (p1,p2)->Integer.compare(p1[1],p2[1]);
 
@@ -50,12 +50,16 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 
 		switch(direction){
 
-		
-		
+
+
 		case DOWN:
-			GameObject object1 = GameObjectsWorld.stream().
-			filter(e ->e.getPos().getElemy()< pixelBottom &&
-					gameObject.overlapsWithX(e)).min(compY).get();
+			try{
+			setGameObjectResult(GameObjectsWorld.stream().
+			filter(e ->e.getPos().getElemy()< pixelBottom && e.getPos().getElemx() >= pixelLeft &&
+			e.getPos().getElemx() <= pixelRight).max(compY).get());
+			}catch(NullPointerException|NoSuchElementException e){
+				setGameObjectResult(null);
+			}
 
 			int[][] tilesUnderNeath = program.getGameObject().getWorld().getTilePositionsIn((int)pixelLeft,
 					0, (int)pixelRight, (int)pixelBottom);
@@ -69,18 +73,32 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 				}
 			}
 
-			int[] tile1 = inPassableTilesUnderNeath.stream().min(compIntY).get();
-			
-			Object result1 = Integer.compare(tile1[1],(int)object1.getPos().getElemy());
+			try{
+				setTileResult(inPassableTilesUnderNeath.stream().min(compIntY).get());
+			}catch(NullPointerException|NoSuchElementException e){
+				setTileResult(null);
+			}
 
-			return result1;
 
-			
-			
+			if (getGameObjectResult() != null && getTileResult() != null){
+				return Integer.compare(getTileResult()[1],(int)getGameObjectResult().getPos().getElemx());
+			}else if(getGameObjectResult() == null){
+				return getTileResult();
+			}else if(getTileResult() == null){
+				return getGameObjectResult();
+			}else
+				return null;
+
+
+
 		case UP:
-			GameObject object2 = GameObjectsWorld.stream().
-			filter(e ->e.getPos().getElemy()> pixelBottom &&
-					gameObject.overlapsWithX(e)).min(compY).get();
+			try{
+			setGameObjectResult(GameObjectsWorld.stream().
+			filter(e ->e.getPos().getElemy()> pixelBottom && e.getPos().getElemx() >= pixelLeft &&
+			e.getPos().getElemx() <= pixelRight).min(compY).get());
+			}catch(NullPointerException|NoSuchElementException e){
+				setGameObjectResult(null);
+			}
 
 			int[][] tilesAbove = program.getGameObject().getWorld().getTilePositionsIn((int)pixelLeft, 
 					(int)pixelTop, (int)pixelRight,
@@ -95,19 +113,33 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 					inPassableTilesAbove.add(e);
 				}
 			}
-			
-			int[] tile2 = inPassableTilesAbove.stream().min(compIntY).get();
-			
-			Object result2 = Integer.compare(tile2[1],(int)object2.getPos().getElemy());
 
-			return result2;
 
-			
-			
+			try{
+				setTileResult(inPassableTilesAbove.stream().min(compIntY).get());
+			}catch(NullPointerException|NoSuchElementException e){
+				setTileResult(null);
+			}
+
+			if (getGameObjectResult() != null && getTileResult() != null){
+				return Integer.compare(getTileResult()[1],(int)getGameObjectResult().getPos().getElemx());
+			}else if(getGameObjectResult() == null){
+				return getTileResult();
+			}else if(getTileResult() == null){
+				return getGameObjectResult();
+			}else
+				return null;
+
+
+
 		case RIGHT:
-			GameObject object3 = GameObjectsWorld.stream().
-			filter(e ->e.getPos().getElemx()< pixelLeft &&
-					gameObject.overlapsWithY(e)).min(compX).get();
+			try{
+			setGameObjectResult(GameObjectsWorld.stream().
+			filter(e -> e.getPos().getElemx()< pixelLeft && e.getPos().getElemy() >= pixelBottom &&
+			e.getPos().getElemy() <= pixelTop).min(compX).get());
+			}catch(NullPointerException|NoSuchElementException e){
+				setGameObjectResult(null);
+			}
 
 			int[][] tilesRightSide = program.getGameObject().getWorld().getTilePositionsIn((int)pixelRight,
 					(int)pixelBottom, (int) program.getGameObject().getWorld().getWorldSize().getElemx(), 
@@ -121,19 +153,35 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 					inPassableTilesRightSide.add(e);
 				}
 			}
-			
-			int[] tile3 = inPassableTilesRightSide.stream().min(compIntX).get();
-			
-			Object result3 = Integer.compare(tile3[1],(int)object3.getPos().getElemx());
 
-			return result3;
 			
-			
-			
+			try{
+				setTileResult(inPassableTilesRightSide.stream().min(compIntX).get());
+			}catch(NullPointerException|NoSuchElementException e){
+				setTileResult(null);
+			}
+
+
+			if (getGameObjectResult() != null && getTileResult() != null){
+				return Integer.compare(getTileResult()[1],(int)getGameObjectResult().getPos().getElemx());
+			}else if(getGameObjectResult() == null){
+				return getTileResult();
+			}else if(getTileResult() == null){
+				return getGameObjectResult();
+			}else
+				return null;
+
+
+
 		case LEFT:
-			GameObject object4 = GameObjectsWorld.stream().
-			filter(e ->e.getPos().getElemx()< pixelLeft &&
-					gameObject.overlapsWithY(e)).min(compX).get();
+
+			try{
+			setGameObjectResult(GameObjectsWorld.stream().
+					filter(e ->e.getPos().getElemx() < pixelLeft && e.getPos().getElemy() >= pixelBottom &&
+					e.getPos().getElemy() <= pixelTop).max(compX).get());
+			}catch(NullPointerException|NoSuchElementException e){
+				setGameObjectResult(null);
+			}
 
 			int[][] tilesLeftSide = program.getGameObject().getWorld().getTilePositionsIn(0,
 					(int)pixelBottom, (int) pixelLeft, 
@@ -148,17 +196,48 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 				}
 			}
 			
-			int[] tile4 = inPassableTilesLeftSide.stream().min(compIntX).get();
+			try{
+				setTileResult(inPassableTilesLeftSide.stream().min(compIntX).get());
+			}catch(NullPointerException|NoSuchElementException e){
+				setTileResult(null);
+			}
 			
-			Object result4 = Integer.compare(tile4[1],(int)object4.getPos().getElemx());
-
-			return result4;
+			
+			if (getGameObjectResult() != null && getTileResult() != null){
+				return Integer.compare(getTileResult()[1],(int)getGameObjectResult().getPos().getElemx());
+			}else if(getGameObjectResult() == null){
+				return getTileResult();
+			}else if(getTileResult() == null){
+				return getGameObjectResult();
+			}else
+				return null;
 		default:
 			return null;
 
 		}
 
 	}
+	
+	public GameObject getGameObjectResult(){
+		return object;
+	}
+	
+	public void setGameObjectResult(GameObject object){
+		this.object = object;
+	}
+
+	public int[] getTileResult() {
+		return tile;
+	}
+
+	public void setTileResult(int[] tile) {
+		this.tile = tile;
+	}
+
+	private GameObject object;
+	private int[] tile;
+
+
 
 	private Expression<Direction> dir;
 

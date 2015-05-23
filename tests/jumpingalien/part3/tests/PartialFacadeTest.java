@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.util.Optional;
 
 import jumpingalien.model.Plant;
+import jumpingalien.model.School;
+import jumpingalien.model.Slime;
 import jumpingalien.model.World;
 import jumpingalien.part3.facade.Facade;
 import jumpingalien.part3.facade.IFacadePart3;
@@ -149,26 +151,82 @@ public class PartialFacadeTest {
 	//		assertTrue(outcome.isSuccess());
 	//		assertTrue(facade.isWellFormed((Program) outcome.getResult()));
 	//	}
-
+//
+//	@Test
+//	public void testPlantWithProgramMoveToRightAndStop(){
+//		World world = new World(50, 10, 20,
+//				200,300,10,15);
+//		Sprite[] sprites = spriteArrayForSize(2, 2, 2);
+//
+//		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+//		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+//
+//		Optional<Program> parse_outcome = parser.parseString("start_run right; wait(0.2 - 0.001); stop_run right;wait(1.0 - 0.001);");
+//
+//		Program program = parse_outcome.get();
+//
+//		IFacadePart3 facade = new Facade();
+//		Plant plant = facade.createPlantWithProgram(10, 10, sprites, program);
+//		world.addPlant(plant); 
+//		for(int i=0; i<10; i++){
+//			world.advanceTime(0.1);
+//		}
+//		//0.2s * 0.5m/s = rekensom???
+//		//TODO
+//		assertTrue(plant.getPos().getElemx() == 28.0);
+//	}
+//	
+//	@Test
+//	public void testSlimeWithProgramMoveToRightAndStop(){
+//		World world = new World(50, 10, 20,
+//				200,300,10,15);
+//		Sprite[] sprites = spriteArrayForSize(2, 2, 2);
+//		
+//		School school = new School();
+//
+//		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+//		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+//
+//		Optional<Program> parse_outcome = parser.parseString("start_run right;");
+//
+//		Program program = parse_outcome.get();
+//
+//		IFacadePart3 facade = new Facade();
+//		Slime slime = facade.createSlimeWithProgram(0, 0,sprites,school, program);
+//		world.addSlime(slime); 
+//		for(int i=0; i<10; i++){
+//			world.advanceTime(0.1);
+//			System.out.println(slime.getPos().getElemx());
+//		}
+//		//0.2s * 0.5m/s = rekensom???
+//		//TODO
+//		assertTrue(slime.getPos().getElemx() == 28.0);
+//	}
+	
+	
 	@Test
-	public void testPlantWithProgramMoveToRightAndStop(){
+	public void searchObjectLeft(){
 		World world = new World(50, 10, 20,
 				200,300,10,15);
 		Sprite[] sprites = spriteArrayForSize(2, 2, 2);
-
 		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
 		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
-
-		Optional<Program> parse_outcome = parser.parseString("start_run right; wait(0.2 - 0.001); stop_run right;wait(1.0 - 0.001);");
-
+		Optional<Program> parse_outcome = parser.parseString("object o := null; o := searchobj ( left );");
 		Program program = parse_outcome.get();
-
 		IFacadePart3 facade = new Facade();
-		Plant plant = facade.createPlantWithProgram(10, 10, sprites, program);
-		world.addPlant(plant); 
-		for(int i=0; i<10; i++){
-			world.advanceTime(0.1);
-		}
-
+		
+		Plant plant1 = facade.createPlant(10, 10, sprites);
+		Plant plant2 = facade.createPlant(0, 10, sprites);
+		Plant plant3 = facade.createPlant(3, 10, sprites);
+		Plant plantProgram = facade.createPlantWithProgram(15, 10, sprites, program);
+		
+		world.addPlant(plant1);
+		world.addPlant(plant2); 
+		world.addPlant(plant3);
+		world.addPlant(plantProgram);
+		
+		world.advanceTime(0.1);
+		
+		
 	}
 }
