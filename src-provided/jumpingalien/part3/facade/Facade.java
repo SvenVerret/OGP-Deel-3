@@ -165,7 +165,7 @@ public class Facade implements IFacadePart3{
 
 	@Override
 	public boolean isGameOver(World world) {
-		return (world.getMazub().getHP() == 0);
+		return (world.getMazub().getHP() == 0||didPlayerWin(world));
 	}
 
 	@Override
