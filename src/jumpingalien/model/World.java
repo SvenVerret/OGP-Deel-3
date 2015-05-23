@@ -1051,7 +1051,7 @@ public class World {
 	 * @return	int[][]
 	 * 			return this.TileMatrix;
 	 */
-	private int[][] getTileMatrix(){
+	public int[][] getTileMatrix(){
 		return this.TileMatrix;
 	}
 
@@ -1132,6 +1132,38 @@ public class World {
 		}
 	}	
 
+
+	/**
+	 * This method returns the tiletype of a given pixel
+	 * 
+	 * @param 	posx
+	 * 			The X coordinate of the given TileCoordinates
+	 * @param 	posy
+	 * 			The Y coordinate of the given TileCoordinates
+	 * @return	int
+	 * 			| return tile;
+	 * 
+	 * @throws 	IllegalArgumentException
+	 * 			If the position of the given pixel is not in the
+	 * 			dimensions of this world an argument is thrown
+	 * 
+	 */
+	public int getGeologicalFeatureTiles(int posxT, int posyT) throws IllegalArgumentException{
+		try{
+
+
+			if ((posxT != 0)){
+				posxT --;
+			}
+			if ((posyT != 0)){
+				posyT --;
+			}
+			int tile = TileMatrix[posyT][posxT];
+			return tile;
+		}catch(IndexOutOfBoundsException e){
+			throw new IllegalArgumentException();
+		}
+	}	
 
 	/**
 	 * This method returns if the given pixel is on passable terrain
