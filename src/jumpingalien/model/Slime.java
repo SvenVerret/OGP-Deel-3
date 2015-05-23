@@ -387,42 +387,63 @@ public class Slime extends GameObject {
 
 				if (hits.contains("X")){
 
-					if (getOrientation() == 'R'){
+					if(getProgram() == null){
 
-						setPos(new Vector(getPos().getElemx()-1,getPos().getElemy()));
-						setVelocity(new Vector(0.0,getVelocity().getElemy()));
-						setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+						if (getOrientation() == 'R'){
 
-						if(getProgram() == null){
-							setRandomMovement("X+");
+							setPos(new Vector(getPos().getElemx()-1,getPos().getElemy()));
+							setVelocity(new Vector(0.0,getVelocity().getElemy()));
+							setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+
+							if(getProgram() == null){
+								setRandomMovement("X+");
+							}
+
+
+						}else if(getOrientation() == 'L') {
+
+							setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
+							setVelocity(new Vector(0.0,getVelocity().getElemy()));
+							setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+
+							if(getProgram() == null){
+								setRandomMovement("X-");
+							}
+
 						}
-
-
-					}else if(getOrientation() == 'L') {
-
-						setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
-						setVelocity(new Vector(0.0,getVelocity().getElemy()));
-						setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
-
-						if(getProgram() == null){
-							setRandomMovement("X-");
+					}else{
+						if (getVelocity().getElemx()>0.0){
+							Boolean right = true;
+							stopMoveProgram(right);
+						}else{
+							Boolean left = false;
+							stopMoveProgram(left);
 						}
-
 					}
 
 				}else if (hits.contains("Y")){
 
-					if (getVelocity().getElemy() >= 0.0){
+					if (getProgram() == null){
+						if (getVelocity().getElemy() >= 0.0){
 
-						setPos(new Vector(getPos().getElemx(),getPos().getElemy()-1));
-						setVelocity(new Vector(getVelocity().getElemx(),0.0));
+							setPos(new Vector(getPos().getElemx(),getPos().getElemy()-1));
+							setVelocity(new Vector(getVelocity().getElemx(),0.0));
 
-					}else if (getVelocity().getElemy() < 0.0){
+						}else if (getVelocity().getElemy() < 0.0){
 
-						setPos(new Vector(getPos().getElemx(),getPos().getElemy()+1));
-						setVelocity(new Vector(getVelocity().getElemx(),0.0));
-						setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
+							setPos(new Vector(getPos().getElemx(),getPos().getElemy()+1));
+							setVelocity(new Vector(getVelocity().getElemx(),0.0));
+							setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
 
+						}
+					}else{
+						if (getVelocity().getElemx()>0.0){
+							Boolean right = true;
+							stopMoveProgram(right);
+						}else{
+							Boolean left = false;
+							stopMoveProgram(left);
+						}
 					}
 				}
 			}
@@ -436,7 +457,7 @@ public class Slime extends GameObject {
 	@Override
 	protected HashSet<String> collisionObject(){
 		HashSet<String> hits = new HashSet<String>();
-		
+
 		if(getWorld().getMazub() != null){
 			Mazub mazub = getWorld().getMazub();
 			if (overlapsWith(mazub)){
@@ -637,7 +658,7 @@ public class Slime extends GameObject {
 
 
 	@Override
-	public void stopMoveProgram() {
+	public void stopMoveProgram(Boolean direction) {
 		this.setVelocity(new Vector(0.0,0.0));
 		this.setAccCurr(new Vector(0.0,0.0));	
 

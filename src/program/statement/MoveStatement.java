@@ -47,7 +47,7 @@ public class MoveStatement extends Statement{
 				program.getGameObject().startDuckProgram();
 				break;
 			case STOPRUN:  
-				program.getGameObject().stopMoveProgram();
+				program.getGameObject().stopMoveProgram(getDirection());
 				break;
 			case STOPJUMP:  
 				program.getGameObject().stopJumpProgram();

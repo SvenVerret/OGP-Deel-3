@@ -1216,7 +1216,7 @@ public abstract class GameObject {
 	private final Program program;
 	
 	public abstract void startMoveProgram(Boolean direction);
-	public abstract void stopMoveProgram();
+	public abstract void stopMoveProgram(Boolean direction);
 	
 	
 	public abstract void startDuckProgram();

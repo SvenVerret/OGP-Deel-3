@@ -1070,7 +1070,7 @@ public class Mazub extends GameObject{
 	public void startMoveProgram(Boolean direction) {}
 
 	@Override
-	public void stopMoveProgram() {}
+	public void stopMoveProgram(Boolean direction) {}
 
 	@Override
 	public void startDuckProgram() {}
