@@ -206,8 +206,8 @@ public class PartialFacadeTest {
 	
 	@Test
 	public void searchObjectLeft(){
-		World world = new World(50, 10, 20,
-				200,300,10,15);
+		World world = new World(50, 20, 20,
+				200,200,10,15);
 		Sprite[] sprites = spriteArrayForSize(2, 2, 2);
 		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
 		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
@@ -221,11 +221,16 @@ public class PartialFacadeTest {
 		Plant plantProgram = facade.createPlantWithProgram(15, 10, sprites, program);
 		
 		world.addPlant(plant1);
+		System.out.println(plant1.getPos().getElemx()+" "+plant1.getPos().getElemy());
 		world.addPlant(plant2); 
+		System.out.println(plant2.getPos().getElemx()+" "+plant2.getPos().getElemy());
 		world.addPlant(plant3);
+		System.out.println(plant3.getPos().getElemx()+" "+plant3.getPos().getElemy());
 		world.addPlant(plantProgram);
+		System.out.println(plantProgram.getPos().getElemx()+" "+plantProgram.getPos().getElemy());
 		
 		world.advanceTime(0.1);
+		
 		
 		
 	}

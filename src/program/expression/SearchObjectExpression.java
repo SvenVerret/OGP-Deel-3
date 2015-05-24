@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.TreeSet;
 
 import program.Program;
 import jumpingalien.model.GameObject;
@@ -74,7 +75,7 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 			}
 
 			try{
-				setTileResult(inPassableTilesUnderNeath.stream().min(compIntY).get());
+				setTileResult(inPassableTilesUnderNeath.stream().max(compIntY).get());
 			}catch(NullPointerException|NoSuchElementException e){
 				setTileResult(null);
 			}
@@ -197,7 +198,7 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 			}
 			
 			try{
-				setTileResult(inPassableTilesLeftSide.stream().min(compIntX).get());
+				setTileResult(inPassableTilesLeftSide.stream().max(compIntX).get());
 			}catch(NullPointerException|NoSuchElementException e){
 				setTileResult(null);
 			}
@@ -208,6 +209,8 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 			}else if(getGameObjectResult() == null){
 				return getTileResult();
 			}else if(getTileResult() == null){
+				System.out.println(getGameObjectResult().getPos().getElemx() +" "+
+			getGameObjectResult().getPos().getElemy());
 				return getGameObjectResult();
 			}else
 				return null;

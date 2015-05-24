@@ -377,7 +377,7 @@ public class Facade implements IFacadePart3{
 	public Plant createPlantWithProgram(int x, int y, Sprite[] sprites,
 			Program program) {
 		try{
-			Plant plant = new Plant(y, y, sprites, program);
+			Plant plant = new Plant(x, y, sprites, program);
 			program.setGameObject(plant);
 			return plant;
 		}catch(IllegalArgumentException e){
@@ -390,7 +390,7 @@ public class Facade implements IFacadePart3{
 	public Shark createSharkWithProgram(int x, int y, Sprite[] sprites,
 			Program program) {
 		try{
-			Shark shark = new Shark(y, y, sprites, program);
+			Shark shark = new Shark(x, y, sprites, program);
 			program.setGameObject(shark);
 			return shark;
 		}catch(IllegalArgumentException e){
