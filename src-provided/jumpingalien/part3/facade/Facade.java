@@ -422,13 +422,10 @@ public class Facade implements IFacadePart3{
 			}else{
 				return ParseOutcome.failure(parser.getErrors());
 			}
-		} catch(ClassCastException e){
-			System.out.println("Parsing failed: wrong cast");
-			throw new ModelException("Parsing failed: wrong cast");
-		} catch(NullPointerException e){
-			System.out.println("Parsing failed: null pointer");
-			throw new ModelException("Parsing failed: null pointer");
+		} catch(Exception e){
+			throw new ModelException(e.getCause().toString());
 		}
+
 	}
 
 	@Override

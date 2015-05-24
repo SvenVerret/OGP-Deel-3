@@ -148,7 +148,6 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createAnd(Expression<?> left, Expression<?> right,
 			SourceLocation sourceLocation) {
-		System.out.println("AND");
 		BinaryExpressionOperation<Boolean, Boolean, Boolean> result =
 				new BinaryExpressionOperation<Boolean, Boolean, Boolean>(
 						(Expression<Boolean>) left, (Expression<Boolean>) right,
@@ -534,7 +533,6 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 
 	@Override
 	public Object getGameObjectType() {
-		System.out.println("GameObject");
 		return null;
 	}
 

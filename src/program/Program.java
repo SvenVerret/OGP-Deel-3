@@ -44,6 +44,8 @@ public class Program {
 			System.out.println("Times up");
 	
 			//Get out of the mainstatement, wait for new advance time
+		} catch(Exception e){
+			getMainStatement().forceReset();
 		}
 	}
 	public Statement getMainStatement() {
