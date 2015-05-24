@@ -247,7 +247,7 @@ public class WorldTests {
 			world.addShark(new Shark(40,40,sprites));
 		}
 
-		assertTrue(world.getNbObjects() == 100);
+		assertTrue(world.getEachAndEveryObject().size() == 100);
 	}
 	@Test
 	public void getAllObjectsTest(){
@@ -265,9 +265,9 @@ public class WorldTests {
 		Slime slime = new Slime(40,40,sprites,school);
 		world.addSlime(slime);
 
-		assertTrue(world.getAllObjects().contains(plant));
-		assertTrue(world.getAllObjects().contains(shark));
-		assertTrue(world.getAllObjects().contains(slime));
+		assertTrue(world.getEachAndEveryObject().contains(plant));
+		assertTrue(world.getEachAndEveryObject().contains(shark));
+		assertTrue(world.getEachAndEveryObject().contains(slime));
 	}
 
 	@Test
@@ -286,9 +286,9 @@ public class WorldTests {
 		Slime slime = new Slime(40,40,sprites,school);
 		world.addSlime(slime);
 
-		assertTrue(world.hasAsObject(plant));
-		assertTrue(world.hasAsObject(shark));
-		assertTrue(world.hasAsObject(slime));
+		assertTrue(world.getEachAndEveryObject().contains(plant));
+		assertTrue(world.getEachAndEveryObject().contains(shark));
+		assertTrue(world.getEachAndEveryObject().contains(slime));
 	}
 
 	@Test
@@ -309,7 +309,7 @@ public class WorldTests {
 		for(int i =0; i<20;i++){
 			world.addSlime(new Slime(40,40,sprites,school));
 		}
-		assertTrue(world.getNbObjects() == 60);
+		assertTrue(world.getEachAndEveryObject().size() == 60);
 	}
 
 	@Test

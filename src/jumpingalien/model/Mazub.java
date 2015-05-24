@@ -94,6 +94,12 @@ public class Mazub extends GameObject{
 		this(pixelLeftX, pixelBottomY, sprites, 1.0,3.0,null);
 
 	}
+	
+	public Mazub(int pixelLeftX, int pixelBottomY,Sprite[] sprites, double initvelocityx,
+			double maxvelocityx){
+		this(pixelLeftX, pixelBottomY, sprites, initvelocityx, maxvelocityx,null);
+
+	}
 
 
 	// Methods
