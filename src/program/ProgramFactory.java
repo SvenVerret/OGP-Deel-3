@@ -16,6 +16,8 @@ import program.expression.inspector.IsMagmaExpression;
 import program.expression.inspector.IsPassableExpression;
 import program.expression.inspector.IsWaterExpression;
 import program.expression.operation.BinaryExpressionOperation;
+import program.expression.operation.EqualsExpression;
+import program.expression.operation.NotEqualsExpression;
 import program.expression.operation.SingleExpressionOperation;
 import program.statement.AssignmentStatement;
 import program.statement.BreakStatement;
@@ -223,10 +225,9 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createEquals(Expression<?> left, Expression<?> right,
 			SourceLocation sourceLocation) {
-		BinaryExpressionOperation<Boolean, Object, Object> result =
-				new BinaryExpressionOperation<Boolean, Object, Object>(
-						(Expression<Object>) left, (Expression<Object>) right,
-						(a,b) -> (a == b), sourceLocation);
+		EqualsExpression<Boolean, Object, Object> result =
+				new EqualsExpression<Boolean, Object, Object>(
+						(Expression<Object>) left, (Expression<Object>) right, sourceLocation);
 
 		return result;
 	}
@@ -234,10 +235,9 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 	@Override
 	public Expression<?> createNotEquals(Expression<?> left,
 			Expression<?> right, SourceLocation sourceLocation) {
-		BinaryExpressionOperation<Boolean, Object, Object> result =
-				new BinaryExpressionOperation<Boolean, Object, Object>(
-						(Expression<Object>) left, (Expression<Object>) right,
-						(a,b) -> ( a != b), sourceLocation);
+		NotEqualsExpression<Boolean, Object, Object> result =
+				new NotEqualsExpression<Boolean, Object, Object>(
+						(Expression<Object>) left, (Expression<Object>) right, sourceLocation);
 
 		return result;
 	}
