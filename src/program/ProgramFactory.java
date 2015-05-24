@@ -237,7 +237,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 		BinaryExpressionOperation<Boolean, Object, Object> result =
 				new BinaryExpressionOperation<Boolean, Object, Object>(
 						(Expression<Object>) left, (Expression<Object>) right,
-						(a,b) -> (a != b), sourceLocation);
+						(a,b) -> ( a != b), sourceLocation);
 
 		return result;
 	}
@@ -501,7 +501,7 @@ public class ProgramFactory implements IProgramFactory<Expression<?>, Statement,
 
 	@Override
 	public Statement createStopDuck(SourceLocation sourceLocation) {
-		return new MoveStatement(Movement.STOPJUMP, null, sourceLocation);
+		return new MoveStatement(Movement.STOPDUCK, null, sourceLocation);
 	}
 
 	@Override

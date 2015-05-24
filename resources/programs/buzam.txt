@@ -1,41 +1,99 @@
 
-double t;
-double d;
-direction dir;
+direction currentxdir := up;
+direction newxdir := left;
 
-double j;
-double jn := 0;
+bool haveenemy := false;
+direction newydir := up;
+
+object nearestSS := null;
+double distanceToNearestSS;
+double x;
+double y;
+double ox;
+double oy;
+double distance;
+object o;
+
 
 while true do
-  t := -1;
 
-  while (t < 1) do
-    t := random 4;
-  done
 
-  d := random 2;
-  if (d <= 1) then
-    dir := left;
+  currentxdir := up;
+  if (ismoving (self, left)) then currentxdir := left; fi
+  if (ismoving (self, right)) then currentxdir := right; fi
+
+
+  if (nearestSS != null && distanceToNearestSS <= 100) then
+    haveenemy := true;
+    if (gety nearestSS > gety self) then
+      newydir := up;
+    fi
+    if (gety nearestSS < gety self) then
+      newydir := down;
+    fi
+    if (getx nearestSS > getx self) then
+      newxdir := right;
+    fi
+    if (getx nearestSS < gety self) then
+      newydir := left;
+    fi
   else
-    dir := (right);
+    haveenemy := false;
   fi
 
-  if jn >= 4 then
-    j := random 2;
-  else
-    j := 0;
+
+  if (! isjumping self &&
+      ispassable(gettile(getx self, gety self))) then
+    newxdir := right;
+  fi
+  if (! isjumping self &&
+      ispassable(gettile((getx self) + (getwidth self) - 1, gety self))) then
+    newxdir := left;
   fi
 
-  start_run dir;
-  if (j > 1) then
-    start_jump;
-    t := 0;
-  else
-    t := t + 1;
-  fi
-  wait t;
-  if (j > 1) then
+
+  if (isjumping self && (! haveenemy || ismoving (self, down))) then
     stop_jump;
   fi
-  stop_run dir;
+  if (currentxdir != up && currentxdir != newxdir) then
+    stop_run currentxdir;
+    if (! haveenemy) then
+      wait (random 2);
+    fi
+    start_run newxdir;
+    currentxdir := newxdir;
+  fi
+  if (currentxdir == up) then
+    start_run newxdir;
+    currentxdir := newxdir;
+  fi
+  if currentxdir == newxdir then
+    if (haveenemy && newydir == up && ! isjumping self) then
+      start_jump;
+    fi
+  fi
+
+
+  x := getx self;
+  y := gety self;
+  nearestSS := null;
+  foreach (any, o) where (isshark o || isslime o) do
+    if (! isdead (o)) then
+      ox := getx o;
+      oy := gety o;
+      distance := sqrt((((x - ox) * (x - ox)) + ((y - oy) * (y - oy))));
+      if (nearestSS == null) then
+        nearestSS := o;
+        distanceToNearestSS := distance;
+      else
+        if (distance < distanceToNearestSS) then
+          nearestSS := o;
+          distanceToNearestSS := distance;
+        fi
+      fi
+    fi
+  done
+
+
 done
+

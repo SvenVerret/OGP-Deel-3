@@ -77,56 +77,36 @@ public class Buzam extends Mazub{
 			HashSet<String> hits  = collisionDetection(dt);
 
 			if ((hits != null) && (!hits.isEmpty())){
-
+				
 				if (hits.contains("X")){
 
-					if (getProgram() == null){
+					if (getVelocity().getElemx() >= 0.0){
 
-						if (getVelocity().getElemx() >= 0.0){
+						setPos(new Vector(getPos().getElemx()-1,getPos().getElemy()));
+						setVelocity(new Vector(0.0,getVelocity().getElemy()));
+						setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
 
-							setPos(new Vector(getPos().getElemx()-1,getPos().getElemy()));
-							setVelocity(new Vector(0.0,getVelocity().getElemy()));
-							setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+					}else if(getVelocity().getElemx() < 0.0) {
 
-						}else if(getVelocity().getElemx() < 0.0) {
-
-							setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
-							setVelocity(new Vector(0.0,getVelocity().getElemy()));
-							setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
-						}
-					}else{
-						if (getVelocity().getElemx()>0.0){
-							Boolean right = true;
-							stopMoveProgram(right);
-						}else{
-							Boolean left = false;
-							stopMoveProgram(left);
-						}
+						setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
+						setVelocity(new Vector(0.0,getVelocity().getElemy()));
+						setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
 					}
 
+
 				}else if (hits.contains("Y")){
-					if(getProgram() == null){
-						if (isOnGround() && isJumped()){
-							setOnGround(false);
+					if (isOnGround() && isJumped())
+						setOnGround(false);
 
-						}else if (getVelocity().getElemy() >= 0.0){
-							setPos(new Vector(getPos().getElemx(),getPos().getElemy()-1));
-							setVelocity(new Vector(getVelocity().getElemx(),0.0));
+					if (getVelocity().getElemy() >= 0.0){
+						setPos(new Vector(getPos().getElemx(),getPos().getElemy()-1));
+						setVelocity(new Vector(getVelocity().getElemx(),0.0));
 
-						}else if (getVelocity().getElemy() < 0.0){
+					}else if (getVelocity().getElemy() < 0.0){
 
-							setPos(new Vector(getPos().getElemx(),getPos().getElemy()+1));
-							setVelocity(new Vector(getVelocity().getElemx(),0.0));
-							setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
-						}
-					}else{
-						if (getVelocity().getElemx()>0.0){
-							Boolean right = true;
-							stopMoveProgram(right);
-						}else{
-							Boolean left = false;
-							stopMoveProgram(left);
-						}
+						setPos(new Vector(getPos().getElemx(),getPos().getElemy()+1));
+						setVelocity(new Vector(getVelocity().getElemx(),0.0));
+						setAccCurr(new Vector(getAccCurr().getElemx(),0.0));
 					}
 				}
 			}
@@ -259,7 +239,7 @@ public class Buzam extends Mazub{
 	 */
 	@Override
 	protected void initializeHP() {
-		this.setHP(50);
+		this.setHP(500);
 	}
 
 	/**
