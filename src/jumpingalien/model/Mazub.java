@@ -1076,9 +1076,8 @@ public class Mazub extends GameObject{
 	@Override
 	protected void terminate() {
 		this.isTerminated = true;
-		//getWorld().setMazub(null);
-		//this.setWorld(null);
-
+		// This terminate isn't used, when Mazub dies, game over is called.
+		// Also, the world cannot function properly without a set maub.
 	}
 
 	@Override

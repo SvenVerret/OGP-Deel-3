@@ -14,27 +14,27 @@ public class Buzam extends Mazub{
 	/**
 	 *
 	 * @param       pixelLeftX
-	 *                      The position of the most left pixel of Mazub on the x-axis.
+	 *                      The position of the most left pixel of buzam on the x-axis.
 	 * @param       pixelBottomY
-	 *                      The position of the most left pixel of Mazub on the y-axis.
+	 *                      The position of the most left pixel of buzam on the y-axis.
 	 * @param       sprites
-	 *                      A list of images that will be used to represent a Mazub class in the GUI.
+	 *                      A list of images that will be used to represent a buzam class in the GUI.
 	 * @post        Initial height and width are set, based on the initial sprite.
 	 *                      | new.getHeight() == sprites[0].getHeight()
 	 *                      | new.getWidth() == sprites[0].getWidth()
-	 * @post        Maximum value for the velocity of Mazub is set.
+	 * @post        Maximum value for the velocity of buzam is set.
 	 *                      | new.getMaxVelocityX() == maxvelocityx
 	 *                      | new.getMaxVelocityXCurr() == maxvelocityx
-	 * @post        Minimum value for the velocity of Mazub is set.
+	 * @post        Minimum value for the velocity of buzam is set.
 	 *                      | new.getInitVelocityX() == initvelocityx
-	 * @post        The list of sprites used for a Mazub class are now stored in Sprites.
+	 * @post        The list of sprites used for a buzam class are now stored in Sprites.
 	 *                      | new.Sprites = sprites
 	 * @effect      PixelLeftX is set as the position on the x-axis. PixelBottomY is set as the position on the y-axis.
 	 *                      If these positions are not on the screen, setPosX or setPoxY will throw an OutOfBoundsException.
 	 *                      | setPosX(pixelLeftX) && setPosY(pixelBottomY)                 
 	 * @throws      IllegalArgumentException("Sprites")
 	 *                      An exception is thrown when the list of sprites is shorter than 10.
-	 *                      Some states of Mazub won't have images if the list is too short.
+	 *                      Some states of buzam won't have images if the list is too short.
 	 *                      | sprites.length < 10
 	 * @throws      IllegalArgumentException("Velocity")
 	 *                      An exception is thrown when the initial velocity is lower than 1m/s or
@@ -52,6 +52,35 @@ public class Buzam extends Mazub{
 		super(pixelLeftX, pixelBottomY, sprites, 1.0,3.0, program);
 	}
 
+	
+	/**
+	 * @effect	If a program is loaded, execute the program
+	 * 			|if(getProgram() != null){
+	 * 			|	getProgram().advanceTime(dt);
+	 *  
+	 * @effect	when X velocity >=0 and colides in the X direction
+	 * 			| setPos(new Vector(getPos().getElemx()-1,getPos().getElemy()));
+	 *			| setVelocity(new Vector(0.0,getVelocity().getElemy()));
+	 *			| setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+	 *
+	 * @effect	when X velocity < 0 and colides in the Y direction
+	 * 			| setPos(new Vector(getPos().getElemx()+1,getPos().getElemy()));
+	 *			| setVelocity(new Vector(0.0,getVelocity().getElemy()));
+	 *			| setAccCurr(new Vector(0.0,getAccCurr().getElemy()));
+	 *
+	 *@effect	when Y velocity >= 0 and collides in the Y direction
+	 *			| setPos(new Vector(getPos().getElemx(),getPos().getElemy()-1));
+	 *			| setVelocity(new Vector(getVelocity().getElemx(),0.0));
+	 *
+	 *@effect	when Y velocity < 0 and collides in the Y direction
+	 *			| setPos(new Vector(getPos().getElemx(),getPos().getElemy()+1));
+	 *			| setVelocity(new Vector(getVelocity().getElemx(),0.0));
+	 *
+	 *@effect	Buzam is on ground an has just jumped
+	 *			| setOnGround(false);
+	 *
+	 *
+	 */
 	@Override
 	public void advanceTime(double dt) throws IllegalArgumentException{
 
@@ -115,26 +144,35 @@ public class Buzam extends Mazub{
 
 
 	/**
-	 * @effect	Contact with plant and Mazub hasn't reached maxHP
+	 * 
+	 * @effect	Contact with Mazub
+	 * 			|if(overlapsWith(mazub))
+	 * 			|	if (overlapsWithX(mazub))
+	 * 			|		hits.add("X");
+	 * 			|	if (overlapsWithY(mazub))
+	 * 			|		hits.add("Y");
+	 * 			|
+	 * 
+	 * @effect	Contact with plant and Buzam hasn't reached maxHP
 	 * 			| this.addByHP(50);
 	 *			| object.dies();
 	 * 
 	 * @effect	Contact with shark
-	 * 			| if (overlapsWithX(object)){
+	 * 			| if (overlapsWithX(shark)){
 	 *			| 	hits.add("X");
 	 *			| }
-	 *			| if (overlapsWithY(object)){
+	 *			| if (overlapsWithY(shark)){
 	 *			|	hits.add("Y");
 	 *			| }
 	 * 
 	 * @effect	Contact with slime
-	 * 			| if (overlapsWithX(object)){
+	 * 			| if (overlapsWithX(slime)){
 	 *			|	hits.add("X");
 	 *			|	}
-	 *			| if (overlapsWithY(object)){
+	 *			| if (overlapsWithY(slime)){
 	 *			|	hits.add("Y")
-	 *			| 	if (!object.isDying()){
-	 *			|		object.slimeGetsHitFor(-50);
+	 *			| 	if (!slime.isDying()){
+	 *			|		slime.slimeGetsHitFor(-50);
 	 *			|		if (!isImmune()){
 	 *			|			this.addByHP(-50);
 	 *			|			setImmune(true);
@@ -211,31 +249,21 @@ public class Buzam extends Mazub{
 	}
 
 	/**
-	 * This method checks whether Mazub can have the given world as world
+	 * This method checks whether Buzam can have the given world as world
 	 * 
-	 * @return	boolean: 	true if the given world is not null
-	 * 						Mazub must have no world
-	 *			| if (world == null && world.getMazub() == null){
-	 *			|	return true;
-	 *			| }else{
-	 *			|	return false;
-	 *			| }
+	 * @return	boolean:
+	 *			| return true;
 	 */
 	@Raw
 	@Override
 	public boolean canHaveAsWorld(World world) {
-		//		if (world != null && world.getBuzam() == null){
-		//			return true;
-		//		}else{
-		//			return false;
-		//		}
 		return true;
 	}
 
 
 	/**
 	 * @effect	...
-	 *			| setHP(100);
+	 *			| setHP(500);
 	 */
 	@Override
 	protected void initializeHP() {
@@ -244,14 +272,13 @@ public class Buzam extends Mazub{
 
 	/**
 	 * 
-	 * @effect	
+	 * @effect	...
 	 *			| getWorld().removeBuzam(this);
 	 *			| setWorld(null);
 	 */
 	@Override
 	protected void terminate(){
 		this.isTerminated = true;
-		System.out.println(this.getWorld());
 		getWorld().removeBuzam(this);
 		setWorld(null);
 	}
@@ -259,7 +286,6 @@ public class Buzam extends Mazub{
 
 	@Override
 	public void startMoveProgram(Boolean direction) {
-
 		if (!direction){
 			this.setVelocity(new Vector(-getInitVelocityX(),0.0));
 			this.setAccCurr(new Vector(AccXBkw,0.0));
