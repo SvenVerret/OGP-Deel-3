@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.TreeSet;
 
 import program.Program;
 import jumpingalien.model.GameObject;
@@ -46,6 +45,7 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 
 		final Comparator<int[]> compIntX = (p1,p2)->Integer.compare(p1[0],p2[0]);
 		final Comparator<int[]> compIntY = (p1,p2)->Integer.compare(p1[1],p2[1]);
+		
 
 		Direction direction = (Direction) getDirection().evaluate(program);
 
@@ -55,9 +55,9 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 
 		case DOWN:
 			try{
-			setGameObjectResult(GameObjectsWorld.stream().
-			filter(e ->e.getPos().getElemy()< pixelBottom && e.getPos().getElemx() >= pixelLeft &&
-			e.getPos().getElemx() <= pixelRight).max(compY).get());
+				setGameObjectResult(GameObjectsWorld.stream().
+						filter(e ->e.getPos().getElemy()< pixelBottom && e.getPos().getElemx() >= pixelLeft &&
+						e.getPos().getElemx() <= pixelRight).max(compY).get());
 			}catch(NullPointerException|NoSuchElementException e){
 				setGameObjectResult(null);
 			}
@@ -82,10 +82,13 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 
 
 			if (getGameObjectResult() != null && getTileResult() != null){
-				return Integer.compare(getTileResult()[1],(int)getGameObjectResult().getPos().getElemx());
-			}else if(getGameObjectResult() == null){
+				if (getTileResult()[1] > (int)getGameObjectResult().getPos().getElemy())
+					return getTileResult();
+				else
+					getGameObjectResult();
+			}else if(getTileResult() != null){
 				return getTileResult();
-			}else if(getTileResult() == null){
+			}else if(getGameObjectResult() != null){
 				return getGameObjectResult();
 			}else
 				return null;
@@ -94,9 +97,9 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 
 		case UP:
 			try{
-			setGameObjectResult(GameObjectsWorld.stream().
-			filter(e ->e.getPos().getElemy()> pixelBottom && e.getPos().getElemx() >= pixelLeft &&
-			e.getPos().getElemx() <= pixelRight).min(compY).get());
+				setGameObjectResult(GameObjectsWorld.stream().
+						filter(e ->e.getPos().getElemy()> pixelTop && e.getPos().getElemx() >= pixelLeft &&
+						e.getPos().getElemx() <= pixelRight).min(compY).get());
 			}catch(NullPointerException|NoSuchElementException e){
 				setGameObjectResult(null);
 			}
@@ -123,10 +126,13 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 			}
 
 			if (getGameObjectResult() != null && getTileResult() != null){
-				return Integer.compare(getTileResult()[1],(int)getGameObjectResult().getPos().getElemx());
-			}else if(getGameObjectResult() == null){
+				if (getTileResult()[1]> (int)getGameObjectResult().getPos().getElemy())
+					return getGameObjectResult();
+				else
+					return getTileResult();
+			}else if(getTileResult() != null){
 				return getTileResult();
-			}else if(getTileResult() == null){
+			}else if(getGameObjectResult() != null){
 				return getGameObjectResult();
 			}else
 				return null;
@@ -134,10 +140,12 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 
 
 		case RIGHT:
+
+
 			try{
-			setGameObjectResult(GameObjectsWorld.stream().
-			filter(e -> e.getPos().getElemx()< pixelLeft && e.getPos().getElemy() >= pixelBottom &&
-			e.getPos().getElemy() <= pixelTop).min(compX).get());
+				setGameObjectResult(GameObjectsWorld.stream().
+						filter(e -> e.getPos().getElemx() > pixelRight && e.getPos().getElemy() >= pixelBottom &&
+						e.getPos().getElemy() <= pixelTop).min(compX).get());
 			}catch(NullPointerException|NoSuchElementException e){
 				setGameObjectResult(null);
 			}
@@ -155,7 +163,7 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 				}
 			}
 
-			
+
 			try{
 				setTileResult(inPassableTilesRightSide.stream().min(compIntX).get());
 			}catch(NullPointerException|NoSuchElementException e){
@@ -164,10 +172,14 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 
 
 			if (getGameObjectResult() != null && getTileResult() != null){
-				return Integer.compare(getTileResult()[1],(int)getGameObjectResult().getPos().getElemx());
-			}else if(getGameObjectResult() == null){
+				if (getTileResult()[0] > (int)getGameObjectResult().getPos().getElemx())
+					return getTileResult();
+				else
+					return getGameObjectResult();
+			}else if(getTileResult() != null){
+				System.out.println(getTileResult()[0] + " " + getTileResult()[1]);
 				return getTileResult();
-			}else if(getTileResult() == null){
+			}else if(getGameObjectResult() != null){
 				return getGameObjectResult();
 			}else
 				return null;
@@ -177,9 +189,9 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 		case LEFT:
 
 			try{
-			setGameObjectResult(GameObjectsWorld.stream().
-					filter(e ->e.getPos().getElemx() < pixelLeft && e.getPos().getElemy() >= pixelBottom &&
-					e.getPos().getElemy() <= pixelTop).max(compX).get());
+				setGameObjectResult(GameObjectsWorld.stream().
+						filter(e ->e.getPos().getElemx() < pixelLeft && e.getPos().getElemy() >= pixelBottom &&
+						e.getPos().getElemy() <= pixelTop).max(compX).get());
 			}catch(NullPointerException|NoSuchElementException e){
 				setGameObjectResult(null);
 			}
@@ -196,35 +208,35 @@ public class SearchObjectExpression extends Expression<SourceLocation>{
 					inPassableTilesLeftSide.add(e);
 				}
 			}
-			
+
 			try{
 				setTileResult(inPassableTilesLeftSide.stream().max(compIntX).get());
 			}catch(NullPointerException|NoSuchElementException e){
 				setTileResult(null);
 			}
-			
-			
+
+
 			if (getGameObjectResult() != null && getTileResult() != null){
-				return Integer.compare(getTileResult()[1],(int)getGameObjectResult().getPos().getElemx());
-			}else if(getGameObjectResult() == null){
+				if (getTileResult()[0] > (int)getGameObjectResult().getPos().getElemx())
+					return getGameObjectResult();
+				else
+					return getTileResult();
+			}else if(getTileResult() != null){
 				return getTileResult();
-			}else if(getTileResult() == null){
-				System.out.println(getGameObjectResult().getPos().getElemx() +" "+
-			getGameObjectResult().getPos().getElemy());
+			}else if(getGameObjectResult() != null){
 				return getGameObjectResult();
 			}else
 				return null;
-		default:
-			return null;
 
 		}
+		return null;
 
 	}
-	
+
 	public GameObject getGameObjectResult(){
 		return object;
 	}
-	
+
 	public void setGameObjectResult(GameObject object){
 		this.object = object;
 	}

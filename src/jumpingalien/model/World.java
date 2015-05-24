@@ -1150,14 +1150,11 @@ public class World {
 	 */
 	public int getGeologicalFeatureTiles(int posxT, int posyT) throws IllegalArgumentException{
 		try{
-
-
-			if ((posxT != 0)){
-				posxT --;
-			}
-			if ((posyT != 0)){
-				posyT --;
-			}
+			if (posxT > this.getTileMatrix().length-1)
+				posxT--;
+			if (posyT > this.getTileMatrix()[0].length-1)
+				posyT--;
+			
 			int tile = TileMatrix[posyT][posxT];
 			return tile;
 		}catch(IndexOutOfBoundsException e){
