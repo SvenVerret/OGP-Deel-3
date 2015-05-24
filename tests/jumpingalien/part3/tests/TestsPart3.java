@@ -1,18 +1,19 @@
 package jumpingalien.part3.tests;
 
 import static org.junit.Assert.*;
+import static jumpingalien.tests.util.TestUtils.*;
 
 import java.util.Optional;
 
 import jumpingalien.model.Buzam;
+import jumpingalien.model.Mazub;
 import jumpingalien.model.Plant;
-import jumpingalien.model.School;
-import jumpingalien.model.Slime;
 import jumpingalien.model.World;
 import jumpingalien.part3.facade.Facade;
 import jumpingalien.part3.facade.IFacadePart3;
 import jumpingalien.part3.programs.IProgramFactory;
 import jumpingalien.part3.programs.ParseOutcome;
+import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.part3.programs.ProgramParser;
 import jumpingalien.util.Sprite;
 
@@ -24,39 +25,262 @@ import program.expression.Expression;
 import program.statement.PrintStatement;
 import program.statement.SequenceStatement;
 import program.statement.Statement;
-import static jumpingalien.tests.util.TestUtils.*;
 
+public class TestsPart3 {
 
-public class PartialFacadeTest {
-
-	@Test
-	public void testParseSimplestProgram() {
-		IFacadePart3 facade = new Facade();
-		ParseOutcome<?> outcome = facade.parse("skip;");
-		assertTrue(outcome.isSuccess());
+	private World createWorldWithGround50px(){
+		World world = new World(50, 10, 10,
+				200,300,10,0);
+		for (int i =0; i<10;i++){
+			world.setGeologicalFeature(i, 0, 1);
+		}
+		return world;
 	}
 
-
-
 	@Test
-	public void testParseSimplestProgram2() {
+	public void Assignmenttest() {
+
 		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
 		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
 
-		Optional<Program> parse_outcome = parser.parseString("double y; object o; o := self;");
+		Optional<Program> parse_outcome = parser.parseString("double y; direction dir; bool x := true; y := 1.0; dir := left;");
 		Program program = parse_outcome.get();
-		Sprite[] sprites = spriteArrayForSize(2, 2, 2);
-		
-		IFacadePart3 facade = new Facade();
-		facade.createPlantWithProgram(10, 10, sprites, program);
+		program.advanceTime(0.01);
+
+		assertTrue((double)program.getVariables().get("y") == 1.0);
+		assertTrue((boolean)program.getVariables().get("x") == true);
+		assertTrue(program.getVariables().get("dir") == Direction.LEFT);	
+	}
+
+	@Test
+	public void BreakInForEachTest() {
+		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+
+		Optional<Program> parse_outcome = parser.parseString("object o; double i; i := 0; foreach (any, o) do if(gethp o > 0.0) then print i; else i := i+1; fi done");
+		Program program = parse_outcome.get();
+
+		Optional<Program> parse_outcome2 = parser.parseString("object o; double i; i := 0; foreach (any, o) do if(gethp o > 0.0) then break; else i := i+1; fi done");
+		Program program2 = parse_outcome2.get();
+
+		World world = new World(50, 20, 20, 200,200,10,15);
+		Sprite[] sprites = spriteArrayForSize(5, 5, 2);
+
+		Plant plantProgram = new Plant(10, 10, sprites, program);
+		program.setGameObject(plantProgram);
+		Plant plantProgram2 = new Plant(20, 20, sprites, program);
+		program2.setGameObject(plantProgram2);
+		Plant plant1 = new Plant(30, 30, sprites);
+		Plant plant2 = new Plant(40, 30, sprites);
+		Plant plant3 = new Plant(50, 30, sprites);
+
+		world.addPlant(plantProgram);
+		world.addPlant(plantProgram2);
+		world.addPlant(plant1);
+		world.addPlant(plant2);
+		world.addPlant(plant3);
+
+		//program2 finished alot faster because of the break called
+		program.advanceTime(0.01);
+		program2.advanceTime(0.01);
+
+		assertTrue(program.getAmountMainExecuted() < program2.getAmountMainExecuted());        
+	}
+
+	@Test
+	public void BreakInWhileTest() {
+		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+
+		//without break
+		Optional<Program> parse_outcome = parser.parseString("double i; i := 0; print i; while(i < 10.0) do i := i + 1; print i; done");
+		Program program = parse_outcome.get();
+		program.advanceTime(0.1);
+
+		//with break
+		Optional<Program> parse_outcome2 = parser.parseString("double i; i := 0; print i; while(i < 10.0) do i := i + 1; print i; if(i >= 3.0) then break; fi done");
+		Program program2 = parse_outcome2.get();
+		program2.advanceTime(0.1);
+
+		//program2 finished alot faster because of the break called
+		assertTrue(program.getAmountMainExecuted() < program2.getAmountMainExecuted());
+
+	}
+
+	@Test
+	public void BreakTestNotWellFormed1() {
+		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+
+		Optional<Program> parse_outcome = parser.parseString("double y; y:= 1.0; break;");
+		Program program = parse_outcome.get();
+		assertFalse(program.isWellFormed());
+
+	}
+
+	@Test
+	public void BreakTestNotWellFormed2() {
+		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+
+		Optional<Program> parse_outcome = parser.parseString("double y; y:= 1.0; if(y == 1.0) then break; fi");
+		Program program = parse_outcome.get();
+		assertFalse(program.isWellFormed());
 	}
 
 
+	// Movement
 
+	@Test
+	public void ForEachTest() {
+
+		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+
+		Optional<Program> parse_outcome = parser.parseString("object o; double i; i := 0; foreach (any, o) do i := i+1; print i; done");
+		Program program = parse_outcome.get();
+
+		World world = new World(50, 20, 20, 200,200,10,15);
+		Sprite[] sprites = spriteArrayForSize(5, 5, 2);
+
+		Plant plantProgram = new Plant(10, 10, sprites, program);
+		program.setGameObject(plantProgram);
+		Plant plant1 = new Plant(30, 30, sprites);
+		Plant plant2 = new Plant(40, 30, sprites);
+		Plant plant3 = new Plant(50, 30, sprites);
+
+		world.addPlant(plantProgram);
+		world.addPlant(plant1);
+		world.addPlant(plant2);
+		world.addPlant(plant3);
+
+		program.advanceTime(0.002);
+		assertTrue((double)program.getVariables().get("i") == 0.0);
+
+		program.advanceTime(0.002);
+		assertTrue((double)program.getVariables().get("i") == 1.0);
+
+		program.advanceTime(0.002);
+		assertTrue((double)program.getVariables().get("i") == 2.0);
+
+		program.advanceTime(0.002);
+		assertTrue((double)program.getVariables().get("i") == 3.0);
+
+		program.advanceTime(0.002);
+		assertTrue((double)program.getVariables().get("i") == 4.0);
+
+		program.advanceTime(0.002);
+		assertTrue((double)program.getVariables().get("i") == 0.0);
+
+	}
+
+	@Test
+	public void IfTest() {
+		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+
+		Optional<Program> parse_outcome = parser.parseString("double y; double x; double z; y:= 1.0; z:= 1.0; if( y == z ) then x:= 2.0; else x:= 3.0; fi");
+		Program program = parse_outcome.get();
+		program.advanceTime(0.005);
+		assertTrue((double)program.getVariables().get("x") == 2.0);
+
+		Optional<Program> parse_outcome2 = parser.parseString("double y; double x; double z; y:= 1.0; z:= 2.0; if( y == z ) then x:= 2.0; else x:= 3.0; fi");
+		Program program2 = parse_outcome2.get();
+		program2.advanceTime(0.005);
+		assertTrue((double)program2.getVariables().get("x") == 3.0);
+	}
+
+	@Test
+	public void RunTest() {
+		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+
+		Optional<Program> parse_outcome = parser.parseString("start_run left; wait(0.1); stop_run left; start_run right; wait(0.1); stop_run right; wait(0.1);");
+		Program program = parse_outcome.get();
+
+		World world = createWorldWithGround50px();
+		Sprite[] sprites = spriteArrayForSize(5, 5, 2);
+
+		Plant plantProgram = new Plant(60, 60, sprites, program);
+		program.setGameObject(plantProgram);
+		world.addPlant(plantProgram);
+
+		program.advanceTime(0.01);
+		assertTrue(plantProgram.getVelocity().getElemx() == -0.5);
+		program.advanceTime(0.11);
+		assertTrue(plantProgram.getVelocity().getElemx() == 0.5);
+		program.advanceTime(0.11);
+		assertTrue(plantProgram.getVelocity().getElemx() == 0.0);
+	}
+
+	@Test
+	public void JumpTest() {
+
+		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+
+		Optional<Program> parse_outcome = parser.parseString("start_jump; wait(0.05); stop_jump; wait(0.05);");
+		Program program = parse_outcome.get();
+
+		World world = createWorldWithGround50px();
+		Sprite[] sprites = spriteArrayForSize(5, 5, 10);
+
+		Mazub mazub = new Mazub(200,51,sprites);
+		world.setMazub(mazub);
+		Buzam buzam = new Buzam(50,51,sprites,program);
+		program.setGameObject(buzam);
+		world.setBuzam(buzam);
+
+		world.advanceTime(0.1);
+		world.advanceTime(0.01);
+		assertTrue(buzam.getVelocity().getElemy() > 7.0 && buzam.getVelocity().getElemy() < 8.0);
+	}
+
+	@Test
+	public void DuckTest() {
+		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+
+		Optional<Program> parse_outcome = parser.parseString("start_duck; wait(0.05); stop_duck; wait(0.05);");
+		Program program = parse_outcome.get();
+
+		World world = createWorldWithGround50px();
+		Sprite[] sprites = spriteArrayForSize(5, 5, 10);
+
+		Mazub mazub = new Mazub(200,51,sprites);
+		world.setMazub(mazub);
+		Buzam buzam = new Buzam(50,51,sprites,program);
+		program.setGameObject(buzam);
+		world.setBuzam(buzam);
+
+		world.advanceTime(0.001);
+		assertTrue(buzam.isDucked());
+
+		world.advanceTime(0.051);
+		world.advanceTime(0.001);
+		assertFalse(buzam.isDucked());
+		
+		world.advanceTime(0.051);
+		world.advanceTime(0.001);
+		assertTrue(buzam.isDucked());
+
+	}
+
+	@Test
+	public void MovementNotWellFormedTest() {
+		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
+		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
+		
+		Optional<Program> parse_outcome = parser.parseString("object o; double i; i := 0; foreach (any, o) do i := i+1; if (i == 5.0) then start_run left; fi done");
+		Program program = parse_outcome.get();
+		assertFalse(program.isWellFormed());
+	}
+	
+	
 	// OPERATIONS
 
 	@Test
-	public void testAdd() {
+	public void AddTest() {
 		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
 		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
 
@@ -67,7 +291,7 @@ public class PartialFacadeTest {
 	}
 
 	@Test
-	public void testSubtract() {
+	public void SubtractTest() {
 		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
 		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
 
@@ -78,7 +302,7 @@ public class PartialFacadeTest {
 	}
 
 	@Test
-	public void testMultiply() {
+	public void MultiplyTest() {
 		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
 		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
 
@@ -90,7 +314,7 @@ public class PartialFacadeTest {
 	}
 
 	@Test
-	public void testDivide() {
+	public void DivideTest() {
 		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
 		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
 
@@ -101,7 +325,7 @@ public class PartialFacadeTest {
 	}
 
 	@Test
-	public void testEquals() {
+	public void EqualsTest() {
 		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
 		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
 
@@ -161,41 +385,14 @@ public class PartialFacadeTest {
 	}
 
 	@Test
-	public void StatementTest(){
-		IFacadePart3 facade = new Facade();
-		ParseOutcome<?> outcome = facade.parse("double o; o := 1.0; o:= o*2; ");
-		assertTrue(outcome.isSuccess());
-
-
-		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
-		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
-		Optional<Program> parse_outcome = parser.parseString("double o; o := 1.0; o := o*2;");
-		Program program = parse_outcome.get();
-
-		World world = new World(50, 20, 20, 200,200,10,15);
-		Sprite[] sprites = spriteArrayForSize(5, 5, 2);
-		Plant plantProgram = facade.createPlantWithProgram(10, 10, sprites, program);
-		world.addPlant(plantProgram);
-
-
-		world.advanceTime(0.003);
-
-
-		assertTrue(program.getAmountMainExecuted() == 1);
-	}
-
-	@Test
-	public void StatementTest2(){
+	public void ProgramTimerTest(){
 		IProgramFactory<Expression<?>, Statement, Object, Program> factory = new ProgramFactory();
 		ProgramParser<Expression<?>, Statement, Object, Program> parser = new ProgramParser<>(factory);
 
 		Optional<Program> parse_outcome = parser.parseString("double o; o := 1.0; o := o*2;");
 		Program program = parse_outcome.get();
-
 
 		program.advanceTime(0.003);
-
-
 		assertTrue(program.getAmountMainExecuted() == 1);
 
 	}
@@ -440,9 +637,6 @@ public class PartialFacadeTest {
 		world.addPlant(plantProgram);
 
 		program.advanceTime(0.002);
-
-
-
 	}
 
 	@Test
@@ -467,9 +661,6 @@ public class PartialFacadeTest {
 		world.addPlant(plantProgram);
 
 		program.advanceTime(0.002);
-
-
-
 	}
 
 
@@ -496,8 +687,5 @@ public class PartialFacadeTest {
 		world.addPlant(plantProgram);
 
 		program.advanceTime(0.002);
-
-
 	}
-	
 }
