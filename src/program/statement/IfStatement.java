@@ -43,16 +43,24 @@ public class IfStatement extends Statement{
 			}
 			program.decreaseRemainingTime();
 			
-			
-			if(IfBodyCalled && IfBody != null){
-				IfBody.advanceTime(dt, program);
-				if(IfBody.isExecutionComplete())
+			if(IfBodyCalled){
+				if(IfBody != null){
+					IfBody.advanceTime(dt, program);
+					if(IfBody.isExecutionComplete())
+						ExecutionDone = true;
+				}else{
 					ExecutionDone = true;
-			}else if(!IfBodyCalled && ElseBody != null){
-				ElseBody.advanceTime(dt, program);
-				if(ElseBody.isExecutionComplete())
+				}
+			}else{
+				if(ElseBody != null){
+					ElseBody.advanceTime(dt, program);
+					if(ElseBody.isExecutionComplete())
+						ExecutionDone = true;
+				}else{
 					ExecutionDone = true;
+				}
 			}
+			
 		}
 	}
 

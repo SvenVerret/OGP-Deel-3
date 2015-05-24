@@ -26,16 +26,13 @@ public class WhileStatement extends Statement{
 
 	private Expression<Boolean> UnevaluatedCondition;
 	private Statement WhileBody;
-	private boolean JumpInLoop = true;
+	private boolean JumpInLoop = false;
 	private boolean ForceReset = false;
 	private boolean ExecutionDone = false;
 
 	@Override
 	public void advanceTime(double dt, Program program) {
 		try{
-			if(program.getGameObject() instanceof Buzam){
-				System.out.print("");
-			}
 			
 			if(JumpInLoop){
 				JumpInLoop = false;
