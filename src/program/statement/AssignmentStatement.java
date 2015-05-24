@@ -19,10 +19,6 @@ public class AssignmentStatement extends Statement{
 			SourceLocation sourceLocation){
 		super(sourceLocation);
 		VariableName = variableName;
-		System.out.println("assignment");
-		if(variableType instanceof GameObjectType){
-			System.out.println("GameObject");
-		}
 		VariableValue = value;
 	}
 

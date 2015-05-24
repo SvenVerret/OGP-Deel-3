@@ -32,7 +32,6 @@ public class WhileStatement extends Statement{
 				WhileBody.advanceTime(dt, program);
 				
 				if(WhileBody.isExecutionComplete() && (Boolean) UnevaluatedCondition.evaluate(program)){
-					System.out.println("While reset");
 					WhileBody.Reset();
 				}
 			}
@@ -41,7 +40,6 @@ public class WhileStatement extends Statement{
 				program.decreaseRemainingTime();
 				WhileBody.advanceTime(dt, program);
 				if(WhileBody.isExecutionComplete()){
-					System.out.println("While reset");
 					WhileBody.Reset();
 				}
 			}
@@ -49,7 +47,6 @@ public class WhileStatement extends Statement{
 			// Execution is done if the while condition isn't true anymore.
 			if(!(Boolean) UnevaluatedCondition.evaluate(program)){
 				ExecutionDone = true;
-				System.out.println("While done");
 			}
 
 		} catch(BreakException b) {
