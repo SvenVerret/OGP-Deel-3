@@ -239,16 +239,10 @@ public class Mazub extends GameObject{
 	 * 			| if ((this.getPos().getElemy() == 0) && (!this.isJumped()):
 	 * 			| 	new.getJumped() == true
 	 * 
-	 * @throws 	IllegalStateException()
-	 * 			An exception is thrown if the alien is in the air and the variable Jumped equals true,
-	 * 			because endMove() should change Jumped to false. 
-	 * 			| (this.getPos().getElemy() != 0 && this.Jumped)
 	 */
-	public void startJump() throws IllegalStateException{
-		if (this.isJumped() && isOnGround()){
-			throw new IllegalStateException();
+	public void startJump(){
 
-		}else if(isEndDuckPressed() && isDucked()){
+		if(isEndDuckPressed() && isDucked()){
 			this.setJumped(false);
 
 		}else if(isOnGround()){
@@ -498,11 +492,21 @@ public class Mazub extends GameObject{
 					hits.add("X");
 				}
 				if (overlapsWithY(buzam)){
-					//hits.add("Y");
-					this.setCollisionVel(new Vector(this.getCollisionVel().getElemx(), 3));
+					if(this.getVelocity().getElemy() < buzam.getVelocity().getElemy()){
+						this.setCollisionVel(new Vector(getVelocity().getElemx() , 3));
+					}else{
+						hits.add("Y");
+					}
+					
 				}
-				this.addByHP(-50);
-				buzam.addByHP(-50);
+				if (!buzam.isImmune()){
+					buzam.addByHP(-50);
+					buzam.setImmune(true);
+				}
+				if (!this.isImmune()){
+					this.addByHP(-50);
+					this.setImmune(true);
+				}
 			}
 		}
 
@@ -523,8 +527,11 @@ public class Mazub extends GameObject{
 					hits.add("X");
 				}
 				if (overlapsWithY(object)){
-					//hits.add("Y");
-					this.setCollisionVel(new Vector(this.getCollisionVel().getElemx(), 3));
+					if(this.getVelocity().getElemy() < object.getVelocity().getElemy()){
+						this.setCollisionVel(new Vector(getVelocity().getElemx() , 3));
+					}else{
+						hits.add("Y");
+					}
 				}
 			}
 		}
@@ -536,9 +543,11 @@ public class Mazub extends GameObject{
 					hits.add("X");
 				}
 				if (overlapsWithY(object)){
-
-					//hits.add("Y");
-					this.setCollisionVel(new Vector(this.getCollisionVel().getElemx(), 3));
+					if(this.getVelocity().getElemy() < object.getVelocity().getElemy()){
+						this.setCollisionVel(new Vector(getVelocity().getElemx() , 3));
+					}else{
+						hits.add("Y");
+					}
 
 					if (!object.isDying()){
 						object.slimeGetsHitFor(-50);

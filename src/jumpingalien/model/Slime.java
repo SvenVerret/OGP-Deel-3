@@ -474,8 +474,8 @@ public class Slime extends GameObject {
 					}
 				}
 				if (overlapsWithY(mazub)){
-					//hits.add("Y");
-					mazub.setCollisionVel(new Vector(mazub.getCollisionVel().getElemx(), 3));
+					hits.add("Y");
+					
 				}
 			}
 
