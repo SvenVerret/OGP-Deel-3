@@ -11,7 +11,7 @@ public class PrintStatement extends Statement{
 
 	public PrintStatement(Expression<?> value, SourceLocation sourceLocation){
 		super(sourceLocation);
-		ValueToBePrinted = (ValueExpression<?>) value;
+		ValueToBePrinted = value;
 	}
 
 	@Override
@@ -24,10 +24,10 @@ public class PrintStatement extends Statement{
 		}
 	}
 	
-	public ValueExpression<?> getValueToBePrinted() {
+	public Expression<?> getValueToBePrinted() {
 		return ValueToBePrinted;
 	}
-	private final ValueExpression<?> ValueToBePrinted;
+	private final Expression<?> ValueToBePrinted;
 	
 
 	private boolean ForceReset = false;

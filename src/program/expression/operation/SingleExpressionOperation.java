@@ -23,6 +23,10 @@ public class SingleExpressionOperation<R,E> extends Expression<R>{
 
 	@Override
 	public Object evaluate(Program program){
-		return this.function.apply(this.getE().evaluate(program));
+		Object result = this.function.apply(this.getE().evaluate(program));
+		if(result instanceof Integer){
+			result =((Integer)result).doubleValue();
+		}
+		return result;
 	}
 }

@@ -9,6 +9,44 @@ import program.util.TimeIsUpException;
 
 public class Program {
 
+	public Program(Statement mainstatement, Map<String,Object> globalVariables){
+		this.mainstatement = mainstatement;
+		this.setInitialVariables(globalVariables);
+		this.setVariables(globalVariables);
+	}
+	public void advanceTime(double dt){
+		try{
+			if(getRemainingTime() == 0.0){
+				
+				if(dt <= defaultDT){
+					setRemainingTime(defaultDT);
+				}else{
+					setRemainingTime(dt);
+				}
+				this.resetAmountMainExecuted();
+			}
+	
+	
+			while(this.getRemainingTime() > 0){
+	
+				getMainStatement().advanceTime(dt, this);
+	
+				if(getMainStatement().isExecutionComplete()){
+					System.out.println("Complete");
+					
+					this.addAmountMainExecuted();
+					setVariables(getInitialVariables());
+					getMainStatement().Reset();
+				}
+			}
+	
+		} catch(TimeIsUpException t){
+	
+			System.out.println("Times up");
+	
+			//Get out of the mainstatement, wait for new advance time
+		}
+	}
 	public Statement getMainStatement() {
 		return mainstatement;
 	}
@@ -41,59 +79,6 @@ public class Program {
 	private GameObject gameobject;
 
 
-	public Program(Statement mainstatement, Map<String,Object> globalVariables){
-		this.mainstatement = mainstatement;
-		this.setInitialVariables(globalVariables);
-		this.setVariables(globalVariables);
-	}
-
-	public void advanceTime(double dt){
-		try{
-			if(getGameObject() instanceof Buzam){
-				System.out.println("--------------------");
-				System.out.println("Begin advance time");
-				System.out.println("--------------------");
-			}
-
-			if(getRemainingTime() == 0.0){
-
-				if(dt <= defaultDT){
-					setRemainingTime(defaultDT);
-				}else{
-					setRemainingTime(dt);
-				}
-			}
-
-
-			while(this.getRemainingTime() > 0){
-				if(getGameObject() instanceof Buzam){
-					System.out.println(" ");
-					System.out.println("Buzam");
-					System.out.println("Main Statament called with dt = " + dt);
-					System.out.println("Remaining Time = " + getRemainingTime());
-				}
-
-
-				getMainStatement().advanceTime(dt, this);
-
-				if(getMainStatement().isExecutionComplete()){
-					if(getGameObject() instanceof Buzam){
-						System.out.println("Complete");
-					}
-					setVariables(getInitialVariables());
-					getMainStatement().Reset();
-				}
-			}
-
-		} catch(TimeIsUpException t){
-			if(getGameObject() instanceof Buzam){
-				System.out.println("Times up");
-			}
-
-			//Get out of the mainstatement, wait for new advance time
-		}
-	}
-
 	public void decreaseRemainingTime(double time){
 		double newtime = RemainingTime - time;
 		if (newtime <= 0){
@@ -118,6 +103,18 @@ public class Program {
 	private double RemainingTime = 0.0;
 	public static double defaultDT = 0.001;
 	
+	
+	public int getAmountMainExecuted() {
+		return amountMainExecuted;
+	}
+	private void addAmountMainExecuted() {
+		this.amountMainExecuted += 1;
+	}
+	private void resetAmountMainExecuted(){
+		amountMainExecuted = 0;
+	}
+	private int amountMainExecuted = 0;
+
 	public boolean isWellFormed(){
 		HashSet<String> parentStatements = new HashSet<String>();
 		return getMainStatement().isWellFormed(parentStatements);

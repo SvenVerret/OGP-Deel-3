@@ -19,20 +19,22 @@ public class BinaryExpressionOperation<R,E1,E2> extends Expression<R>{
 	private Expression<E1> e1;
 	private Expression<E2> e2;
 	private BiFunction<Object,Object,R> function;
-	
+
 	public Expression<E1> getE1(){
 		return e1;
 	}
 	public Expression<E2> getE2(){
 		return e2;
 	}
-	
+
 	@Override
-	public R evaluate(Program program){
+	public Object evaluate(Program program){
 		Object Value1 = getE1().evaluate(program);
 		Object Value2 = getE2().evaluate(program);
-		return this.function.apply(Value1,Value2);
+		Object result = this.function.apply(Value1,Value2);
+		if(result instanceof Integer){
+			result =((Integer)result).doubleValue();
+		}
+		return result;
 	}
-	
-
 }
