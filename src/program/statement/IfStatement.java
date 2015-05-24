@@ -18,13 +18,13 @@ public class IfStatement extends Statement{
 	public IfStatement(Expression<Boolean> condition, Statement ifBody, Statement elseBody, 
 			SourceLocation sourceLocation){
 		super(sourceLocation);
-		
+
 		IfBody = ifBody;
 		ElseBody = elseBody;
-		
+
 		UnevaluatedCondition = ((Expression<Boolean>) condition);
 	}
-	
+
 	private Expression<Boolean> UnevaluatedCondition;
 	private Statement IfBody;
 	private Statement ElseBody;
@@ -35,14 +35,14 @@ public class IfStatement extends Statement{
 	@Override
 	public void advanceTime(double dt,Program program) {
 		if (!isExecutionComplete()){
-			
+
 			if((Boolean) UnevaluatedCondition.evaluate(program)){
 				IfBodyCalled = true;
 			}else{
 				IfBodyCalled = false;
 			}
 			program.decreaseRemainingTime();
-			
+
 			if(IfBodyCalled){
 				if(IfBody != null){
 					IfBody.advanceTime(dt, program);
@@ -60,7 +60,7 @@ public class IfStatement extends Statement{
 					ExecutionDone = true;
 				}
 			}
-			
+
 		}
 	}
 
@@ -73,15 +73,19 @@ public class IfStatement extends Statement{
 	public void forceReset() {
 		ForceReset = true;
 	}
-	
+
 
 	@Override
 	public void Reset() {
 		ExecutionDone = false;
-		if(IfBodyCalled)
+
+		if(IfBody != null){
 			IfBody.Reset();
-		else
+		}
+		if(ElseBody != null){
 			ElseBody.Reset();
+		}
+
 		IfBodyCalled = null;
 	}
 
