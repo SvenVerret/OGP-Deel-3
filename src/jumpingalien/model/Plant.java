@@ -5,6 +5,7 @@ import java.util.HashSet;
 import program.Program;
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
+import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 
@@ -136,7 +137,13 @@ public class Plant extends GameObject {
 						}
 						resetStartTimeDir();
 					}else{
-						stopMoveProgram();
+						if (getVelocity().getElemx()>0.0){
+							Boolean right = true;
+							stopMoveProgram(right);
+						}else{
+							Boolean left = false;
+							stopMoveProgram(left);
+						}
 					}
 
 				}
@@ -332,7 +339,7 @@ public class Plant extends GameObject {
 	
 
 	@Override
-	public void stopMoveProgram() {
+	public void stopMoveProgram(Boolean direction) {
 		this.setVelocity(new Vector(0,0));
 	}
 

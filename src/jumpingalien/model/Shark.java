@@ -319,7 +319,13 @@ public class Shark extends GameObject {
 						setRandomMovement("X");
 						resetStartTimeDir();
 					}else{
-						stopMoveProgram();
+						if (getVelocity().getElemx()>0.0){
+							Boolean right = true;
+							stopMoveProgram(right);
+						}else{
+							Boolean left = false;
+							stopMoveProgram(left);
+						}
 					}
 
 				}else if (hits.contains("Y")){
@@ -328,7 +334,13 @@ public class Shark extends GameObject {
 						setRandomMovement("Y");
 						resetStartTimeDir();
 					}else{
-						stopMoveProgram();
+						if (getVelocity().getElemx()>0.0){
+							Boolean right = true;
+							stopMoveProgram(right);
+						}else{
+							Boolean left = false;
+							stopMoveProgram(left);
+						}
 					}
 
 				}
@@ -795,7 +807,7 @@ public class Shark extends GameObject {
 
 
 	@Override
-	public void stopMoveProgram() {
+	public void stopMoveProgram(Boolean direction) {
 		this.setVelocity(new Vector(0,0));	
 		this.setAccCurr(new Vector(0.0,0.0));
 	}
