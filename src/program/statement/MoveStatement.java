@@ -62,13 +62,6 @@ public class MoveStatement extends Statement{
 		}
 
 	}
-	private final Movement movement;
-	private Expression<Direction> ExprDirection;
-	private Boolean direction;
-
-	private boolean ForceReset = false;
-	private boolean ExecutionDone = false;
-
 	@Override
 	public boolean isExecutionComplete() {
 		return ForceReset || ExecutionDone;
@@ -96,4 +89,9 @@ public class MoveStatement extends Statement{
 	public boolean isWellFormed(HashSet<String> parentStatements) {
 		return (!parentStatements.contains("For"));
 	}
+	private final Movement movement;
+	private Expression<Direction> ExprDirection;
+	private Boolean direction;
+	private boolean ForceReset = false;
+	private boolean ExecutionDone = false;
 }

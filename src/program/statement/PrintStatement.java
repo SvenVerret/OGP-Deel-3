@@ -5,7 +5,6 @@ import java.util.HashSet;
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 import program.expression.Expression;
-import program.expression.ValueExpression;
 
 public class PrintStatement extends Statement{
 
@@ -27,12 +26,6 @@ public class PrintStatement extends Statement{
 	public Expression<?> getValueToBePrinted() {
 		return ValueToBePrinted;
 	}
-	private final Expression<?> ValueToBePrinted;
-	
-
-	private boolean ForceReset = false;
-	private boolean ExecutionDone = false;
-
 	@Override
 	public boolean isExecutionComplete() {
 		return ForceReset || ExecutionDone;
@@ -54,5 +47,12 @@ public class PrintStatement extends Statement{
 	public boolean isWellFormed(HashSet<String> parentStatements) {
 		return true;
 	}
+	private final Expression<?> ValueToBePrinted;
+
+
+	private boolean ForceReset = false;
+
+
+	private boolean ExecutionDone = false;
 
 }

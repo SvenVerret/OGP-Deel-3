@@ -21,9 +21,6 @@ public class BreakStatement extends Statement{
 		}
 	}
 	
-	private boolean ForceReset = false;
-	private boolean ExecutionDone = false;
-
 	@Override
 	public boolean isExecutionComplete() {
 		return ForceReset || ExecutionDone;
@@ -47,5 +44,8 @@ public class BreakStatement extends Statement{
 			return false;
 		}
 	}
+
+	private boolean ForceReset = false;
+	private boolean ExecutionDone = false;
 
 }

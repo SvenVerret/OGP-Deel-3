@@ -5,7 +5,6 @@ import java.util.HashSet;
 import program.Program;
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
-import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 

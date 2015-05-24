@@ -116,7 +116,7 @@ public class Facade implements IFacadePart2{
 	@Override
 	public void advanceTime(Mazub alien, double dt) {
 		try{
-			alien.advanceTimeWithoutProgram(dt);
+			alien.advanceTime(dt);
 		}catch(IllegalArgumentException e){
 			throw new ModelException("Wrong dT");
 		}

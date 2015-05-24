@@ -5,7 +5,6 @@ import java.util.HashSet;
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 import program.expression.Expression;
-import program.expression.ValueExpression;
 
 public class WaitStatement extends Statement{
 
@@ -69,16 +68,17 @@ public class WaitStatement extends Statement{
 		decreaseRemainingWaitTime(Program.defaultDT);
 	}
 	
+	@Override
+	public boolean isWellFormed(HashSet<String> parentStatements) {
+		return true;
+	}
+
 	private final Expression<Double> WaitDuration;
 	private double RemainingWaitTime = 0.0;
 	
 	private boolean ForceReset = false;
 	private boolean ExecutionDone = false;	
 	private boolean FirstExecution = true;
-	@Override
-	public boolean isWellFormed(HashSet<String> parentStatements) {
-		return true;
-	}
 
 
 

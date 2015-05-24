@@ -17,10 +17,6 @@ public abstract class Statement{
 		return SL;
 	}
 
-	private final SourceLocation SL;
-	
-	
-	
 	public abstract void advanceTime(double dt, Program program);
 	
 	// state bijhouden als interrupt (door dt)
@@ -34,6 +30,8 @@ public abstract class Statement{
 	public abstract void Reset();
 
 	public abstract boolean isWellFormed(HashSet<String> parentStatements);
+
+	private final SourceLocation SL;
 	
 	
 	

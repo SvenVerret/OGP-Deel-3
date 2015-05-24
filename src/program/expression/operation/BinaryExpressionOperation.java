@@ -16,10 +16,6 @@ public class BinaryExpressionOperation<R,E1,E2> extends Expression<R>{
 		function = f;
 	}
 
-	private Expression<E1> e1;
-	private Expression<E2> e2;
-	private BiFunction<Object,Object,R> function;
-
 	public Expression<E1> getE1(){
 		return e1;
 	}
@@ -37,4 +33,8 @@ public class BinaryExpressionOperation<R,E1,E2> extends Expression<R>{
 		}
 		return result;
 	}
+
+	private Expression<E1> e1;
+	private Expression<E2> e2;
+	private BiFunction<Object,Object,R> function;
 }

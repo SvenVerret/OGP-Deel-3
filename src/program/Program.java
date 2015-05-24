@@ -2,7 +2,6 @@ package program;
 import java.util.HashSet;
 import java.util.Map;
 
-import jumpingalien.model.Buzam;
 import jumpingalien.model.GameObject;
 import program.statement.Statement;
 import program.util.TimeIsUpException;
@@ -50,35 +49,24 @@ public class Program {
 	public Statement getMainStatement() {
 		return mainstatement;
 	}
-	private final Statement mainstatement;
-
-
 	public Map<String, Object> getVariables() {
 		return globalVariables;
 	}
 	public void setVariables(Map<String, Object> globalVariables) {
 		this.globalVariables = globalVariables;
 	}
-	private Map<String, Object> globalVariables;
-
 	public Map<String, Object> getInitialVariables() {
 		return globalInitialVariables;
 	}
 	public void setInitialVariables(Map<String, Object> globalInitialVariables) {
 		this.globalInitialVariables = globalInitialVariables;
 	}
-	private Map<String, Object> globalInitialVariables;
-
-
 	public void setGameObject(GameObject gameobject){
 		this.gameobject = gameobject;
 	}
 	public GameObject getGameObject(){
 		return gameobject;
 	}
-	private GameObject gameobject;
-
-
 	public void decreaseRemainingTime(double time){
 		double newtime = RemainingTime - time;
 		if (newtime <= 0){
@@ -100,7 +88,6 @@ public class Program {
 	private void setRemainingTime(double remainingTime) {
 		RemainingTime = remainingTime;
 	}
-	private double RemainingTime = 0.0;
 	public static double defaultDT = 0.001;
 	
 	
@@ -113,10 +100,14 @@ public class Program {
 	private void resetAmountMainExecuted(){
 		amountMainExecuted = 0;
 	}
-	private int amountMainExecuted = 0;
-
 	public boolean isWellFormed(){
 		HashSet<String> parentStatements = new HashSet<String>();
 		return getMainStatement().isWellFormed(parentStatements);
 	}
+	private final Statement mainstatement;
+	private Map<String, Object> globalVariables;
+	private Map<String, Object> globalInitialVariables;
+	private GameObject gameobject;
+	private double RemainingTime = 0.0;
+	private int amountMainExecuted = 0;
 }

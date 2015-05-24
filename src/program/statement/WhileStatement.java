@@ -2,7 +2,6 @@ package program.statement;
 
 import java.util.HashSet;
 
-import jumpingalien.model.Buzam;
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 import program.expression.Expression;
@@ -23,12 +22,6 @@ public class WhileStatement extends Statement{
 		WhileBody = body;
 		UnevaluatedCondition = condition;
 	}
-
-	private Expression<Boolean> UnevaluatedCondition;
-	private Statement WhileBody;
-	private boolean JumpInLoop = false;
-	private boolean ForceReset = false;
-	private boolean ExecutionDone = false;
 
 	@Override
 	public void advanceTime(double dt, Program program) {
@@ -88,4 +81,10 @@ public class WhileStatement extends Statement{
 		parentStatements.add("While");
 		return WhileBody.isWellFormed(parentStatements);
 	}
+
+	private Expression<Boolean> UnevaluatedCondition;
+	private Statement WhileBody;
+	private boolean JumpInLoop = false;
+	private boolean ForceReset = false;
+	private boolean ExecutionDone = false;
 }

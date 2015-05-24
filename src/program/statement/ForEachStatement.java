@@ -181,6 +181,12 @@ public class ForEachStatement extends Statement{
 		getForBody().Reset();
 	}
 
+	@Override
+	public boolean isWellFormed(HashSet<String> parentStatements) {
+		parentStatements.add("For");
+		return getForBody().isWellFormed(parentStatements);
+	}
+
 	private String VariableName;
 	private Kind VariableKind;
 	private Expression<Boolean> WhereExpression;
@@ -267,13 +273,6 @@ public class ForEachStatement extends Statement{
 
 	private void setSelectedObjects(List<GameObject> selectedObjects) {
 		SelectedObjects = selectedObjects;
-	}
-
-
-	@Override
-	public boolean isWellFormed(HashSet<String> parentStatements) {
-		parentStatements.add("For");
-		return getForBody().isWellFormed(parentStatements);
 	}
 
 }

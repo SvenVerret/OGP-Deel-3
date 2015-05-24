@@ -26,12 +26,6 @@ public class AssignmentStatement extends Statement{
 		VariableValue = value;
 	}
 
-	private boolean ForceReset = false;
-	private boolean ExecutionDone = false;
-	private String VariableName;
-	private Expression<?> VariableValue;
-
-
 	@Override
 	public void advanceTime(double dt,Program program) {
 		if(!isExecutionComplete()){
@@ -64,4 +58,9 @@ public class AssignmentStatement extends Statement{
 	public boolean isWellFormed(HashSet<String> parentStatements) {
 		return true;
 	}
+
+	private boolean ForceReset = false;
+	private boolean ExecutionDone = false;
+	private String VariableName;
+	private Expression<?> VariableValue;
 }

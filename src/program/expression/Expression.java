@@ -13,7 +13,7 @@ public abstract class Expression<T> {
 		return SL;
 	}
 
-	private final SourceLocation SL;
-
 	public abstract Object evaluate(Program program);
+
+	private final SourceLocation SL;
 }

@@ -14,9 +14,6 @@ public class SingleExpressionOperation<R,E> extends Expression<R>{
 		function = f;
 	}
 
-	private Expression<E> e;
-	private Function<Object,R> function;
-
 	public Expression<E> getE(){
 		return e;
 	}
@@ -29,4 +26,7 @@ public class SingleExpressionOperation<R,E> extends Expression<R>{
 		}
 		return result;
 	}
+
+	private Expression<E> e;
+	private Function<Object,R> function;
 }

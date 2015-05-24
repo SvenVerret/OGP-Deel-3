@@ -5,6 +5,7 @@ import program.expression.Expression;
 
 public abstract class Inspector<T> extends Expression<SourceLocation>{
 	
+	@SuppressWarnings("unchecked")
 	public Inspector(Expression<?> e, SourceLocation sourcelocation){
 		super(sourcelocation);
 		

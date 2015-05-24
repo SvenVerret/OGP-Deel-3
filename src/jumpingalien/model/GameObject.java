@@ -2,10 +2,8 @@ package jumpingalien.model;
 import java.util.HashSet;
 
 import program.Program;
-import program.expression.Expression;
 import jumpingalien.exception.IllegalVelocityException;
 import jumpingalien.exception.OutOfBoundsException;
-import jumpingalien.part3.programs.IProgramFactory.Direction;
 import jumpingalien.util.Sprite;
 import jumpingalien.util.Vector;
 import be.kuleuven.cs.som.annotate.*;
@@ -426,7 +424,7 @@ public abstract class GameObject {
 	 * 			| return (((int)(thisObjectY + thisObjectH) == (int)objectY+2) || 
 	 *			| ((int)(objectY + objectH) == (int)thisObjectY+2));
 	 */
-	public boolean overlapsWithY(GameObject object){
+	protected boolean overlapsWithY(GameObject object){
 		double thisObjectY = getCollisionPos().getElemy();
 		double thisObjectH = getSize().getElemy();
 		double objectY = object.getPos().getElemy();
@@ -446,7 +444,7 @@ public abstract class GameObject {
 	 * 			| return (((int)thisObjectX+2== (int)(objectX + objectW)) || 
 	 *			| (int)objectX+2== (int)(thisObjectX + thisObjectW));
 	 */
-	public boolean overlapsWithX(GameObject object){
+	protected boolean overlapsWithX(GameObject object){
 
 		double thisObjectX = getCollisionPos().getElemx();
 		double thisObjectW = getSize().getElemx();
@@ -1171,61 +1169,65 @@ public abstract class GameObject {
 	
 	
 	
-	
-	/////////////////////////////////
-	
-	
-//	public abstract double getRightVelocity();
-//	public abstract double getLeftVelocity();
-//	public abstract double getJumpVelocity();
-//	public abstract double getRightAcc();
-//	public abstract double getLeftAcc();
-//	
-//	
-//	
-//	public void startMoveProgram(boolean direction){
-//		
-//		if(direction){
-//			this.setVelocity(new Vector(getRightVelocity(),getVelocity().getElemy()));
-//			this.setAccCurr(new Vector(getRightAcc(),getAccCurr().getElemy()));
-//			this.setOrientation('R');
-//		}
-//		else{
-//			this.setVelocity(new Vector(getLeftVelocity(),getVelocity().getElemy()));
-//			this.setAccCurr(new Vector(getLeftAcc(),getAccCurr().getElemy()));
-//			this.setOrientation('L');
-//		}
-//	}
-//	public void stopMoveProgram(){
-//		this.setVelocity(new Vector(0,getVelocity().getElemy()));
-//		this.setAccCurr(new Vector(0,getAccCurr().getElemy()));
-//		this.setOrientation('X');
-//	}
-//	public void startJumpProgram(){
-//		this.setVelocity(new Vector(getVelocity().getElemx(),getJumpVelocity()));
-//		this.setAccCurr(new Vector(getAccCurr().getElemx(),ACCY));
-//	}
-//	public void stopJumpProgram(){
-//		this.setVelocity(new Vector(getVelocity().getElemx(),0));
-//		this.setAccCurr(new Vector(getAccCurr().getElemx(),0));
-//	}
-	
+	/**
+	 * This method returns the program
+	 * @return	...
+	 * 			| return program;
+	 */
 	public Program getProgram() {
 		return program;
 	}
-	private final Program program;
 	
+	
+	/**
+	 * This method starts the movement of an object with a program
+	 * to the given direction
+	 * 
+	 * @param 	direction
+	 * 			The direction heading to
+	 * 
+	 * @effect	...
+	 * 
+	 */
 	public abstract void startMoveProgram(Boolean direction);
+	
+	/**
+	 * This method stops the movement of an object with a program
+	 * 
+	 * @param 	direction
+	 * 			The direction heading from
+	 * 
+	 * @effect	...
+	 */
 	public abstract void stopMoveProgram(Boolean direction);
 	
-	
+	/**
+	 * This method starts this.object to duck
+	 * only if this object can duck
+	 * 
+	 * @effect	...
+	 * 
+	 */
 	public abstract void startDuckProgram();
+	
+	/**
+	 * This method stops this.object to duck
+	 */
 	public abstract void stopDuckProgram();
 	
+	/**
+	 * This method starts this.object to jump
+	 */
 	public abstract void startJumpProgram();
-	public abstract void stopJumpProgram();
 	
-	private static final double ACCY = -10.0;
+	/**
+	 * This method stops the objects to jump
+	 */
+	public abstract void stopJumpProgram();
+
+
+	private final Program program;
+	
 
 
 	

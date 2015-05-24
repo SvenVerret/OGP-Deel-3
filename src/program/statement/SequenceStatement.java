@@ -19,11 +19,6 @@ public class SequenceStatement extends Statement{
 		return lst;
 	}
 
-	private List<Statement> lst;
-	private boolean ForceReset = false;
-	private boolean ExecutionDone = false;
-
-
 	@Override
 	public void advanceTime(double dt,Program program) {
 		try{
@@ -83,4 +78,8 @@ public class SequenceStatement extends Statement{
 		return true;
 
 	}
+
+	private List<Statement> lst;
+	private boolean ForceReset = false;
+	private boolean ExecutionDone = false;
 }

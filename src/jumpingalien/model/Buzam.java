@@ -234,8 +234,8 @@ public class Buzam extends Mazub{
 
 
 	/**
-	 * @effect      ...
-	 *                      | setHP(100);
+	 * @effect	...
+	 *			| setHP(100);
 	 */
 	@Override
 	protected void initializeHP() {
@@ -244,7 +244,7 @@ public class Buzam extends Mazub{
 
 	/**
 	 * 
-	 * @effect
+	 * @effect	
 	 *			| getWorld().removeBuzam(this);
 	 *			| setWorld(null);
 	 */

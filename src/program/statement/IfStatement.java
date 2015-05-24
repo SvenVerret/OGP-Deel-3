@@ -5,7 +5,6 @@ import java.util.HashSet;
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 import program.expression.Expression;
-import program.expression.ValueExpression;
 
 public class IfStatement extends Statement{
 	/**
@@ -24,13 +23,6 @@ public class IfStatement extends Statement{
 
 		UnevaluatedCondition = ((Expression<Boolean>) condition);
 	}
-
-	private Expression<Boolean> UnevaluatedCondition;
-	private Statement IfBody;
-	private Statement ElseBody;
-	private boolean ForceReset = false;
-	private boolean ExecutionDone = false;
-	private Boolean IfBodyCalled = null;
 
 	@Override
 	public void advanceTime(double dt,Program program) {
@@ -93,4 +85,11 @@ public class IfStatement extends Statement{
 	public boolean isWellFormed(HashSet<String> parentStatements) {
 		return (IfBody == null || IfBody.isWellFormed(parentStatements)) && (ElseBody == null || ElseBody.isWellFormed(parentStatements));
 	}
+
+	private Expression<Boolean> UnevaluatedCondition;
+	private Statement IfBody;
+	private Statement ElseBody;
+	private boolean ForceReset = false;
+	private boolean ExecutionDone = false;
+	private Boolean IfBodyCalled = null;
 }
