@@ -130,12 +130,12 @@ public class PartialFacadeTest {
 	
 //
 	@Test
-	public void testBreakNotWellformed() {
+	public void testBreakNotWellformed1() {
 		IFacadePart3 facade = new Facade();
 		ParseOutcome<?> outcome = facade.parse("double d := 1.0; break;");
 		assertFalse(facade.isWellFormed((Program) outcome.getResult()));
 	}
-//	
+	
 	
 	@Test
 	public void testWellformed() {
