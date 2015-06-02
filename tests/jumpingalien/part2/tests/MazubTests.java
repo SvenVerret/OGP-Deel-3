@@ -1,4 +1,4 @@
-package jumping.alien.part2.tests;
+package jumpingalien.part2.tests;
 import static jumpingalien.tests.util.TestUtils.spriteArrayForSize;
 import static org.junit.Assert.*;
 import jumpingalien.model.Mazub;
