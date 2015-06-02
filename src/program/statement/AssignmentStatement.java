@@ -5,16 +5,9 @@ import java.util.HashSet;
 import jumpingalien.part3.programs.SourceLocation;
 import program.Program;
 import program.expression.Expression;
-import program.type.GameObjectType;
 
 public class AssignmentStatement extends Statement{
-	/**
-	 * 
-	 * @param variableName
-	 * @param variableType
-	 * @param value
-	 * @param loc
-	 */
+
 	public AssignmentStatement(String variableName, Object variableType, Expression<?> value, 
 			SourceLocation sourceLocation){
 		super(sourceLocation);
