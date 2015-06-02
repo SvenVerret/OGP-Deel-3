@@ -724,6 +724,7 @@ public class Mazub extends GameObject{
 
 
 	/**
+	 * Determens the vertical velocity of a game object, by checking its parameters for ground.
 	 * 
 	 */
 	@Override
