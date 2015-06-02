@@ -8,11 +8,7 @@ import program.expression.TileExpression;
 
 public class IsInpassableExpression extends Inspector<TileExpression>{
 
-	/**
-	 * 
-	 * @param expr
-	 *  
-	 */
+
 	public IsInpassableExpression(Expression<?> expr, SourceLocation sourceLocation){
 		super(expr, sourceLocation);
 	}
